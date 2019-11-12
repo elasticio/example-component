@@ -1,0 +1,23 @@
+{
+  "name": "component-scaffolding-cli",
+  "version": "1.0.0",
+  "description": "Scaffolding tool for building components and adding actions/triggers",
+  "bin": {
+    "create-component": "./lib/component-wizard/index.js"
+  },
+  "scripts": {
+    "test": "mocha spec"
+  },
+  "devDependencies": {
+    "chai": "4.2.0",
+    "eslint": "6.6.0",
+    "eslint-config-airbnb-base": "14.0.0",
+    "eslint-plugin-import": "2.18.2",
+    "mocha": "6.2.2",
+    "sinon": "7.5.0"
+  },
+  "dependencies": {
+    "chalk": "^3.0.0",
+    "inquirer": "7.0.0"
+  }
+}

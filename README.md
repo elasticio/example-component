@@ -1,0 +1,2 @@
+# Component Scaffolding Tool
+To run changes locally, run `npm link`. This will create an executable for every command listed in the `bin` of `package.json`, so it can now be run from anywhere on the command line.
