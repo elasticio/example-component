@@ -26,10 +26,10 @@
 #### Others
 ## Credentials
   ### Field1
-## Triggers (if any)
+## Triggers
   ### Trigger1
-## Actions (if any)
+## Actions
   ### Action1
-## Additional info (if any)
-## Known limitations (common for the component)
+## Additional info
+## Known limitations
 ## API and documentation links
