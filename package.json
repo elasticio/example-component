@@ -6,7 +6,7 @@
     "create-component": "./lib/component-wizard/index.js"
   },
   "scripts": {
-    "test": "mocha spec"
+    "test": "mocha spec/*/*"
   },
   "devDependencies": {
     "chai": "4.2.0",
@@ -14,10 +14,15 @@
     "eslint-config-airbnb-base": "14.0.0",
     "eslint-plugin-import": "2.18.2",
     "mocha": "6.2.2",
+    "rimraf": "3.0.0",
     "sinon": "7.5.0"
   },
   "dependencies": {
-    "chalk": "^3.0.0",
-    "inquirer": "7.0.0"
+    "axios": "0.19.0",
+    "chalk": "3.0.0",
+    "execa": "3.3.0",
+    "inquirer": "7.0.0",
+    "listr": "0.14.3",
+    "lodash": "4.17.15"
   }
 }
