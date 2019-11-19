@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Scaffolding tool for building components and adding actions/triggers",
   "bin": {
-    "create-component": "./lib/component-wizard/index.js"
+    "create-component": "./lib/component-wizard/index.js",
+    "add-action": "./lib/action-wizard/index-action.js",
+    "add-trigger": "./lib/action-wizard/index-trigger.js"
   },
   "scripts": {
     "test": "mocha spec/*/*"
@@ -23,6 +25,7 @@
     "execa": "3.3.0",
     "inquirer": "7.0.0",
     "listr": "0.14.3",
-    "lodash": "4.17.15"
+    "lodash": "4.17.15",
+    "ncp": "2.0.0"
   }
 }
