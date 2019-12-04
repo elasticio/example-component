@@ -1,6 +1,6 @@
 {
   "name": "component-scaffolding-cli",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Scaffolding tool for building components and adding actions/triggers",
   "bin": {
     "create-component": "./lib/component-wizard/index.js",
@@ -13,7 +13,7 @@
   "devDependencies": {
     "chai": "4.2.0",
     "chai-as-promised": "7.1.1",
-    "eslint": "6.6.0",
+    "eslint": "6.7.2",
     "eslint-config-airbnb-base": "14.0.0",
     "eslint-plugin-import": "2.18.2",
     "mocha": "6.2.2",

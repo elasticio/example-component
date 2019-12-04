@@ -11,23 +11,32 @@ describe('Tests for Action/Trigger prompts', () => {
     it('Asks for the actions name', () => {
       expect(result[0]).to.be.deep.equal({
         type: 'input',
-        name: 'name',
+        name: 'title',
         message: 'What is your action\'s name?',
       });
     });
 
     it('Gets the correct action ID', () => {
-      const id = result[1].default({ name: 'TestingTesting' });
+      const id = result[1].default({ title: 'TestingTesting' });
       expect(id).to.be.equal('testingTesting');
     });
 
+    it('Asks for action/trigger description', () => {
+      expect(result[2]).to.be.deep.equal({
+        type: 'input',
+        name: 'description',
+        message: 'Please provide a description for your action',
+        default: '',
+      })
+    })
+
     it('Does not ask webhook or polling', () => {
-      const when = result[2].when();
+      const when = result[3].when();
       expect(when).to.be.false;
     });
 
     it('Asks if should use OIH', () => {
-      expect(result[3]).to.be.deep.equal({
+      expect(result[4]).to.be.deep.equal({
         type: 'confirm',
         name: 'oih',
         message: 'Would you like to build your action off the OIH standard library?',
@@ -35,7 +44,7 @@ describe('Tests for Action/Trigger prompts', () => {
     });
 
     it('Gives the correct OIH options', () => {
-      expect(result[4].choices()).to.be.deep.equal([
+      expect(result[5].choices()).to.be.deep.equal([
         {
           name: 'Lookup Object',
           value: 'lookupObject',
@@ -53,12 +62,12 @@ describe('Tests for Action/Trigger prompts', () => {
           value: 'create',
         },
       ]);
-      expect(result[4].when({ oih: false })).to.be.false;
-      expect(result[4].when({ oih: true })).to.be.true;
+      expect(result[5].when({ oih: false })).to.be.false;
+      expect(result[5].when({ oih: true })).to.be.true;
     });
 
     it('Asks for metadata', () => {
-      expect(result[5]).to.be.deep.equal({
+      expect(result[6]).to.be.deep.equal({
         type: 'list',
         name: 'metadata',
         message: 'What kind of metadata would you like to use for you action?',
@@ -74,11 +83,11 @@ describe('Tests for Action/Trigger prompts', () => {
     before(() => { result = prompts('trigger'); });
 
     it('Asks webhook or polling', () => {
-      expect(result[2].when()).to.be.true;
+      expect(result[3].when()).to.be.true;
     });
 
     it('Gives the correct OIH options', () => {
-      expect(result[4].choices()).to.be.deep.equal([{
+      expect(result[5].choices()).to.be.deep.equal([{
         name: 'Get New and Updated Objects Polling',
         value: 'getNewAndUpdated',
       }, {
