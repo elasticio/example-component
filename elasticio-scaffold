@@ -1,0 +1,31 @@
+#!/usr/bin/env node
+
+const program = require('caporal');
+const fs = require('fs');
+const actionCLI = require('./lib/action-wizard/run');
+const componentCLI = require('./lib/component-wizard/run');
+
+const { version } = JSON.parse(fs.readFileSync(`${__dirname}/package.json`, 'utf8'));
+
+program
+  .version(version);
+
+program
+  .command('create:component', 'Create a new component')
+  .action(() => {
+    componentCLI.prompt();
+  });
+
+program
+  .command('add:action', 'Add a new action')
+  .action(() => {
+    actionCLI.prompt('action');
+  });
+
+program
+  .command('add:trigger', 'Add a new trigger')
+  .action(() => {
+    actionCLI.prompt('trigger');
+  });
+
+program.parse(process.argv);

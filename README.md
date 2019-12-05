@@ -1,22 +1,29 @@
 # Component Scaffolding Tool
-To run changes locally, run `npm link`. This will create an executable for every command listed in the `bin` of `package.json`, so it can now be run from anywhere on the command line.
+To use this tool, clone this repo. Then, navigate to the directory and run `npm link`.
 
-Run `create-component` to get started.
+You can now run `elasticio-scaffold`. If the tool was installed correctly, you should see a help menu displayed such as:
 
-## General File Structure
-Each tool has its own folder inside `lib`, containing an `index.js` file, a `run.js` file and a folder of `templates` (if needed). 
+```bash
+   elasticio-scaffold 1.0.0 
 
+   USAGE
+
+     elasticio-scaffold <command> [options]
+
+   COMMANDS
+
+     create:component       Create a new component
+     add:action             Add a new action
+     add:trigger            Add a new trigger
+     help <command>         Display help for a specific command
+
+   GLOBAL OPTIONS
+
+     -h, --help         Display help
+     -V, --version      Display version
+     --no-color         Disable colors
+     --quiet            Quiet mode - only displays warn and error messages
+     -v, --verbose      Verbose mode - will also output debug messages
 ```
-.
-├── lib
-│   ├── wizard1          
-│   │   ├── templates  
-│   │   ├── run.js  
-│   │   └── index.js        
-│   └── ...                
-├── spec                   
-│   ├── wizard1.spec.js                        
-└── ...
-```
 
-The `run.js` file exports the functions that need to be run in `index.js`
+The existing commands are `create:component`, `add:action`, and `add:trigger`. The latter two must be run within an existing component to work correctly.
