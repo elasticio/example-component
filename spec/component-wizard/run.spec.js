@@ -56,7 +56,7 @@ describe('Tests for component CLI tool', () => {
       it('creates a spec folder', () => expect(fs.existsSync(`${testPath}/spec`)).to.be.true);
       it('creates the \'None right now / Other\' client file', () => {
         expect(fs.existsSync(`${testPath}/lib/testClient.js`)).to.be.true;
-        const client = fs.readFileSync(`${testPath}/lib/TestClient.js`).toString();
+        const client = fs.readFileSync(`${testPath}/lib/testClient.js`).toString();
         expect(client).to.include('TestClient');
         expect(client).to.include('NoAuthRestClient');
       });
@@ -116,7 +116,7 @@ describe('Tests for component CLI tool', () => {
       it('creates a lib folder', () => expect(fs.existsSync(`${testPath}/lib`)).to.be.true);
       it('creates a spec folder', () => expect(fs.existsSync(`${testPath}/spec`)).to.be.true);
       it('creates the \'None right now / Other\' client file', () => {
-        expect(fs.existsSync(`${testPath}/lib/TestClient.js`)).to.be.true;
+        expect(fs.existsSync(`${testPath}/lib/testClient.js`)).to.be.true;
         const client = fs.readFileSync(`${testPath}/lib/testClient.js`).toString();
         expect(client).to.include('TestClient');
         expect(client).to.include('OAuth2RestClient');
