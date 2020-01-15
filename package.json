@@ -1,6 +1,6 @@
 {
   "name": "component-scaffolding-cli",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Scaffolding tool for building components and adding actions/triggers",
   "bin": {
     "elasticio-scaffold": "./elasticio-scaffold"
