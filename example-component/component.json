@@ -1,0 +1,26 @@
+{
+  "title": "example-component",
+  "description": "Component description",
+  "buildType": "docker",
+  "credentials": {
+    "fields": {}
+  },
+  "actions": {
+    "upsert": {
+      "main": "./lib/actions/upsert.js",
+      "title": "Upsert Object",
+      "description": "Create or Update selected object",
+      "fields": {
+        "objectType": {
+          "label": "Object Type",
+          "viewClass": "SelectView",
+          "model": "TODO"
+        }
+      },
+      "metadata": {
+        "in": "./lib/schemas/upsert.in.json",
+        "out": "./lib/schemas/upsert.out.json"
+      }
+    }
+  }
+}
