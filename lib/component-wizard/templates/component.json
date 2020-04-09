@@ -1,8 +1,0 @@
-{
-  "title": "",
-  "description": "Component description",
-  "buildType": "docker",
-  "credentials": {
-    "fields": {}
-  }
-}
