@@ -4,16 +4,22 @@
   "buildType": "docker",
   "credentials": {
     "fields": {
+      "url": {
+        "viewClass": "TextFieldView",
+        "label": "API Base URI",
+        "required": true,
+        "placeholder": "http://localhost:3000"
+      },
       "username": {
         "viewClass": "TextFieldView",
         "label": "Username",
-        "required": false,
+        "required": true,
         "placeholder": "test"
       },
       "password": {
           "viewClass": "PasswordFieldView",
           "label": "Password",
-          "required": false,
+          "required": true,
           "placeholder": "testTESTtest"
       }
     }
