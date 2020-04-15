@@ -8,7 +8,7 @@
         "viewClass": "TextFieldView",
         "label": "Username",
         "required": false,
-        "placeholder": "test@elastic.io"
+        "placeholder": "test"
       },
       "password": {
           "viewClass": "PasswordFieldView",
