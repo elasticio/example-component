@@ -1,26 +1,43 @@
 {
   "title": "example-component",
-  "description": "Component description",
+  "description": "A starter component with examples for implementation of OIH actions.",
   "buildType": "docker",
   "credentials": {
-    "fields": {}
+    "fields": {
+      "username": {
+        "viewClass": "TextFieldView",
+        "label": "Username",
+        "required": false,
+        "placeholder": "test@elastic.io"
+      },
+      "password": {
+          "viewClass": "PasswordFieldView",
+          "label": "Password",
+          "required": false,
+          "placeholder": "testTESTtest"
+      }
+    }
   },
   "actions": {
     "upsert": {
       "main": "./lib/actions/upsert.js",
-      "title": "Upsert Object",
-      "description": "Create or Update selected object",
+      "title": "Upsert Object by ID",
+      "description": "Create or Update the selected object",
       "fields": {
         "objectType": {
           "label": "Object Type",
           "viewClass": "SelectView",
-          "model": "TODO"
+          "model": {
+            "album": "Album",
+            "comment": "Comment",
+            "photo": "Photo",
+            "post": "Post",
+            "todo": "Todo",
+            "user": "User"
+          }
         }
       },
-      "metadata": {
-        "in": "./lib/schemas/upsert.in.json",
-        "out": "./lib/schemas/upsert.out.json"
-      }
+      "dynamicMetadata": true
     }
   }
 }

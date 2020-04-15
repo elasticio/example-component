@@ -1,10 +1,12 @@
-const Client = require('./lib/ExampleComponentClient');
+const ExampleClient = require('./lib/exampleClient');
 
-module.exports = async function verify(cfg, callback) {
+module.exports = async function verify(credentials, callback) {
   try {
-    const client = new Client(cfg);
-    const requestOptions = {};
-    await client.makeRequest(requestOptions);
+    const client = new ExampleClient(this, credentials);
+    await client.makeRequest({
+      url: 'posts/1',
+      method: 'GET',
+    });
 
     this.logger.info('Verification succeeded');
     callback(null, { verified: true });
