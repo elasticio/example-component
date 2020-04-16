@@ -13,6 +13,7 @@ module.exports = async function verify(credentials, callback) {
   } catch (err) {
     this.logger.error('Verification failed');
     this.logger.error(err);
-    throw err;
+    callback(err, { verified: false });
+    //throw err;
   }
 };
