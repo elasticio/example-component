@@ -1,7 +1,11 @@
-const { expect } = require('chai');
-const sinon = require('sinon');
-const verify = require('../verifyCredentials.js');
+/* eslint-disable no-unused-expressions */
+const chai = require('chai');
 const fs = require('fs');
+const logger = require('@elastic.io/component-logger')();
+const verify = require('../verifyCredentials.js');
+
+const { expect } = chai;
+chai.use(require('chai-as-promised'));
 
 if (fs.existsSync('.env')) {
   // eslint-disable-next-line global-require
@@ -11,12 +15,11 @@ if (fs.existsSync('.env')) {
 // mock values for the credentials (configuration) fields
 const credentials = {
   url: process.env.API_BASE_URI,
-  username: process.env.USERNAME,
-  password: process.env.PASSWORD,
+  username: process.env.UNAME,
+  password: process.env.PASS,
 };
 
-// a mocked 'this' value for the function
-const emitter = { logger: { trace: () => {} } };
+const emitter = { logger };
 
 describe('Verify Credentials integration tests', () => {
   it('should succeed with the correct credentials', async () => {
@@ -28,10 +31,9 @@ describe('Verify Credentials integration tests', () => {
 
   it('should fail with incorrect credentials', async () => {
     credentials.password = 'wrong!!';
-
-    await verify.call(emitter, credentials, (err, data) => {
+    await expect(verify.call(emitter, credentials, (err, data) => {
       expect(err).to.not.eq(null);
       expect(data.verified).to.eq(false);
-    });
+    })).to.eventually.be.rejected;
   });
 });
