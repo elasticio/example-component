@@ -10,13 +10,7 @@ if (fs.existsSync('.env')) {
   require('dotenv').config();
 }
 
-// the configuration
-const cfg = {
-  url: process.env.API_BASE_URI,
-  username: process.env.UNAME,
-  password: process.env.PASS,
-  objectType: 'post',
-};
+let cfg;
 
 // The object metadata that will be upserted. Its structure is based
 // off of the object we select to upsert, which will be a post.
@@ -37,7 +31,18 @@ const emitter = {
 };
 
 describe('Upsert Object by ID integration tests', () => {
-  beforeEach(() => { emitter.emit.resetHistory(); });
+  beforeEach(() => {
+    // the configuration
+    cfg = {
+      url: process.env.API_BASE_URI,
+      username: process.env.UNAME,
+      password: process.env.PASS,
+      objectType: 'post',
+    };
+  });
+  afterEach(() => {
+    emitter.emit.resetHistory();
+  });
 
   it('should successfully update a pre-existing object', async () => {
     await upsert.process.call(emitter, msg, cfg);
@@ -50,12 +55,10 @@ describe('Upsert Object by ID integration tests', () => {
     });
   });
 
-  // broken (I don't know why)
   it('should successfully create a new object', async () => {
     msg.body.id = 2473629402;
 
     await upsert.process.call(emitter, msg, cfg);
-    console.log(emitter.emit.lastCall.args[1].body);
     expect(emitter.emit.calledOnce).to.be.true;
     expect(emitter.emit.lastCall.args[1].body.createdObject).to.deep.equal({
       userId: 1,
@@ -66,6 +69,13 @@ describe('Upsert Object by ID integration tests', () => {
   });
 
   // still need another test for other errors
+  it('should emit an error with a 401 status code', async () => {
+    cfg.username = 'bob';
+
+    await upsert.process.call(emitter, msg, cfg);
+    expect(emitter.emit.calledOnce).to.be.true;
+    expect(emitter.emit.lastCall.args[0]).to.equal('Error');
+  });
 
   // It's important to test every function of the action.
   // Here we are testing whether the dynamic metadata is correctly retrieved.
