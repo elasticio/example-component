@@ -33,6 +33,8 @@
         "objectType": {
           "label": "Object Type",
           "viewClass": "SelectView",
+          "prompt": "Please select the type of object to upsert",
+          "required": true,
           "model": {
             "album": "Album",
             "comment": "Comment",
@@ -44,6 +46,51 @@
         }
       },
       "dynamicMetadata": true
+    },
+    "lookupObject": {
+      "main": "./lib/actions/lookupObject.js",
+      "title": "Lookup Object by ID",
+      "description": "Lookup an object (at most 1) by ID",
+      "fields": {
+        "objectType": {
+          "label": "Object Type",
+          "viewClass": "SelectView",
+          "prompt": "Please select the type of object to look up",
+          "required": true,
+          "model": {
+            "album": "Album",
+            "comment": "Comment",
+            "photo": "Photo",
+            "post": "Post",
+            "todo": "Todo",
+            "user": "User"
+          }
+        },
+        "allowIdToBeOmitted": {
+          "label": "Allow ID to be omitted",
+          "viewClass": "CheckBoxView",
+          "note": "If selected, the ID field is not required"
+        },
+        "allowZeroResults": {
+          "label": "Allow zero results",
+          "viewClass": "CheckBoxView",
+          "note": "If selected, when zero objects are found the empty object will be emitted instead of an error"
+        },
+        "waitForObjectToExist": {
+          "label": "Wait for object to exist",
+          "viewClass": "CheckBoxView",
+          "note": "If selected, when no results are found apply rebounds and wait until object exists"
+        },
+        "linkedObjectsToPopulate": {
+          "label": "Linked Objects to populate",
+          "viewClass": "MultiSelectView",
+          "note": "Select which parent or child objects to include in result",
+          "model": "getLinkedObjectsModel"
+        }
+      },
+      "metadata": {
+        "in": "./lib/schemas/lookupObject.in.json"
+      }
     }
   }
 }
