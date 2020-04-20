@@ -36,12 +36,12 @@
           "prompt": "Please select the type of object to upsert",
           "required": true,
           "model": {
-            "album": "Album",
-            "comment": "Comment",
-            "photo": "Photo",
-            "post": "Post",
-            "todo": "Todo",
-            "user": "User"
+            "albums": "Album",
+            "comments": "Comment",
+            "photos": "Photo",
+            "posts": "Post",
+            "todos": "Todo",
+            "users": "User"
           }
         }
       },
