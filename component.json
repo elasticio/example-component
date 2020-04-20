@@ -27,7 +27,7 @@
   "actions": {
     "upsert": {
       "main": "./lib/actions/upsert.js",
-      "title": "Upsert Object by ID",
+      "title": "Upsert Object by Unique Criteria",
       "description": "Create or Update the selected object",
       "fields": {
         "objectType": {
@@ -43,6 +43,13 @@
             "todos": "Todo",
             "users": "User"
           }
+        },
+        "upsertCriteria": {
+          "label": "Upsert Criteria",
+          "prompt": "Please select the unique field with which you want to upsert the object",
+          "viewClass": "SelectView",
+          "required": true,
+          "model": "getUniqueFieldsModel"
         }
       },
       "dynamicMetadata": true
