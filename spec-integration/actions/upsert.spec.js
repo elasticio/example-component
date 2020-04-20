@@ -41,6 +41,7 @@ describe('Upsert Object by ID integration tests', () => {
       username: process.env.UNAME,
       password: process.env.PASSWORD,
       objectType: 'posts',
+      upsertCriteria: 'id',
     };
   });
   afterEach(() => {
@@ -93,9 +94,10 @@ describe('Upsert Object by ID integration tests', () => {
           required: true,
         },
         id: {
-          title: 'ID',
+          title: 'ID (Upsert Criteria)',
           type: 'number',
           required: true,
+          unique: true,
         },
         title: {
           title: 'Title',
@@ -108,6 +110,18 @@ describe('Upsert Object by ID integration tests', () => {
           required: true,
         },
       },
+    });
+  });
+
+  // Testing the proper functioning of getUniqueFieldsModel
+  it('should return a list of unique attributes for the selected objectType', async () => {
+    cfg.objectType = 'users';
+
+    const result = await upsert.getUniqueFieldsModel.call(emitter, cfg);
+    expect(result).to.deep.equal({
+      id: 'ID',
+      username: 'Username',
+      email: 'Email Address',
     });
   });
 });
