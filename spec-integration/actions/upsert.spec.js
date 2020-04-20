@@ -1,9 +1,12 @@
 /* eslint-disable no-unused-expressions */
-const { expect } = require('chai');
+const chai = require('chai');
 const sinon = require('sinon');
 const fs = require('fs');
 const logger = require('@elastic.io/component-logger')();
 const upsert = require('../../lib/actions/upsert.js');
+
+const { expect } = chai;
+chai.use(require('chai-as-promised'));
 
 if (fs.existsSync('.env')) {
   // eslint-disable-next-line global-require
@@ -36,8 +39,8 @@ describe('Upsert Object by ID integration tests', () => {
     cfg = {
       url: process.env.API_BASE_URI,
       username: process.env.UNAME,
-      password: process.env.PASS,
-      objectType: 'post',
+      password: process.env.PASSWORD,
+      objectType: 'posts',
     };
   });
   afterEach(() => {
@@ -68,13 +71,13 @@ describe('Upsert Object by ID integration tests', () => {
     });
   });
 
-  // still need another test for other errors
-  it('should emit an error with a 401 status code', async () => {
+  it('should emit an error with invalid credentials', async () => {
     cfg.username = 'bob';
 
-    await upsert.process.call(emitter, msg, cfg);
-    expect(emitter.emit.calledOnce).to.be.true;
-    expect(emitter.emit.lastCall.args[0]).to.equal('Error');
+    await expect(upsert.process.call(emitter, msg, cfg, () => {
+      expect(emitter.emit.calledOnce).to.be.true;
+      expect(emitter.emit.lastCall.args[0]).to.equal('Error');
+    })).to.eventually.be.rejected;
   });
 
   // It's important to test every function of the action.

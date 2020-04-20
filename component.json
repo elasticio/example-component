@@ -27,7 +27,7 @@
   "actions": {
     "upsert": {
       "main": "./lib/actions/upsert.js",
-      "title": "Upsert Object by ID",
+      "title": "Upsert Object by Unique Criteria",
       "description": "Create or Update the selected object",
       "fields": {
         "objectType": {

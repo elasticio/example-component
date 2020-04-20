@@ -16,7 +16,7 @@ if (fs.existsSync('.env')) {
 const credentials = {
   url: process.env.API_BASE_URI,
   username: process.env.UNAME,
-  password: process.env.PASS,
+  password: process.env.PASSWORD,
 };
 
 const emitter = { logger };
