@@ -16,8 +16,6 @@
   },
   "dependencies": {
     "@elastic.io/component-commons-library": "0.0.7",
-    "@elastic.io/component-logger": "0.0.1",
-    "chai-as-promised": "^7.1.1",
     "elasticio-node": "0.0.9",
     "elasticio-sailor-nodejs": "2.5.1",
     "remove-leading-slash": "1.0.1",
@@ -25,8 +23,9 @@
     "request": "2.88.0"
   },
   "devDependencies": {
-    "bunyan": "1.8.12",
+    "@elastic.io/component-logger": "0.0.1",
     "chai": "4.2.0",
+    "chai-as-promised": "7.1.1",
     "dotenv": "8.2.0",
     "eslint": "6.6.0",
     "eslint-config-airbnb-base": "14.0.0",
@@ -35,7 +34,7 @@
     "sinon": "7.5.0"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=12"
   },
   "private": true
 }
