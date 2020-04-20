@@ -34,12 +34,12 @@
           "label": "Object Type",
           "viewClass": "SelectView",
           "model": {
-            "album": "Album",
-            "comment": "Comment",
-            "photo": "Photo",
-            "post": "Post",
-            "todo": "Todo",
-            "user": "User"
+            "albums": "Album",
+            "comments": "Comment",
+            "photos": "Photo",
+            "posts": "Post",
+            "todos": "Todo",
+            "users": "User"
           }
         }
       },
