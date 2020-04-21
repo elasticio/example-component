@@ -73,6 +73,13 @@
             "users": "User"
           }
         },
+        "lookupCriteria": {
+          "label": "Lookup Criteria",
+          "prompt": "Please select the unique field with which you want to lookup the object",
+          "viewClass": "SelectView",
+          "required": true,
+          "model": "getUniqueFieldsModel"
+        },
         "allowIdToBeOmitted": {
           "label": "Allow ID to be omitted",
           "viewClass": "CheckBoxView",
@@ -95,9 +102,7 @@
           "model": "getLinkedObjectsModel"
         }
       },
-      "metadata": {
-        "in": "./lib/schemas/lookupObject.in.json"
-      }
+      "dynamicMetadata": true
     }
   }
 }
