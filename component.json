@@ -96,8 +96,8 @@
         },
         "linkedObjectsToPopulate": {
           "label": "Linked Objects to populate",
-          "viewClass": "MultiSelectView",
-          "note": "Select which parent or child objects to include in result",
+          "viewClass": "SelectView",
+          "note": "Select which parent or child object to include in result",
           "model": "getLinkedObjectsModel"
         }
       },
