@@ -1,12 +1,9 @@
 /* eslint-disable no-unused-expressions */
-const chai = require('chai');
+const { expect } = require('chai');
 const sinon = require('sinon');
 const fs = require('fs');
 const logger = require('@elastic.io/component-logger')();
 const upsert = require('../../lib/actions/upsert.js');
-
-const { expect } = chai;
-chai.use(require('chai-as-promised'));
 
 if (fs.existsSync('.env')) {
   // eslint-disable-next-line global-require
