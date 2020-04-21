@@ -14,17 +14,7 @@ if (fs.existsSync('.env')) {
 }
 
 let cfg;
-
-// The object metadata that will be upserted. Its structure is based
-// off of the object we select to upsert, which will be a post.
-const msg = {
-  body: {
-    userId: 1,
-    id: 10,
-    title: 'a NEW title',
-    body: 'a NEW body text',
-  },
-};
+let msg;
 
 // we set up a sinon spy on the emit function so that
 // we can determine what data/errors are emitted.
@@ -42,6 +32,17 @@ describe('Upsert Object by ID integration tests', () => {
       password: process.env.PASSWORD,
       objectType: 'posts',
       upsertCriteria: 'id',
+    };
+
+    // The object metadata that will be upserted. Its structure is based
+    // off of the object we select to upsert, which will be a post.
+    msg = {
+      body: {
+        userId: 1,
+        id: 10,
+        title: 'a NEW title',
+        body: 'a NEW body text',
+      },
     };
   });
   afterEach(() => {
@@ -72,13 +73,37 @@ describe('Upsert Object by ID integration tests', () => {
     });
   });
 
-  it('should emit an error with invalid credentials', async () => {
-    cfg.username = 'bob';
+  it('should successfully create a pre-existing object with a url-encoded query parameter', async () => {
+    cfg.objectType = 'users';
+    cfg.upsertCriteria = 'username';
 
-    await expect(upsert.process.call(emitter, msg, cfg, () => {
-      expect(emitter.emit.calledOnce).to.be.true;
-      expect(emitter.emit.lastCall.args[0]).to.equal('Error');
-    })).to.eventually.be.rejected;
+    msg.body = {
+      id: 123456890,
+      name: 'bob',
+      username: 'Do you like Fred\'s Fish & Chips?',
+      email: 'bob@fredsfishnchips.com',
+      address: {
+        street: '1 Marina Way',
+        city: 'Port Stanley',
+        zipcode: '123456',
+      },
+      phone: '1 (800) 854-FISH',
+    };
+
+    await upsert.process.call(emitter, msg, cfg);
+    expect(emitter.emit.calledOnce).to.be.true;
+    expect(emitter.emit.lastCall.args[1].body.createdObject).to.deep.equal({
+      id: 123456890,
+      name: 'bob',
+      username: 'Do you like Fred\'s Fish & Chips?',
+      email: 'bob@fredsfishnchips.com',
+      address: {
+        street: '1 Marina Way',
+        city: 'Port Stanley',
+        zipcode: '123456',
+      },
+      phone: '1 (800) 854-FISH',
+    });
   });
 
   // It's important to test every function of the action.
@@ -96,7 +121,7 @@ describe('Upsert Object by ID integration tests', () => {
         id: {
           title: 'ID (Upsert Criteria)',
           type: 'number',
-          required: true,
+          required: false,
           unique: true,
         },
         title: {
