@@ -87,15 +87,15 @@
         "allowZeroResults": {
           "label": "Allow zero results",
           "viewClass": "CheckBoxView",
-          "note": "If selected, when zero objects are found the empty object will be emitted instead of an error"
+          "note": "When zero objects are found the empty object will be emitted instead of an error"
         },
         "waitForObjectToExist": {
           "label": "Wait for object to exist",
           "viewClass": "CheckBoxView",
-          "note": "If selected, when no results are found apply rebounds and wait until object exists"
+          "note": "When no results are found apply rebounds and wait until object exists"
         },
         "linkedObjectToPopulate": {
-          "label": "Linked Objects to populate",
+          "label": "Linked Object to populate",
           "viewClass": "SelectView",
           "note": "Select which parent or child object to include in result",
           "model": "getLinkedObjectsModel"
