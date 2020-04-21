@@ -79,7 +79,7 @@
           "required": true,
           "model": "getUniqueFieldsModel"
         },
-        "allowIdToBeOmitted": {
+        "allowCriteriaToBeOmitted": {
           "label": "Allow ID to be omitted",
           "viewClass": "CheckBoxView",
           "note": "If selected, the ID field is not required"
