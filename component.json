@@ -1,6 +1,6 @@
 {
   "title": "example-component",
-  "description": "A starter component with examples for implementation of OIH actions.",
+  "description": "An example component with implementations of OIH actions.",
   "buildType": "docker",
   "credentials": {
     "fields": {
@@ -14,13 +14,12 @@
         "viewClass": "TextFieldView",
         "label": "Username",
         "required": true,
-        "placeholder": "test"
+        "placeholder": "myUsername"
       },
       "password": {
-          "viewClass": "PasswordFieldView",
-          "label": "Password",
-          "required": true,
-          "placeholder": "testTESTtest"
+        "viewClass": "PasswordFieldView",
+        "label": "Password",
+        "required": true
       }
     }
   },
