@@ -121,7 +121,7 @@ describe('Upsert Object by ID integration tests', () => {
         id: {
           title: 'ID (Upsert Criteria)',
           type: 'number',
-          required: true,
+          required: false,
           unique: true,
         },
         title: {
