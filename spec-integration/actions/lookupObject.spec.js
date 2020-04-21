@@ -27,18 +27,15 @@ describe('Upsert Object by ID integration tests', () => {
       url: process.env.API_BASE_URI,
       username: process.env.UNAME,
       password: process.env.PASSWORD,
-      objectType: 'posts',
-      upsertCriteria: 'id',
+      objectType: 'users',
+      lookupCriteria: 'id',
     };
 
     // The object metadata that will be upserted. Its structure is based
     // off of the object we select to upsert, which will be a post.
     msg = {
       body: {
-        userId: 1,
         id: 10,
-        title: 'a NEW title',
-        body: 'a NEW body text',
       },
     };
   });
@@ -46,10 +43,10 @@ describe('Upsert Object by ID integration tests', () => {
     emitter.emit.resetHistory();
   });
 
-  it('should successfully update a pre-existing object', async () => {
+  it('should successfully retrieve an object', async () => {
     await upsert.process.call(emitter, msg, cfg);
     expect(emitter.emit.calledOnce).to.be.true;
-    expect(emitter.emit.lastCall.args[1].body.updatedObject).to.deep.equal({
+    expect(emitter.emit.lastCall.args[1].body.foundObject).to.deep.equal({
       userId: 1,
       id: 10,
       title: 'a NEW title',
