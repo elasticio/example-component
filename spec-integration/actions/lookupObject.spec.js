@@ -3,7 +3,7 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 const fs = require('fs');
 const logger = require('@elastic.io/component-logger')();
-const upsert = require('../../lib/actions/upsert.js');
+const lookupObject = require('../../lib/actions/lookupObject.js');
 
 if (fs.existsSync('.env')) {
   // eslint-disable-next-line global-require
@@ -43,8 +43,11 @@ describe('Upsert Object by ID integration tests', () => {
     emitter.emit.resetHistory();
   });
 
-  it('should successfully retrieve an object', async () => {
-    await upsert.process.call(emitter, msg, cfg);
+  it('should successfully retrieve an object by unique id', async () => {
+    cfg.lookupCriteria = 'username';
+    msg.body.username = 'Moriah.Stanton';
+
+    await lookupObject.process.call(emitter, msg, cfg);
     expect(emitter.emit.calledOnce).to.be.true;
     expect(emitter.emit.lastCall.args[1].body.foundObject).to.deep.equal({
       id: 10,
@@ -73,37 +76,36 @@ describe('Upsert Object by ID integration tests', () => {
     });
   });
 
-  it('should successfully create a new object', async () => {
-    msg.body.id = 2473629402;
+  it('should successfully retrieve an object with its parent', async () => {
+    cfg.lookupCriteria = 'comments';
+    cfg.linkedObjectToPopulate = 'post';
 
-    await upsert.process.call(emitter, msg, cfg);
+    await lookupObject.process.call(emitter, msg, cfg);
     expect(emitter.emit.calledOnce).to.be.true;
     expect(emitter.emit.lastCall.args[1].body.createdObject).to.deep.equal({
-      userId: 1,
-      id: 2473629402,
-      title: 'a NEW title',
-      body: 'a NEW body text',
+      postId: 2,
+      id: 10,
+      name: 'eaque et deleniti atque tenetur ut quo ut',
+      email: 'Carmen_Keeling@caroline.name',
+      body: 'voluptate iusto quis nobis reprehenderit ipsum amet nulla\nquia quas dolores velit et non\naut quia necessitatibus\nnostrum quaerat nulla et accusamus nisi facilis',
+      created: '2011-06-10T16:36:48.898Z',
+      lastModified: '2011-06-10T16:36:48.898Z',
+      post: {
+        userId: 1,
+        id: 2,
+        title: 'qui est esse',
+        body: 'est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla',
+        created: '2010-01-12T22:33:59.741Z',
+        lastModified: '2010-01-12T22:33:59.741Z',
+      },
     });
   });
 
-  it('should successfully create a pre-existing object with a url-encoded query parameter', async () => {
-    cfg.objectType = 'users';
-    cfg.upsertCriteria = 'username';
+  it('should return an empty object when allowCriteriaToBeOmitted is true and criteria are omitted', async () => {
+    cfg.allowCriteriaToBeOmitted = true;
+    msg.body = {};
 
-    msg.body = {
-      id: 123456890,
-      name: 'bob',
-      username: 'Do you like Fred\'s Fish & Chips?',
-      email: 'bob@fredsfishnchips.com',
-      address: {
-        street: '1 Marina Way',
-        city: 'Port Stanley',
-        zipcode: '123456',
-      },
-      phone: '1 (800) 854-FISH',
-    };
-
-    await upsert.process.call(emitter, msg, cfg);
+    await lookupObject.process.call(emitter, msg, cfg);
     expect(emitter.emit.calledOnce).to.be.true;
     expect(emitter.emit.lastCall.args[1].body.createdObject).to.deep.equal({
       id: 123456890,
