@@ -47,10 +47,29 @@ describe('Upsert Object by ID integration tests', () => {
     await upsert.process.call(emitter, msg, cfg);
     expect(emitter.emit.calledOnce).to.be.true;
     expect(emitter.emit.lastCall.args[1].body.foundObject).to.deep.equal({
-      userId: 1,
       id: 10,
-      title: 'a NEW title',
-      body: 'a NEW body text',
+      name: 'Clementina DuBuque',
+      username: 'Moriah.Stanton',
+      email: 'Rey.Padberg@karina.biz',
+      address: {
+        street: 'Kattie Turnpike',
+        suite: 'Suite 198',
+        city: 'Lebsackbury',
+        zipcode: '31428-2261',
+        geo: {
+          lat: '-38.2386',
+          lng: '57.2232',
+        },
+      },
+      phone: '024-648-3804',
+      website: 'ambrose.net',
+      company: {
+        name: 'Hoeger LLC',
+        catchPhrase: 'Centralized empowering task-force',
+        bs: 'target end-to-end models',
+      },
+      created: '2015-11-18T02:27:00.954Z',
+      lastModified: '2015-11-18T02:27:00.954Z',
     });
   });
 
