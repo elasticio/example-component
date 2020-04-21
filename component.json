@@ -94,7 +94,7 @@
           "viewClass": "CheckBoxView",
           "note": "If selected, when no results are found apply rebounds and wait until object exists"
         },
-        "linkedObjectsToPopulate": {
+        "linkedObjectToPopulate": {
           "label": "Linked Objects to populate",
           "viewClass": "SelectView",
           "note": "Select which parent or child object to include in result",
