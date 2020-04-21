@@ -80,9 +80,9 @@
           "model": "getUniqueFieldsModel"
         },
         "allowCriteriaToBeOmitted": {
-          "label": "Allow ID to be omitted",
+          "label": "Allow criteria to be omitted",
           "viewClass": "CheckBoxView",
-          "note": "If selected, the ID field is not required"
+          "note": "If selected, the lookup criteria field is not required"
         },
         "allowZeroResults": {
           "label": "Allow zero results",
