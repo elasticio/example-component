@@ -103,7 +103,7 @@
       },
       "dynamicMetadata": true
     },
-    "DeleteObject": {
+    "deleteObject": {
       "main": "./lib/actions/deleteObject.js",
       "title": "Delete Object by Unique Criteria",
       "description": "Delete an object by Unique Criteria",
