@@ -55,8 +55,8 @@
     },
     "lookupObject": {
       "main": "./lib/actions/lookupObject.js",
-      "title": "Lookup Object by ID",
-      "description": "Lookup an object (at most 1) by ID",
+      "title": "Lookup Object by Unique Criteria",
+      "description": "Lookup an object (at most 1) by Unique Criteria",
       "fields": {
         "objectType": {
           "label": "Object Type",
