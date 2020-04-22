@@ -23,7 +23,7 @@ const emitter = {
   logger,
 };
 
-describe('Upsert Object by ID integration tests', () => {
+describe('LookupObject by Unique Criteria integration tests', () => {
   beforeEach(() => {
     // the configuration
     cfg = {
