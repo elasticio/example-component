@@ -102,6 +102,35 @@
         }
       },
       "dynamicMetadata": true
+    },
+    "DeleteObject": {
+      "main": "./lib/actions/deleteObject.js",
+      "title": "Delete Object by Unique Criteria",
+      "description": "Delete an object by Unique Criteria",
+      "fields": {
+        "objectType": {
+          "label": "Object Type",
+          "viewClass": "SelectView",
+          "prompt": "Please select the type of object to look up",
+          "required": true,
+          "model": {
+            "albums": "Album",
+            "comments": "Comment",
+            "photos": "Photo",
+            "posts": "Post",
+            "todos": "Todo",
+            "users": "User"
+          }
+        },
+        "deleteCriteria": {
+          "label": "Delete Criteria",
+          "prompt": "Please select the unique field with which you want to delete the object",
+          "viewClass": "SelectView",
+          "required": true,
+          "model": "getUniqueFieldsModel"
+        }
+      },
+      "dynamicMetadata": true
     }
   }
 }
