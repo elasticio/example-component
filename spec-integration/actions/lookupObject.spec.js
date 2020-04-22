@@ -1,9 +1,12 @@
 /* eslint-disable no-unused-expressions */
-const { expect } = require('chai');
+const chai = require('chai');
 const sinon = require('sinon');
 const fs = require('fs');
 const logger = require('@elastic.io/component-logger')();
 const lookupObject = require('../../lib/actions/lookupObject.js');
+
+const { expect } = chai;
+chai.use(require('chai-as-promised'));
 
 if (fs.existsSync('.env')) {
   // eslint-disable-next-line global-require
@@ -101,24 +104,21 @@ describe('Upsert Object by ID integration tests', () => {
     });
   });
 
-  it('should return an empty object when allowCriteriaToBeOmitted is true and criteria are omitted', async () => {
+  it('should return an empty object when criteria are omitted and allowCriteriaToBeOmitted is true', async () => {
     cfg.allowCriteriaToBeOmitted = true;
-    msg.body = {};
+    msg.body.id = '';
 
     await lookupObject.process.call(emitter, msg, cfg);
     expect(emitter.emit.calledOnce).to.be.true;
-    expect(emitter.emit.lastCall.args[1].body.createdObject).to.deep.equal({
-      id: 123456890,
-      name: 'bob',
-      username: 'Do you like Fred\'s Fish & Chips?',
-      email: 'bob@fredsfishnchips.com',
-      address: {
-        street: '1 Marina Way',
-        city: 'Port Stanley',
-        zipcode: '123456',
-      },
-      phone: '1 (800) 854-FISH',
-    });
+    expect(emitter.emit.lastCall.args[1].body.createdObject).to.deep.equal({});
+  });
+
+  it('should throw an error when criteria are omitted and allowCriteriaToBeOmitted is false', async () => {
+    cfg.allowCriteriaToBeOmitted = true;
+    msg.body.id = '';
+
+    await expect(lookupObject.call(emitter, cfg, () => {}))
+      .to.eventually.be.rejectedWith('No unique criteria has been provided');
   });
 
   // It's important to test every function of the action.
