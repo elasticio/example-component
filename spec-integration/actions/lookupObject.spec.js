@@ -23,9 +23,8 @@ const emitter = {
   logger,
 };
 
-describe('LookupObject by Unique Criteria integration tests', () => {
+describe('Lookup Object by Unique Criteria integration tests', () => {
   beforeEach(() => {
-    // the configuration
     cfg = {
       url: process.env.API_BASE_URI,
       username: process.env.UNAME,
@@ -34,8 +33,6 @@ describe('LookupObject by Unique Criteria integration tests', () => {
       lookupCriteria: 'id',
     };
 
-    // The object metadata that will be upserted. Its structure is based
-    // off of the object we select to upsert, which will be a post.
     msg = {
       body: {
         id: 10,
@@ -80,12 +77,12 @@ describe('LookupObject by Unique Criteria integration tests', () => {
   });
 
   it('should successfully retrieve an object with its parent', async () => {
-    cfg.lookupCriteria = 'comments';
+    cfg.objectType = 'comments';
     cfg.linkedObjectToPopulate = 'post';
 
     await lookupObject.process.call(emitter, msg, cfg);
     expect(emitter.emit.calledOnce).to.be.true;
-    expect(emitter.emit.lastCall.args[1].body.createdObject).to.deep.equal({
+    expect(emitter.emit.lastCall.args[1].body.foundObject).to.deep.equal({
       postId: 2,
       id: 10,
       name: 'eaque et deleniti atque tenetur ut quo ut',
@@ -110,44 +107,57 @@ describe('LookupObject by Unique Criteria integration tests', () => {
 
     await lookupObject.process.call(emitter, msg, cfg);
     expect(emitter.emit.calledOnce).to.be.true;
-    expect(emitter.emit.lastCall.args[1].body.createdObject).to.deep.equal({});
+    expect(emitter.emit.lastCall.args[1].body).to.deep.equal({});
   });
 
   it('should throw an error when criteria are omitted and allowCriteriaToBeOmitted is false', async () => {
-    cfg.allowCriteriaToBeOmitted = true;
+    cfg.allowCriteriaToBeOmitted = false;
     msg.body.id = '';
 
-    await expect(lookupObject.call(emitter, cfg, () => {}))
-      .to.eventually.be.rejectedWith('No unique criteria has been provided');
+    await expect(lookupObject.process.call(emitter, msg, cfg, () => {}))
+      .to.eventually.be.rejectedWith('No entry for unique criteria has been provided');
   });
 
-  // It's important to test every function of the action.
-  // Here we are testing whether the dynamic metadata is correctly retrieved.
-  it('should return the appropriate post object metadata shape', async () => {
-    const result = await upsert.getMetaModel.call(emitter, cfg);
+  it('should rebound then throw an error when object is not found and waitForObjectToExist is true', async () => {
+    cfg.waitForObjectToExist = true;
+    msg.body.id = '1237482';
+
+    await expect(lookupObject.process.call(emitter, msg, cfg, () => {
+      expect(emitter.emit.called).to.be.true;
+    })).to.eventually.be.rejectedWith('Object not found');
+  });
+
+  it('should not throw an error when object is not found and allowZeroResults is true', async () => {
+    cfg.allowZeroResults = true;
+    msg.body.id = '1237482';
+
+    await lookupObject.process.call(emitter, msg, cfg);
+    expect(emitter.emit.calledOnce).to.be.true;
+    expect(emitter.emit.lastCall.args[1].body).to.deep.equal({});
+  });
+
+  it('should throw an error when object is not found and no special config fields are set', async () => {
+    msg.body.id = '1237482';
+
+    await expect(lookupObject.process.call(emitter, msg, cfg, () => {
+      expect(emitter.emit.called).to.be.false;
+    })).to.eventually.be.rejectedWith('Object not found');
+  });
+
+  // Testing the helper functions:
+
+  // Test whether the dynamic metadata is correctly retrieved
+  it('should return the appropriate object unique field metadata shape based on the lookupCriteria', async () => {
+    cfg.lookupCriteria = 'email';
+    const result = await lookupObject.getMetaModel.call(emitter, cfg);
     expect(result.in).to.deep.equal({
       type: 'object',
       properties: {
-        userId: {
-          title: 'User ID',
-          type: 'number',
+        email: {
+          title: 'Email Address',
+          type: 'string',
           required: true,
-        },
-        id: {
-          title: 'ID (Upsert Criteria)',
-          type: 'number',
-          required: false,
           unique: true,
-        },
-        title: {
-          title: 'Title',
-          type: 'string',
-          required: true,
-        },
-        body: {
-          title: 'Body',
-          type: 'string',
-          required: true,
         },
       },
     });
@@ -157,11 +167,22 @@ describe('LookupObject by Unique Criteria integration tests', () => {
   it('should return a list of unique attributes for the selected objectType', async () => {
     cfg.objectType = 'users';
 
-    const result = await upsert.getUniqueFieldsModel.call(emitter, cfg);
+    const result = await lookupObject.getUniqueFieldsModel.call(emitter, cfg);
     expect(result).to.deep.equal({
       id: 'ID',
       username: 'Username',
       email: 'Email Address',
+    });
+  });
+
+  // Testing the proper functioning of getLinkedObjectsModel
+  it('should return a list of related objects for the selected objectType', async () => {
+    cfg.objectType = 'posts';
+
+    const result = await lookupObject.getLinkedObjectsModel.call(emitter, cfg);
+    expect(result).to.deep.equal({
+      comments: 'Comments',
+      user: 'User',
     });
   });
 });
