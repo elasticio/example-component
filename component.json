@@ -24,8 +24,8 @@
     }
   },
   "triggers": {
-    "getNewAndUpdatedObjects": {
-      "main": "./lib/triggers/getNewAndUpdatedObject.js",
+    "getNewAndUpdatedObjectsPolling": {
+      "main": "./lib/triggers/getNewAndUpdatedObjectsPolling.js",
       "title": "Get New and Updated Objects Polling",
       "description": "Poll for new and/or updated objects",
       "fields": {
