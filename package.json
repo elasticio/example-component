@@ -11,7 +11,6 @@
     "url": "https://www.elastic.io/"
   },
   "scripts": {
-    "pretest": "eslint lib spec spec-integration verifyCredentials.js --fix",
     "test": "mocha spec --recursive --timeout 50000",
     "integration-test": "mocha spec-integration --recursive --timeout 50000"
   },
