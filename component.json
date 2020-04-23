@@ -23,6 +23,62 @@
       }
     }
   },
+  "triggers": {
+    "getNewAndUpdatedObjects": {
+      "main": "./lib/triggers/getNewAndUpdatedObject.js",
+      "title": "Get New and Updated Objects Polling",
+      "description": "Poll for new and/or updated objects",
+      "fields": {
+        "objectType": {
+          "label": "Object Type",
+          "viewClass": "SelectView",
+          "prompt": "Please select the type of object to poll for",
+          "required": true,
+          "model": {
+            "albums": "Album",
+            "comments": "Comment",
+            "photos": "Photo",
+            "posts": "Post",
+            "todos": "Todo",
+            "users": "User"
+          }
+        },
+        "startTime": {
+          "viewClass": "TextFieldView",
+          "label": "Start Time",
+          "placeholder":"1970-01-01 00:00:00.000",
+          "note": "Beginning time to start polling from (inclusive) in format YYYY-MM-DD HH:MM:SS. Defaults to the beginning of time"
+        },
+        "endTime": {
+          "viewClass": "TextFieldView",
+          "label": "End Time",
+          "placeholder":"1970-01-01 00:00:00.000",
+          "note": "End time to stop polling at (inclusive) in format YYYY-MM-DD HH:MM:SS. Defaults to never"
+        },
+        "sizeOfPollingPage": {
+          "viewClass": "TextFieldView",
+          "label": "Size of Polling Page",
+          "placeholder":"1000",
+          "note": "Indicates the size of pages to be fetched (positive integer). Defaults to 1000"
+        },
+        "singlePagePerInterval": {
+          "viewClass": "SelectView",
+          "label": "Fetch a single page per flow",
+          "note": "If the number of changed records exceeds the page size, wait until the next flow to fetch the next page"
+        },
+        "pollConfig": {
+          "label": "Time stamp field to poll on",
+          "required": false,
+          "viewClass": "SelectView",
+          "model": {
+            "createdTime": "Time Created",
+            "updatedTime": "Time Updated"
+          },
+          "prompt": "Please select a Time stamp field to poll on. Default: Time Updated"
+        }
+      }
+    }
+  },
   "actions": {
     "upsert": {
       "main": "./lib/actions/upsert.js",
