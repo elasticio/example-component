@@ -48,28 +48,15 @@
           "label": "Start Time",
           "viewClass": "TextFieldView",
           "order": 5,
-          "placeholder":"1970-01-01 00:00:00.000",
-          "note": "Beginning time to start polling from (inclusive) in format YYYY-MM-DD HH:MM:SS. Defaults to the beginning of time"
+          "placeholder":"1970-01-01T00:00:00.000Z",
+          "note": "Beginning time to start polling from (inclusive) in format \"YYYY-MM-DD[T]HH:MM:SS[Z]\" where [] wraps a fixed character value. Defaults to the beginning of time"
         },
         "endTime": {
           "label": "End Time",
           "viewClass": "TextFieldView",
           "order": 4,
-          "placeholder":"1970-01-01 00:00:00.000",
-          "note": "End time to stop polling at (inclusive) in format YYYY-MM-DD HH:MM:SS. Defaults to never"
-        },
-        "sizeOfPollingPage": {
-          "label": "Size of Polling Page",
-          "viewClass": "TextFieldView",
-          "order": 3,
-          "placeholder":"1000",
-          "note": "Indicates the size of pages to be fetched (positive integer). Defaults to 1000"
-        },
-        "singlePagePerInterval": {
-          "label": "Fetch a single page per flow",
-          "viewClass": "SelectView",
-          "order": 2,
-          "note": "If the number of changed records exceeds the page size, wait until the next flow to fetch the next page"
+          "placeholder":"1970-01-01T00:00:00.000Z",
+          "note": "End time to stop polling at (inclusive) in format \"YYYY-MM-DD[T]HH:MM:SS[Z]\" where [] wraps a fixed character value. Defaults to never"
         },
         "pollConfig": {
           "label": "Time stamp field to poll on",
@@ -82,7 +69,8 @@
           },
           "prompt": "Please select a Time stamp field to poll on. Default: Time Updated"
         }
-      }
+      },
+      "dynamicMetadata": true
     }
   },
   "actions": {
