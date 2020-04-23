@@ -90,6 +90,7 @@
           "viewClass": "SelectView",
           "prompt": "Please select the type of object to upsert",
           "required": true,
+          "order": 2,
           "model": {
             "albums": "Album",
             "comments": "Comment",
@@ -104,6 +105,7 @@
           "prompt": "Please select the unique field with which you want to upsert the object",
           "viewClass": "SelectView",
           "required": true,
+          "order": 1,
           "model": "getUniqueFieldsModel"
         }
       },
@@ -119,6 +121,7 @@
           "viewClass": "SelectView",
           "prompt": "Please select the type of object to look up",
           "required": true,
+          "order": 6,
           "model": {
             "albums": "Album",
             "comments": "Comment",
@@ -133,26 +136,31 @@
           "prompt": "Please select the unique field with which you want to lookup the object",
           "viewClass": "SelectView",
           "required": true,
+          "order": 5,
           "model": "getUniqueFieldsModel"
         },
         "allowCriteriaToBeOmitted": {
           "label": "Allow criteria to be omitted",
           "viewClass": "CheckBoxView",
+          "order": 4,
           "note": "If selected, the lookup criteria field is not required"
         },
         "allowZeroResults": {
           "label": "Allow zero results",
           "viewClass": "CheckBoxView",
+          "order": 3,
           "note": "When zero objects are found the empty object will be emitted instead of an error"
         },
         "waitForObjectToExist": {
           "label": "Wait for object to exist",
           "viewClass": "CheckBoxView",
+          "order": 2,
           "note": "When no results are found apply rebounds and wait until object exists"
         },
         "linkedObjectToPopulate": {
           "label": "Linked Object to populate",
           "viewClass": "SelectView",
+          "order": 1,
           "note": "Select which parent or child object to include in result",
           "model": "getLinkedObjectsModel"
         }
@@ -169,6 +177,7 @@
           "viewClass": "SelectView",
           "prompt": "Please select the type of object to look up",
           "required": true,
+          "order": 2,
           "model": {
             "albums": "Album",
             "comments": "Comment",
@@ -183,6 +192,7 @@
           "prompt": "Please select the unique field with which you want to delete the object",
           "viewClass": "SelectView",
           "required": true,
+          "order": 1,
           "model": "getUniqueFieldsModel"
         }
       },
