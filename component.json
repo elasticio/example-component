@@ -1,26 +1,55 @@
 {
   "title": "example-component",
-  "description": "Component description",
+  "description": "An example component with implementations of OIH actions.",
   "buildType": "docker",
   "credentials": {
-    "fields": {}
+    "fields": {
+      "url": {
+        "viewClass": "TextFieldView",
+        "label": "API Base URI",
+        "required": true,
+        "placeholder": "http://localhost:3000"
+      },
+      "username": {
+        "viewClass": "TextFieldView",
+        "label": "Username",
+        "required": true,
+        "placeholder": "myUsername"
+      },
+      "password": {
+        "viewClass": "PasswordFieldView",
+        "label": "Password",
+        "required": true
+      }
+    }
   },
   "actions": {
     "upsert": {
       "main": "./lib/actions/upsert.js",
-      "title": "Upsert Object",
-      "description": "Create or Update selected object",
+      "title": "Upsert Object by Unique Criteria",
+      "description": "Create or Update the selected object",
       "fields": {
         "objectType": {
           "label": "Object Type",
           "viewClass": "SelectView",
-          "model": "TODO"
+          "model": {
+            "albums": "Album",
+            "comments": "Comment",
+            "photos": "Photo",
+            "posts": "Post",
+            "todos": "Todo",
+            "users": "User"
+          }
+        },
+        "upsertCriteria": {
+          "label": "Upsert Criteria",
+          "prompt": "Please select the unique field with which you want to upsert the object",
+          "viewClass": "SelectView",
+          "required": true,
+          "model": "getUniqueFieldsModel"
         }
       },
-      "metadata": {
-        "in": "./lib/schemas/upsert.in.json",
-        "out": "./lib/schemas/upsert.out.json"
-      }
+      "dynamicMetadata": true
     }
   }
 }
