@@ -64,13 +64,12 @@
           "required": false,
           "order": 1,
           "model": {
-            "createdTime": "Time Created",
-            "updatedTime": "Time Updated"
+            "created": "Created",
+            "lastModified": "Last Modified"
           },
           "prompt": "Please select a Time stamp field to poll on. Default: Time Updated"
         }
-      },
-      "dynamicMetadata": true
+      }
     }
   },
   "actions": {
