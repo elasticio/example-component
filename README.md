@@ -33,7 +33,7 @@ The Example Component is intended to provide a model of elastic.io's integration
 
 ### Completeness Matrix
 
-![Example Component Completeness Matrix]()
+![example-component-completeness-matrix](https://user-images.githubusercontent.com/23000904/80265320-750a1480-8697-11ea-8a16-bf6e86754502.png)
 
 [Example Component Completeness Matrix](https://docs.google.com/spreadsheets/d/1YVLjDEz74fE4pd1OvYz_MaI-tcaEyO0YTmdSpyYn2co/edit?usp=sharing)
 
