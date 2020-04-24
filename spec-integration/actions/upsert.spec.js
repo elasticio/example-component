@@ -54,6 +54,8 @@ describe('Upsert Object by Unique Criteria integration tests', () => {
       id: 10,
       title: 'a NEW title',
       body: 'a NEW body text',
+      created: '1972-12-19T19:35:25.697Z',
+      lastModified: '1972-12-19T19:35:25.697Z',
     });
   });
 

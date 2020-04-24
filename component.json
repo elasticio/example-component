@@ -23,6 +23,55 @@
       }
     }
   },
+  "triggers": {
+    "getNewAndUpdatedObjectsPolling": {
+      "main": "./lib/triggers/getNewAndUpdatedObjectsPolling.js",
+      "title": "Get New and Updated Objects Polling",
+      "description": "Poll for new and/or updated objects",
+      "fields": {
+        "objectType": {
+          "label": "Object Type",
+          "viewClass": "SelectView",
+          "prompt": "Please select the type of object to poll for",
+          "required": true,
+          "order": 6,
+          "model": {
+            "albums": "Album",
+            "comments": "Comment",
+            "photos": "Photo",
+            "posts": "Post",
+            "todos": "Todo",
+            "users": "User"
+          }
+        },
+        "startTime": {
+          "label": "Start Time",
+          "viewClass": "TextFieldView",
+          "order": 5,
+          "placeholder":"1970-01-01T00:00:00.000Z",
+          "note": "Beginning time to start polling from (inclusive) in format \"YYYY-MM-DD[T]HH:MM:SS[Z]\" where [] wraps a fixed character value. Defaults to the beginning of time"
+        },
+        "endTime": {
+          "label": "End Time",
+          "viewClass": "TextFieldView",
+          "order": 4,
+          "placeholder":"1970-01-01T00:00:00.000Z",
+          "note": "End time to stop polling at (inclusive) in format \"YYYY-MM-DD[T]HH:MM:SS[Z]\" where [] wraps a fixed character value. Defaults to never"
+        },
+        "pollConfig": {
+          "label": "Time stamp field to poll on",
+          "viewClass": "SelectView",
+          "required": false,
+          "order": 1,
+          "model": {
+            "created": "Created",
+            "lastModified": "Last Modified"
+          },
+          "prompt": "Please select a Time stamp field to poll on. Default: Time Updated"
+        }
+      }
+    }
+  },
   "actions": {
     "upsert": {
       "main": "./lib/actions/upsert.js",
