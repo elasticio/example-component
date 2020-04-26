@@ -27,7 +27,9 @@
     "getNewAndUpdatedObjectsPolling": {
       "main": "./lib/triggers/getNewAndUpdatedObjectsPolling.js",
       "title": "Get New and Updated Objects Polling",
-      "description": "Poll for new and/or updated objects",
+      "help": {
+        "description": "Poll for new and/or updated objects"
+      },
       "fields": {
         "objectType": {
           "label": "Object Type",
@@ -48,14 +50,14 @@
           "label": "Start Time",
           "viewClass": "TextFieldView",
           "order": 5,
-          "placeholder":"1970-01-01T00:00:00.000Z",
+          "placeholder": "1970-01-01T00:00:00.000Z",
           "note": "Beginning time to start polling from (inclusive) in format \"YYYY-MM-DD[T]HH:MM:SS[Z]\" where [] wraps a fixed character value. Defaults to the beginning of time"
         },
         "endTime": {
           "label": "End Time",
           "viewClass": "TextFieldView",
           "order": 4,
-          "placeholder":"1970-01-01T00:00:00.000Z",
+          "placeholder": "1970-01-01T00:00:00.000Z",
           "note": "End time to stop polling at (inclusive) in format \"YYYY-MM-DD[T]HH:MM:SS[Z]\" where [] wraps a fixed character value. Defaults to never"
         },
         "pollConfig": {
@@ -73,10 +75,60 @@
     }
   },
   "actions": {
+    "makeRawRequest": {
+      "main": "./lib/actions/makeRawRequest.js",
+      "title": "Raw Request",
+      "help": {
+        "description": "Manually construct a request to send to the server."
+      },
+      "fields": {},
+      "metadata": {
+        "in": {
+          "type": "object",
+          "required": true,
+          "properties": {
+            "method": {
+              "type": "string",
+              "required": true,
+              "title": "Method",
+              "enum": [
+                "GET",
+                "PATCH",
+                "POST",
+                "PUT",
+                "DELETE"
+              ]
+            },
+            "url": {
+              "type": "string",
+              "required": true,
+              "title": "URL"
+            },
+            "body": {
+              "type": "object",
+              "required": false,
+              "title": "Body"
+            }
+          }
+        },
+        "out": {
+          "type": "object",
+          "properties": {
+            "responseBody": {
+              "type": "object",
+              "title": "Response",
+              "description": "Returned response"
+            }
+          }
+        }
+      }
+    },
     "upsert": {
       "main": "./lib/actions/upsert.js",
       "title": "Upsert Object by Unique Criteria",
-      "description": "Create or Update the selected object",
+      "help": {
+        "description": "Create or Update the selected object"
+      },
       "fields": {
         "objectType": {
           "label": "Object Type",
@@ -107,7 +159,9 @@
     "lookupObject": {
       "main": "./lib/actions/lookupObject.js",
       "title": "Lookup Object by Unique Criteria",
-      "description": "Lookup an object (at most 1) by Unique Criteria",
+      "help": {
+        "description": "Lookup an object (at most 1) by Unique Criteria"
+      },
       "fields": {
         "objectType": {
           "label": "Object Type",
@@ -163,7 +217,9 @@
     "deleteObject": {
       "main": "./lib/actions/deleteObject.js",
       "title": "Delete Object by Unique Criteria",
-      "description": "Delete an object by Unique Criteria",
+      "help": {
+        "description": "Delete an object by Unique Criteria"
+      },
       "fields": {
         "objectType": {
           "label": "Object Type",
