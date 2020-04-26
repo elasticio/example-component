@@ -18,8 +18,7 @@
   "dependencies": {
     "@elastic.io/component-commons-library": "0.0.7",
     "elasticio-node": "0.0.9",
-    "elasticio-sailor-nodejs": "2.5.1",
-    "request": "2.88.0"
+    "elasticio-sailor-nodejs": "2.5.1"
   },
   "devDependencies": {
     "@elastic.io/component-logger": "0.0.1",
@@ -33,7 +32,7 @@
     "sinon": "7.5.0"
   },
   "engines": {
-    "node": ">=12"
+    "node": "12"
   },
   "private": true
 }
