@@ -1,4 +1,4 @@
-const ExampleClient = require('./lib/exampleClient');
+const ExampleClient = require('./lib/exampleServiceLogicClient');
 
 module.exports = async function verify(credentials, callback) {
   try {
