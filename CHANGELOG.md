@@ -1,3 +1,8 @@
+## 1.0.0 (May 11, 2020)
+* Update dependencies
+* Add Logging
+* Add Raw Request
+
 ## 0.0.1 (April 24, 2020)
 
 * Added Get New and Updated Objects Polling Trigger
