@@ -1,6 +1,6 @@
 {
   "name": "example-component",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "An example component with implementations of OIH actions",
   "keywords": [
     "elasticio-component"
