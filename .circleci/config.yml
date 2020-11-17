@@ -24,7 +24,8 @@ jobs: # a collection of steps
       - run: # run tests
           name: test
           command: npm test
-      - run:
-          name: integration-test
-          command: npm integration-test
+      # Un-comment to run integration tests
+      # - run:
+      #    name: integration-test
+      #    command: npm run integration-test
 
