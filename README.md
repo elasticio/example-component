@@ -16,6 +16,7 @@
    * [Upsert Object by Unique Criteria](#upsert-object-by-unique-criteria)
    * [Lookup Object (at most 1) by Unique Criteria](#lookup-object-at-most-1-by-unique-criteria)
    * [Delete Object by Unique Criteria](#delete-object-by-unique-criteria)
+* [Contribution](#contribution)
 * [Additional info](#additional-info)
 * [API and Documentation links](#api-and-documentation-links)
 * [Notes for developers](#notes-for-developers)
@@ -150,6 +151,10 @@ Delete a single object by a selected field that uniquely identifies it in the da
 #### Output Metadata
 
 - The id of the object that was just deleted.
+
+## Contribution
+
+See [CONTRIBUTING.md](https://github.com/elasticio/microsoft-onedrive-component/blob/master/CONTRIBUTING.md) for more information on how you could contribute to development of this component.
 
 
 ## Additional info

@@ -10,28 +10,28 @@
     "email": "ps@elastic.io",
     "url": "https://www.elastic.io/"
   },
+  "license": "Apache-2.0",
   "scripts": {
     "test": "mocha spec --recursive --timeout 50000",
     "integration-test": "mocha spec-integration --recursive --timeout 50000"
   },
   "dependencies": {
-    "@elastic.io/component-commons-library": "1.1.2",
+    "@elastic.io/component-commons-library": "1.1.5",
     "elasticio-node": "0.0.9",
-    "elasticio-sailor-nodejs": "2.6.7"
+    "elasticio-sailor-nodejs": "2.6.18"
   },
   "devDependencies": {
     "@elastic.io/component-logger": "0.0.1",
     "chai": "4.2.0",
     "chai-as-promised": "7.1.1",
     "dotenv": "8.2.0",
-    "eslint": "7.0.0",
-    "eslint-config-airbnb-base": "14.1.0",
-    "eslint-plugin-import": "2.20.2",
-    "mocha": "7.1.2",
-    "sinon": "9.0.2"
+    "eslint": "7.13.0",
+    "eslint-config-airbnb-base": "14.2.1",
+    "eslint-plugin-import": "2.22.1",
+    "mocha": "8.2.1",
+    "sinon": "9.2.1"
   },
   "engines": {
-    "node": "12"
-  },
-  "private": true
+    "node": "14"
+  }
 }
