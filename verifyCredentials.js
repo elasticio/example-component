@@ -14,6 +14,5 @@ module.exports = async function verify(credentials, callback) {
     this.logger.error('Verification failed');
     this.logger.error(err);
     callback(err, { verified: false });
-    throw err;
   }
 };
