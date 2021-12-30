@@ -12,5 +12,9 @@ export async function processAction(msg, cfg) {
     data,
   });
   this.logger.info('request is done, emitting...');
-  return messages.newMessageWithBody(response);
+  return messages.newMessageWithBody({
+    statusCode: response.status,
+    headers: response.headers,
+    responseBody: response.data
+  });
 }

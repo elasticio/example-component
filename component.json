@@ -30,47 +30,14 @@
       "help": {
         "description": "Manually construct a request to send to the server."
       },
-      "fields": {},
-      "metadata": {
-        "in": {
-          "type": "object",
-          "required": true,
-          "properties": {
-            "method": {
-              "type": "string",
-              "required": true,
-              "title": "Method",
-              "enum": [
-                "GET",
-                "PATCH",
-                "POST",
-                "PUT",
-                "DELETE"
-              ]
-            },
-            "url": {
-              "type": "string",
-              "required": true,
-              "title": "URL"
-            },
-            "data": {
-              "type": "object",
-              "required": false,
-              "title": "Request Body"
-            }
-          }
-        },
-        "out": {
-          "type": "object",
-          "properties": {
-            "responseBody": {
-              "type": "object",
-              "title": "Response",
-              "description": "Returned response"
-            }
-          }
+      "fields": {
+        "throw404": {
+          "type": "boolean",
+          "label": "Throw error on 404 Response",
+          "viewClass": "TextFieldView"
         }
-      }
+      },
+      "metadata": "./src/schemas/rawRequest.json"
     }
   }
 }

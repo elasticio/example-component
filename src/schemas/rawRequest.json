@@ -1,0 +1,49 @@
+{
+  "in": {
+    "type": "object",
+    "required": true,
+    "properties": {
+      "method": {
+        "type": "string",
+        "required": true,
+        "title": "Method",
+        "enum": [
+          "GET",
+          "PATCH",
+          "POST",
+          "PUT",
+          "DELETE"
+        ]
+      },
+      "url": {
+        "type": "string",
+        "required": true,
+        "title": "URL"
+      },
+      "data": {
+        "type": "object",
+        "required": false,
+        "title": "Request Body"
+      }
+    }
+  },
+  "out": {
+    "type": "object",
+    "properties": {
+      "statusCode": {
+        "type": "number",
+        "title": "Status Code",
+        "required": true
+      },
+      "headers": {
+        "type": "object",
+        "title": "HTTP headers",
+        "required": true
+      },
+      "responseBody": {
+        "type": "object",
+        "title": "Response Body"
+      }
+    }
+  }
+}

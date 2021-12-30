@@ -23,6 +23,10 @@ describe('rawRequest action', () => {
     const msg = { body: { method: 'POST', url: '/example', } };
     const { body } = await processAction.call(getContext(), msg, cfg);
     expect(execRequest.callCount).to.be.equal(1);
-    expect(body).to.be.deep.equal(fakeResponse);
+    expect(body).to.be.deep.equal({
+      statusCode: fakeResponse.status,
+      headers: fakeResponse.headers,
+      responseBody: fakeResponse.data
+    });
   });
 });
