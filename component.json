@@ -23,60 +23,9 @@
       }
     }
   },
-  "triggers": {
-    "getNewAndUpdatedObjectsPolling": {
-      "main": "./lib/triggers/getNewAndUpdatedObjectsPolling.js",
-      "title": "Get New and Updated Objects Polling",
-      "help": {
-        "description": "Poll for new and/or updated objects"
-      },
-      "fields": {
-        "objectType": {
-          "label": "Object Type",
-          "viewClass": "SelectView",
-          "prompt": "Please select the type of object to poll for",
-          "required": true,
-          "order": 6,
-          "model": {
-            "albums": "Album",
-            "comments": "Comment",
-            "photos": "Photo",
-            "posts": "Post",
-            "todos": "Todo",
-            "users": "User"
-          }
-        },
-        "startTime": {
-          "label": "Start Time",
-          "viewClass": "TextFieldView",
-          "order": 5,
-          "placeholder": "1970-01-01T00:00:00.000Z",
-          "note": "Beginning time to start polling from (inclusive) in format \"YYYY-MM-DD[T]HH:MM:SS[Z]\" where [] wraps a fixed character value. Defaults to the beginning of time"
-        },
-        "endTime": {
-          "label": "End Time",
-          "viewClass": "TextFieldView",
-          "order": 4,
-          "placeholder": "1970-01-01T00:00:00.000Z",
-          "note": "End time to stop polling at (inclusive) in format \"YYYY-MM-DD[T]HH:MM:SS[Z]\" where [] wraps a fixed character value. Defaults to never"
-        },
-        "pollConfig": {
-          "label": "Time stamp field to poll on",
-          "viewClass": "SelectView",
-          "required": false,
-          "order": 1,
-          "model": {
-            "created": "Created",
-            "lastModified": "Last Modified"
-          },
-          "prompt": "Please select a Time stamp field to poll on. Default: Time Updated"
-        }
-      }
-    }
-  },
   "actions": {
     "makeRawRequest": {
-      "main": "./lib/actions/makeRawRequest.js",
+      "main": "./src/actions/rawRequest.js",
       "title": "Raw Request",
       "help": {
         "description": "Manually construct a request to send to the server."
@@ -104,10 +53,10 @@
               "required": true,
               "title": "URL"
             },
-            "body": {
+            "data": {
               "type": "object",
               "required": false,
-              "title": "Body"
+              "title": "Request Body"
             }
           }
         },
@@ -122,130 +71,6 @@
           }
         }
       }
-    },
-    "upsert": {
-      "main": "./lib/actions/upsert.js",
-      "title": "Upsert Object by Unique Criteria",
-      "help": {
-        "description": "Create or Update the selected object"
-      },
-      "fields": {
-        "objectType": {
-          "label": "Object Type",
-          "viewClass": "SelectView",
-          "prompt": "Please select the type of object to upsert",
-          "required": true,
-          "order": 2,
-          "model": {
-            "albums": "Album",
-            "comments": "Comment",
-            "photos": "Photo",
-            "posts": "Post",
-            "todos": "Todo",
-            "users": "User"
-          }
-        },
-        "upsertCriteria": {
-          "label": "Upsert Criteria",
-          "prompt": "Please select the unique field with which you want to upsert the object",
-          "viewClass": "SelectView",
-          "required": true,
-          "order": 1,
-          "model": "getUniqueFieldsModel"
-        }
-      },
-      "dynamicMetadata": true
-    },
-    "lookupObject": {
-      "main": "./lib/actions/lookupObject.js",
-      "title": "Lookup Object by Unique Criteria",
-      "help": {
-        "description": "Lookup an object (at most 1) by Unique Criteria"
-      },
-      "fields": {
-        "objectType": {
-          "label": "Object Type",
-          "viewClass": "SelectView",
-          "prompt": "Please select the type of object to look up",
-          "required": true,
-          "order": 6,
-          "model": {
-            "albums": "Album",
-            "comments": "Comment",
-            "photos": "Photo",
-            "posts": "Post",
-            "todos": "Todo",
-            "users": "User"
-          }
-        },
-        "lookupCriteria": {
-          "label": "Lookup Criteria",
-          "prompt": "Please select the unique field with which you want to lookup the object",
-          "viewClass": "SelectView",
-          "required": true,
-          "order": 5,
-          "model": "getUniqueFieldsModel"
-        },
-        "allowCriteriaToBeOmitted": {
-          "label": "Allow criteria to be omitted",
-          "viewClass": "CheckBoxView",
-          "order": 4,
-          "note": "If selected, the lookup criteria field is not required"
-        },
-        "allowZeroResults": {
-          "label": "Allow zero results",
-          "viewClass": "CheckBoxView",
-          "order": 3,
-          "note": "When zero objects are found the empty object will be emitted instead of an error"
-        },
-        "waitForObjectToExist": {
-          "label": "Wait for object to exist",
-          "viewClass": "CheckBoxView",
-          "order": 2,
-          "note": "When no results are found apply rebounds and wait until object exists"
-        },
-        "linkedObjectToPopulate": {
-          "label": "Linked Object to populate",
-          "viewClass": "SelectView",
-          "order": 1,
-          "note": "Select which parent or child object to include in result",
-          "model": "getLinkedObjectsModel"
-        }
-      },
-      "dynamicMetadata": true
-    },
-    "deleteObject": {
-      "main": "./lib/actions/deleteObject.js",
-      "title": "Delete Object by Unique Criteria",
-      "help": {
-        "description": "Delete an object by Unique Criteria"
-      },
-      "fields": {
-        "objectType": {
-          "label": "Object Type",
-          "viewClass": "SelectView",
-          "prompt": "Please select the type of object to look up",
-          "required": true,
-          "order": 2,
-          "model": {
-            "albums": "Album",
-            "comments": "Comment",
-            "photos": "Photo",
-            "posts": "Post",
-            "todos": "Todo",
-            "users": "User"
-          }
-        },
-        "deleteCriteria": {
-          "label": "Delete Criteria",
-          "prompt": "Please select the unique field with which you want to delete the object",
-          "viewClass": "SelectView",
-          "required": true,
-          "order": 1,
-          "model": "getUniqueFieldsModel"
-        }
-      },
-      "dynamicMetadata": true
     }
   }
 }
