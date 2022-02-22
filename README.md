@@ -20,7 +20,7 @@ Executes custom request
 
 #### Input Metadata
 
-* **Url** - (string, required) Path of the resource relative to the URL base (https://api.hubapi.com), required.
+* **Url** - (string, required) Path of the resource relative to the base URL.
 * **Method** - Allowed values `GET`, `POST`, `PUT`, `PATCH`, `DELETE`, required. HTTP verb to use in the request.
 * **Request Body** - (object, optional) Body of the request to send
 
