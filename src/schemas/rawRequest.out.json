@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "properties": {
+    "statusCode": {
+      "type": "number",
+      "title": "Status Code",
+      "required": true
+    },
+    "headers": {
+      "type": "object",
+      "title": "HTTP headers",
+      "required": true,
+      "properties": {}
+    },
+    "responseBody": {
+      "type": "object",
+      "title": "Response Body",
+      "properties": {}
+    }
+  }
+}

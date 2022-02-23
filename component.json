@@ -37,7 +37,10 @@
           "viewClass": "TextFieldView"
         }
       },
-      "metadata": "./src/schemas/rawRequest.json"
+      "metadata": {
+        "in": "./src/schemas/rawRequest.in.json",
+        "out": "./src/schemas/rawRequest.out.json"
+      }
     }
   }
 }
