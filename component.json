@@ -28,7 +28,8 @@
       "main": "./lib/triggers/getNewAndUpdatedObjectsPolling.js",
       "title": "Get New and Updated Objects Polling",
       "help": {
-        "description": "Poll for new and/or updated objects"
+        "description": "Poll for new and/or updated objects",
+        "link": "/components/example-component/triggers#get-new-and-updated-objects-polling"
       },
       "fields": {
         "objectType": {
@@ -65,12 +66,17 @@
           "viewClass": "SelectView",
           "required": false,
           "order": 1,
+          "placeholder": "Last Modified",
           "model": {
             "created": "Created",
             "lastModified": "Last Modified"
           },
           "prompt": "Please select a Time stamp field to poll on. Default: Last Modified"
         }
+      },
+      "metadata": {
+        "in": {},
+        "out": {}
       }
     }
   },
