@@ -1,165 +1,93 @@
-import { messages } from 'elasticio-node';
-import ExampleClient from '../client';
+import Client from '../client';
 
-/**
- * This action uses the Lookup Object (at most 1) by Unique Criteria OIH design pattern:
- * https://github.com/elasticio/Connectors/blob/master/Adapters/AdapterBehaviorStandardization/StandardizedActionsAndTriggers.md
- */
+const { messages } = require('elasticio-node');
 
-const process = async function process(msg, cfg) {
-  const client = new ExampleClient(this, cfg);
-  const {
-    objectType,
-    lookupCriteria,
-    allowCriteriaToBeOmitted,
-    allowZeroResults,
-    waitForObjectToExist,
-    linkedObjectToPopulate,
-  } = cfg;
-
-  const lookupCriteriaValue = msg.body[lookupCriteria];
-
-  // First, check if the unique lookup criteria has been defined.
+// eslint-disable-next-line max-len
+exports.process = async function ProcessAction(msg: { body: { lookupCriteriaValue: any; }; }, cfg: { allowIdToBeOmitted?: any; baseUrl?: any; allowZeroResults?: any; objectType?: any; lookupCriteria?: any; }) {
+  this.logger.info('"Lookup Object (at most 1)" action started');
+  const client = new Client(this, cfg);
+  const { objectType, lookupCriteria } = cfg;
+  const { lookupCriteriaValue } = msg.body;
   if (!lookupCriteriaValue) {
-    if (allowCriteriaToBeOmitted) {
-      await this.emit('data', messages.newEmptyMessage());
-      return;
+    if (cfg.allowIdToBeOmitted) {
+      return messages.newMessageWithBody({});
     }
-    throw new Error('No entry for unique criteria has been provided');
+    throw new Error('No "Lookup Criteria Value" provided!');
   }
 
-  // Building the query to retrieve the object, optionally including linked objects.
-  // See the example-service API: https://github.com/elasticio/example-service
-  let queryString = `${encodeURIComponent(objectType)}?${encodeURIComponent(lookupCriteria)}=${encodeURIComponent(lookupCriteriaValue)}`;
-
-  // Fetch the object(s) with the associated unique criteria.
-  // Excluding linked objects for the time being (due to API limitations).
-  const foundObjects = await client.apiRequest({
-    url: queryString,
+  const path = `${cfg.baseUrl}/${objectType}/${lookupCriteria}`;
+  const { result, error }: any = await client.apiRequest({
     method: 'GET',
+    url: path,
   });
 
-  // The query retrieved more than 1 object, which is out of the scope of this action.
-  if (foundObjects.data.length > 1) {
-    throw new Error('More than one object found');
-  }
-
-  // The case where the object is not (initially) found
-  if (foundObjects.data.length === 0) {
-    if (waitForObjectToExist) {
-      await this.emit('rebound', 'Object not found');
+  if (result?.data) {
+    if (result.data.length === 0) {
+      if (cfg.allowZeroResults) {
+        return messages.newMessageWithBody({});
+      }
+      if (error) throw new Error(error);
+      throw new Error('No object found!');
+    } if (result.data.length > 1) {
+      throw new Error('More than 1 object found!');
     }
-    if (allowZeroResults) {
-      await this.emit('data', messages.newEmptyMessage());
-      return;
-    }
-    throw new Error('Object not found');
+    // eslint-disable-next-line prefer-destructuring
+    result.data = result.data[0];
   }
 
-  // The only remaining case is if exactly one object was found.
-  // Need to check whether a linked object were queried, and if so, make another call
-  // to the API to include the linked object in the result. Otherwise, just return the foundObject.
-
-  let foundObject;
-
-  // Add linked object to the query if they are included.
-  // Note: the Example Service API does not allow for more than 1 linked object to be included
-  // in the query. However, it is possible to include additional linked objects if your API allows.
-  // To do this, change the viewClass parameter for linkedObjectsToPopulate in component.json
-  // to a MultiSelectView, and adjust the query string assembly accordingly to account for multiple
-  // queried child and/or parent linked objects.
-  if (linkedObjectToPopulate) {
-    // In the Example Service API, children objects are referred to in plural
-    // while parent objects are referred to in the singular.
-    // Since no object type's singular form ends in an 's', we can check the
-    // object relationship type by testing whether the object name ends in an 's'.
-    // Test for children:
-    const linkedObjectParam = linkedObjectToPopulate.endsWith('s')
-      ? `_embed=${encodeURIComponent(linkedObjectToPopulate)}`
-      : `_expand=${encodeURIComponent(linkedObjectToPopulate)}`;
-
-    // Get the corresponding ID of the foundObject.
-    const objectToQueryId = foundObjects[0].id;
-
-    // build the query string with the linked object.
-    queryString = `${encodeURIComponent(objectType)}/${encodeURIComponent(objectToQueryId)}?${linkedObjectParam}`;
-
-    // retrieve the requested object with its linked child/parent.
-    foundObject = await client.apiRequest({
-      url: queryString,
-      method: 'GET',
-    });
-  } else {
-    // If there was no linked object included, just output the foundObjects value.
-    [foundObject] = foundObjects.data;
+  if (result) {
+    return messages.newMessageWithBody({ result });
+  } if (cfg.allowZeroResults) {
+    return messages.newMessageWithBody({});
+  } if (error) {
+    throw new Error(error);
   }
-
-  await this.emit('data', messages.newMessageWithBody({
-    foundObject,
-  }));
+  throw new Error('Unexpected error');
 };
 
-/**
- * Define schema for Lookup Criteria dropdown menu.
- */
-
-exports.getUniqueFieldsModel = function getUniqueFieldsModel(cfg) {
-  const exampleServiceLogicClient = new ExampleClient(this, cfg);
-  return exampleServiceLogicClient.getUniqueFieldsModel(cfg.objectType);
-};
-
-/**
- * Using the function defined in exampleServiceLogicClient.js.
- * See that file for more information.
- */
-
-exports.getLinkedObjectsModel = async function getLinkedObjectsModel(cfg) {
-  const exampleServiceLogicClient = new ExampleClient(this, cfg);
-  return exampleServiceLogicClient.getLinkedObjectsModel(cfg.objectType);
-};
-
-/**
- * Since this action uses dynamic metadata (see component.json),
- * we must define the function getMetaModel, which will define the shape
- * for the action's input data depending on the selected object type.
- * See upsert.js for a detailed example of retrieving dynamic metadata
- * and an explanation of what dynamic metadata is.
- */
-
-exports.getMetaModel = async function getMetaModel(cfg) {
-  const exampleServiceLogicClient = new ExampleClient(this, cfg);
-
-  const description = await exampleServiceLogicClient.getObjectAttributes(cfg.objectType);
-
-  // the lookup criteria may be required if cfg.allowCriteriaToBeOmitted is false, and vice versa.
-  description[cfg.lookupCriteria].required = !cfg.allowCriteriaToBeOmitted;
-
-  const inputMetadata = {
-    type: 'object',
-    properties: {
-      [cfg.lookupCriteria]: description[cfg.lookupCriteria],
-    },
-  };
-
-  const outputMetadata = {
-    type: 'object',
-    properties: {
-      ...description,
-      created: {
-        title: 'Created Time',
-        type: 'string',
+exports.getMetaModel = async function getMetaModel(cfg: { allowIdToBeOmitted: any; }) {
+  const meta = {
+    in: {
+      type: 'object',
+      properties: {
+        lookupCriteriaValue: {
+          type: 'string',
+          required: true,
+          title: 'Lookup Criteria Value',
+        },
       },
-      lastModified: {
-        title: 'Time Last Modified',
-        type: 'string',
+    },
+    out: {
+      type: 'object',
+      properties: {
+        result: {
+          type: 'object',
+          properties: {},
+        },
       },
     },
   };
 
-  return {
-    in: inputMetadata,
-    out: outputMetadata,
-  };
+  if (cfg.allowIdToBeOmitted) {
+    meta.in.properties.lookupCriteriaValue.required = false;
+  }
+
+  return meta;
 };
 
-module.exports.processAction = process;
+exports.getLookupCriteria = async function (cfg: { objectType: any; }) {
+  const result: any = {};
+  switch (cfg.objectType) {
+    case 'customer':
+      result.id = 'ID';
+      result.email = 'Email';
+      break;
+    case 'product':
+      result.id = 'ID';
+      result.sku = 'SKU';
+      break;
+    default:
+      result.id = 'ID';
+  }
+  return result;
+};

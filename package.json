@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "axios": "0.24.0",
-    "chai-as-promised": "^7.1.1",
+    "chai-as-promised": "7.1.1",
     "elasticio-node": "0.0.9",
     "elasticio-rest-node": "1.2.6",
     "elasticio-sailor-nodejs": "2.6.26"

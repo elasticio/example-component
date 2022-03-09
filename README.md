@@ -37,16 +37,16 @@ Lookup a single object by a selected field that uniquely identifies it in the da
 
 #### Configuration Fields
 
-- Object Type (required): One of the six object types available in the database.
-- Lookup Criteria (required): A list of object parameters that can uniquely identify the object in the database.
-- Allow criteria to be omitted: If selected, a value for the object lookup criteria in the input metadata is not required and an empty object is returned by the action.
-- Allow zero results: If selected, if the object is not found an empty object will be returned instead of an error.
-- Wait for object to exist: If selected, if no results are found apply rebounds and wait until the object exists.
-- Linked object to populate: A list of parent and child objects that can be included in the lookup query result.
+- Object Type (string, required): One of the six object types available in the database.
+- Lookup Criteria (object, required): A list of object parameters that can uniquely identify the object in the database.
+- Allow criteria to be omitted (boolean, optional): If selected, a value for the object lookup criteria in the input metadata is not required and an empty object is returned by the action.
+- Allow zero results (boolean, optional): If selected, if the object is not found an empty object will be returned instead of an error.
+- Wait for object to exist (boolean, optional): If selected, if no results are found apply rebounds and wait until the object exists.
+- Linked object to populate (object, optional): A list of parent and child objects that can be included in the lookup query result.
 
 #### Input Metadata
 
-- The lookup criteria, which is required unless `allow criteria to be omitted` is selected.
+- The `lookup criteria value`, which is required unless `Allow criteria to be omitted` is selected.
 
 #### Output Metadata
 
