@@ -3,7 +3,7 @@ import Client from '../client';
 const { messages } = require('elasticio-node');
 
 // eslint-disable-next-line max-len
-exports.process = async function ProcessAction(msg: { body: { lookupCriteriaValue: any; }; }, cfg: { allowIdToBeOmitted?: any; baseUrl?: any; allowZeroResults?: any; objectType?: any; lookupCriteria?: any; }) {
+exports.process = async function ProcessAction(msg: any, cfg: any) {
   this.logger.info('"Lookup Object (at most 1)" action started');
   const client = new Client(this, cfg);
   const { objectType, lookupCriteria } = cfg;
@@ -75,7 +75,7 @@ exports.getMetaModel = async function getMetaModel(cfg: { allowIdToBeOmitted: an
   return meta;
 };
 
-exports.getLookupCriteria = async function (cfg: { objectType: any; }) {
+exports.getLookupCriteria = async function (cfg: { objectType: string; }) {
   const result: any = {};
   switch (cfg.objectType) {
     case 'customer':

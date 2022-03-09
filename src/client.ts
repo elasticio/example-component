@@ -15,28 +15,12 @@ export default class Client {
     return axios.request(opts);
   }
 
-  /**
-   * General helper functions
-   */
-
-  /**
-   * Returns the description of the object type from the API
-   */
-
   async getObjectAttributes(objectType) {
     return this.apiRequest({
       url: `${objectType}/attributes`,
       method: 'GET',
     });
   }
-
-  /**
-   * Config Field Schemas
-   */
-
-  /**
-   * Returns a list of the unique identifier fields of the object that will be upserted.
-   */
 
   async getUniqueFieldsModel(objectType) {
     const description = await this.getObjectAttributes(objectType);
@@ -53,13 +37,6 @@ export default class Client {
     return model;
   }
 
-  /**
-   * Some actions have a configuration field linkedObjectsToPopulate.
-   * The entries for this field depend on the objectType selection,
-   * which is used to create a model for all child and parent objects
-   * in this function. See example server documentation for the object
-   * relationship API: https://github.com/elasticio/example-service.
-   */
   async getLinkedObjectsModel(objectType) {
     const relationships = await this.apiRequest({
       url: `${objectType}/relationships`,
