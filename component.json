@@ -34,7 +34,7 @@
         "objectType": {
           "label": "Object Type",
           "viewClass": "SelectView",
-          "prompt": "Please select the type of object to poll for",
+          "prompt": "Please select the type of object to poll on",
           "required": true,
           "order": 6,
           "model": {
@@ -51,7 +51,7 @@
           "viewClass": "TextFieldView",
           "order": 5,
           "placeholder": "1970-01-01T00:00:00.000Z",
-          "note": "Beginning time to start polling from (inclusive) in format \"YYYY-MM-DD[T]HH:MM:SS[Z]\" where [] wraps a fixed character value. Defaults to the beginning of time"
+          "note": "Beginning time to start polling from (inclusive) in format \"YYYY-MM-DD[T]HH:MM:SS[Z]\" where [] wraps a fixed character value. Defaults to 1970-01-01T00:00:00.000Z"
         },
         "endTime": {
           "label": "End Time",
@@ -69,7 +69,7 @@
             "created": "Created",
             "lastModified": "Last Modified"
           },
-          "prompt": "Please select a Time stamp field to poll on. Default: Time Updated"
+          "prompt": "Please select a Time stamp field to poll on. Default: Last Modified"
         }
       }
     }
