@@ -20,10 +20,10 @@ Retrieve all the updated or created objects within a given time range.
 
 #### Configuration Fields
 
-- Object Type (required): One of the six object types available in the database
-- Start Time: The timestamp, in ISO8601 format, to start polling from (inclusive). Default value is the beginning of time (January 1, 1970 at 00:00.000).
-- End Time: The timestamp, in ISO8601 format, to end at (inclusive). Default value is never.
-- Timestamp field to poll on: Can be either Last Modified or Created dates (updated or new objects, respectively). Defaults to Last Modified.
+* **Object Type** - (required), one of the six object types available in the database 
+* **Start Time** - The timestamp, in ISO8601 format, to start polling from (inclusive). Default value is the beginning of time (January 1, 1970 at 00:00.000). 
+* **End Time** - The timestamp, in ISO8601 format, to end at (inclusive). Default value is never. 
+* **Timestamp field to poll on** - Can be either Last Modified or Created dates (updated or new objects, respectively). Defaults to Last Modified.
 
 #### Input/Output Metadata
 
