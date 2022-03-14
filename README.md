@@ -3,6 +3,8 @@
 ## Table of Contents
 
 * [Description](#description)
+* [Triggers](#triggers)
+   * [Get New and Updated Objects Polling](#get-new-and-updated-objects-polling)
 * [Actions](#actions)
    * [Make Raw Request](#make-raw-request)
    * [Lookup Object (at most 1)](#lookup-object-at-most-1)
@@ -10,6 +12,27 @@
 ## Description
 
 This is an example component with implementations of actions and triggers based off of the [Open Integration Hub (OIH) Standard](https://github.com/elasticio/Connectors/blob/master/Adapters/AdapterBehaviorStandardization/StandardizedActionsAndTriggers.md). In addition to the information provided in this standard and the [elastic.io documentation](https://docs.elastic.io/), the code in this repository is filled with comments explaining how actions, triggers, and other elements of an elastic.io integration component work.
+
+## Triggers
+
+### Get New and Updated Objects Polling
+
+Retrieve all the updated or created objects within a given time range.
+
+#### Configuration Fields
+
+* **Object Type** - (required), one of the six object types available in the database 
+* **Start Time** - The timestamp, in ISO8601 format, to start polling from (inclusive). Default value is the beginning of time (January 1, 1970 at 00:00.000). 
+* **End Time** - The timestamp, in ISO8601 format, to end at (inclusive). Default value is never. 
+* **Timestamp field to poll on** - Can be either Last Modified or Created dates (updated or new objects, respectively). Defaults to Last Modified.
+
+#### Input/Output Metadata
+
+None.
+
+#### Limitations
+
+Pagination has not been implemented yet in this trigger. Running a flow will return a single page with all of the results of the query.
 
 ## Actions
 
