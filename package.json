@@ -15,7 +15,7 @@
     "api"
   ],
   "engines": {
-    "node": "14"
+    "node": "16.x"
   },
   "scripts": {
     "lint": "eslint --ext .ts --quiet --fix",
@@ -28,7 +28,7 @@
     "axios": "0.24.0",
     "elasticio-node": "0.0.9",
     "elasticio-rest-node": "1.2.6",
-    "elasticio-sailor-nodejs": "2.6.26"
+    "elasticio-sailor-nodejs": "2.6.27"
   },
   "devDependencies": {
     "@elastic.io/component-logger": "0.0.1",
