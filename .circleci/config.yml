@@ -72,7 +72,7 @@ commands:
 jobs:
   test:
     docker:
-      - image: circleci/node:14-stretch
+      - image: circleci/node:16-stretch
     steps:
       - checkout
       - node/install:
@@ -88,7 +88,7 @@ jobs:
           command: npm test
   build:
     docker:
-      - image: circleci/node:14-stretch
+      - image: circleci/node:16-stretch
         user: root
     steps:
       - checkout
