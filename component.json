@@ -1,7 +1,7 @@
 {
   "title": "example-component",
   "description": "An example component with implementations of OIH actions.",
-  "buildType": "docker",
+  "version": "1.0.0",
   "credentials": {
     "fields": {
       "url": {
