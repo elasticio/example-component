@@ -23,6 +23,26 @@
       }
     }
   },
+  "actions": {
+    "makeRawRequest": {
+      "main": "./src/actions/rawRequest.js",
+      "title": "Make Raw Request",
+      "help": {
+        "description": "Manually construct a request to send to the server."
+      },
+      "fields": {
+        "throw404": {
+          "type": "boolean",
+          "label": "Throw error on 404 Response",
+          "viewClass": "TextFieldView"
+        }
+      },
+      "metadata": {
+        "in": "./src/schemas/actions/rawRequest.in.json",
+        "out": "./src/schemas/actions/rawRequest.out.json"
+      }
+    }
+  },
   "triggers": {
     "getNewAndUpdatedObjectsPolling": {
       "main": "./lib/triggers/getNewAndUpdatedObjectsPolling.js",
@@ -77,26 +97,6 @@
       "metadata": {
         "in": {},
         "out": {}
-      }
-    }
-  },
-  "actions": {
-    "makeRawRequest": {
-      "main": "./src/actions/rawRequest.js",
-      "title": "Make Raw Request",
-      "help": {
-        "description": "Manually construct a request to send to the server."
-      },
-      "fields": {
-        "throw404": {
-          "type": "boolean",
-          "label": "Throw error on 404 Response",
-          "viewClass": "TextFieldView"
-        }
-      },
-      "metadata": {
-        "in": "./src/schemas/rawRequest.in.json",
-        "out": "./src/schemas/rawRequest.out.json"
       }
     }
   }
