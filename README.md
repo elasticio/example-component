@@ -30,8 +30,7 @@ Executes custom request
 
 * **Status Code** - (number, required) HTTP status code of the response, required.
 * **HTTP headers** - (object, required) HTTP headers of the response, required.
-* **Response Body** - (object, optional) HTTP response body.
-
+* **Response Body** - (object, optional) HTTP response body.d
 ## Triggers
 
 ### Get New and Updated Objects Polling
