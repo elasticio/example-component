@@ -34,26 +34,6 @@ Executes custom request
 
 
 
-### dss Raw Request
-Executes custom request
-#### Configuration Fields
-
-* **Don't throw error on 404 Response** - (optional, boolean) Treat 404 HTTP responses not as error, defaults to `false`.
-
-#### Input Metadata
-
-* **Urdl** - (string, required) Path of the resource relative to the base URL.
-* **Method** - Allowed values `GET`, `POST`, `PUT`, `PATCH`, `DELETE`, required. HTTP verb to use in the request.
-* **Request Body** - (object, optional) Body of the request to send
-
-#### Output Metadata
-
-* **Status Code** - (number, required) HTTP status code of the response, required.
-* **HTTP headers** - (object, required) HTTP headers of the response, required.
-* **Response Body** - (object, optional) HTTP response body.
-
-
-
 ## Triggers
 
 ### Get New and Updated Objects Polling
