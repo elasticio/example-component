@@ -32,8 +32,6 @@ Executes custom request
 * **HTTP headers** - (object, required) HTTP headers of the response, required.
 * **Response Body** - (object, optional) HTTP response body.
 
-
-
 ## Triggers
 
 ### Get New and Updated Objects Polling
