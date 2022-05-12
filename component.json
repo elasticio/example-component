@@ -46,7 +46,7 @@
       "main": "./lib/actions/lookupObject.js",
       "title": "Lookup Object by Unique Criteria",
       "help": {
-        "description": "Lookup an object (at most 1)"
+        "description": "Lookup an object (at most one)"
       },
       "fields": {
         "objectType": {

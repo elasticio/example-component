@@ -5,7 +5,7 @@
 * [Description](#description)
 * [Actions](#actions)
    * [Make Raw Request](#make-raw-request)
-   * [Lookup Object (at most 1)](#lookup-object-at-most-1)
+   * [Lookup Object (at most one)](#lookup-object-at-most-one)
 * [Triggers](#triggers)
    * [Get New and Updated Objects Polling](#get-new-and-updated-objects-polling)
 
@@ -33,7 +33,7 @@ Executes custom request
 * **HTTP headers** - (object, required) HTTP headers of the response, required.
 * **Response Body** - (object, optional) HTTP response body.
 
-### Lookup Object (at most 1)
+### Lookup Object (at most one)
 
 Lookup a single object by a selected field that uniquely identifies it.
 

@@ -2,7 +2,7 @@ import { messages } from 'elasticio-node';
 import Client from '../client';
 
 export async function processAction(msg: any, cfg: any) {
-  this.logger.info('"Lookup Object (at most 1)" action started');
+  this.logger.info('"Lookup Object (at most one)" action started');
   const client = new Client(this, cfg);
   const { objectType, lookupCriteria, baseUrl } = cfg;
   const { lookupCriteriaValue } = msg.body;
