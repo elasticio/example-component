@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
+import chaiAsPromised from 'chai-as-promised';
 import { getContext, StatusCodeError } from '../common';
 import ExampleClient from '../../src/client';
 
