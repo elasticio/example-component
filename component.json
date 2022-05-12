@@ -38,8 +38,8 @@
         }
       },
       "metadata": {
-        "in": "./src/schemas/rawRequest.in.json",
-        "out": "./src/schemas/rawRequest.out.json"
+        "in": "./src/schemas/actions/rawRequest.in.json",
+        "out": "./src/schemas/actions/rawRequest.out.json"
       }
     },
     "lookupObject": {
