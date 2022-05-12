@@ -8,3 +8,12 @@ export const getContext = () => ({
   logger: getLogger(),
   emit: sinon.spy(),
 });
+
+export class StatusCodeError extends Error {
+  response: any
+
+  constructor(status) {
+    super('');
+    this.response = { status };
+  }
+}

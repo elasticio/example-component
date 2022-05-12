@@ -112,12 +112,8 @@
           "prompt": "Please select the type of object to look up",
           "required": true,
           "model": {
-            "albums": "Album",
-            "comments": "Comment",
-            "photos": "Photo",
-            "posts": "Post",
-            "todos": "Todo",
-            "users": "User"
+            "products": "Products",
+            "users": "Users"
           }
         },
         "lookupCriteria": {
@@ -126,32 +122,19 @@
           "viewClass": "SelectView",
           "required": true,
           "order": 5,
-          "model": "getUniqueFieldsModel"
+          "model": "getLookupCriteriaModel"
         },
         "allowCriteriaToBeOmitted": {
           "label": "Allow criteria to be omitted",
           "viewClass": "CheckBoxView",
           "order": 4,
-          "note": "If selected, the `Lookup Criteria` field is not required"
+          "note": "If selected, the `Lookup Criteria Value` field is not required"
         },
         "allowZeroResults": {
           "label": "Allow zero results",
           "viewClass": "CheckBoxView",
           "order": 3,
           "note": "When zero objects are found the empty object will be emitted instead of an error"
-        },
-        "waitForObjectToExist": {
-          "label": "Wait for object to exist",
-          "viewClass": "CheckBoxView",
-          "order": 2,
-          "note": "When no results are found apply rebounds and wait until object exists"
-        },
-        "linkedObjectToPopulate": {
-          "label": "Linked Object to populate",
-          "viewClass": "SelectView",
-          "order": 1,
-          "note": "Select which parent or child object to include in result",
-          "model": "getLinkedObjectsModel"
         }
       },
       "dynamicMetadata": true
