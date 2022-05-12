@@ -41,22 +41,17 @@ Lookup a single object by a selected field that uniquely identifies it in the da
 
 * **Object Type** - (string, required): One of the six object types available in the database.
 * **Lookup Criteria** - (object, required): A list of object parameters that can uniquely identify the object in the database.
-* **Allow criteria to be omitted** - (boolean, optional): If selected, a value for the object lookup criteria in the input metadata is not required and an empty object is returned by the action.
-* **Allow zero results** - (boolean, optional): If selected, if the object is not found an empty object will be returned instead of an error.
-* **Wait for object to exist** - (boolean, optional): If selected, if no results are found apply rebounds and wait until the object exists.
-* **Linked object to populate** - (object, optional): A list of parent and child objects that can be included in the lookup query result.
+* **Allow criteria to be omitted** - (boolean, optional): If selected field `Lookup Criteria Value` becomes optional.
+* **Allow zero results** - (boolean, optional): When selected, if the object is not found - an empty object will be returned instead of throwing error.
 
 #### Input Metadata
 
-* **The `lookup criteria value`**, which is required unless `Allow criteria to be omitted` is selected.
+* **Lookup Criteria Value** - (string, required unless `Allow criteria to be omitted` is selected): Value for unique search criteria in `Lookup Criteria` configuration field.
 
 #### Output Metadata
 
-* **The object being looked up** with `lastModified` and `created` timestamps, optionally also with all instances of a linked parent or child object.
+Result object from lookup
 
-#### Limitations
-
-Due to API limitations, only one linked object can be included in the lookup query instead of multiple as specified in the OIH standard.
 
 ## Triggers
 
