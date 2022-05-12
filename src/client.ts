@@ -1,5 +1,5 @@
 /* eslint-disable class-methods-use-this */
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 export default class Client {
   private logger: any;
@@ -11,7 +11,7 @@ export default class Client {
     this.cfg = cfg;
   }
 
-  async apiRequest(opts: AxiosRequestConfig) {
+  async apiRequest(opts: AxiosRequestConfig): Promise<AxiosResponse> {
     return axios.request(opts);
   }
 }

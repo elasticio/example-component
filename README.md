@@ -5,6 +5,7 @@
 * [Description](#description)
 * [Actions](#actions)
    * [Make Raw Request](#make-raw-request)
+   * [Lookup Object (at most 1)](#lookup-object-at-most-1)
 * [Triggers](#triggers)
    * [Get New and Updated Objects Polling](#get-new-and-updated-objects-polling)
 
@@ -31,6 +32,26 @@ Executes custom request
 * **Status Code** - (number, required) HTTP status code of the response, required.
 * **HTTP headers** - (object, required) HTTP headers of the response, required.
 * **Response Body** - (object, optional) HTTP response body.
+
+### Lookup Object (at most 1)
+
+Lookup a single object by a selected field that uniquely identifies it.
+
+#### Configuration Fields
+
+* **Object Type** - (string, required): One of the six object types available in the database.
+* **Lookup Criteria** - (object, required): A list of object parameters that can uniquely identify the object in the database.
+* **Allow criteria to be omitted** - (boolean, optional): If selected field `Lookup Criteria Value` becomes optional.
+* **Allow zero results** - (boolean, optional): When selected, if the object is not found - an empty object will be returned instead of throwing error.
+
+#### Input Metadata
+
+* **Lookup Criteria Value** - (string, required unless `Allow criteria to be omitted` is selected): Value for unique search criteria in `Lookup Criteria` configuration field.
+
+#### Output Metadata
+
+Result object from lookup
+
 
 ## Triggers
 

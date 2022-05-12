@@ -41,6 +41,46 @@
         "in": "./src/schemas/actions/rawRequest.in.json",
         "out": "./src/schemas/actions/rawRequest.out.json"
       }
+    },
+    "lookupObject": {
+      "main": "./lib/actions/lookupObject.js",
+      "title": "Lookup Object by Unique Criteria",
+      "help": {
+        "description": "Lookup an object (at most 1)"
+      },
+      "fields": {
+        "objectType": {
+          "label": "Object Type",
+          "viewClass": "SelectView",
+          "prompt": "Please select the type of object to look up",
+          "required": true,
+          "model": {
+            "products": "Products",
+            "users": "Users"
+          }
+        },
+        "lookupCriteria": {
+          "label": "Lookup Criteria",
+          "prompt": "Please select the unique field with which you want to lookup the object",
+          "viewClass": "SelectView",
+          "required": true,
+          "order": 5,
+          "model": "getLookupCriteriaModel"
+        },
+        "allowCriteriaToBeOmitted": {
+          "label": "Allow criteria to be omitted",
+          "viewClass": "CheckBoxView",
+          "order": 4,
+          "note": "If selected, the `Lookup Criteria Value` field is not required"
+        },
+        "allowZeroResults": {
+          "label": "Allow zero results",
+          "viewClass": "CheckBoxView",
+          "order": 3,
+          "note": "When zero objects are found the empty object will be emitted instead of an error"
+        }
+      },
+      "dynamicMetadata": true
     }
   },
   "triggers": {

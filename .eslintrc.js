@@ -20,6 +20,7 @@ module.exports = {
     '@typescript-eslint',
   ],
   rules: {
+    'linebreak-style': 0,
     'import/no-extraneous-dependencies': ["error", { "devDependencies": ["spec/**/*", "spec-integration/**/*"] }],
     'no-plusplus': 0,
     'no-unused-vars': 0,
