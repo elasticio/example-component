@@ -1,7 +1,7 @@
 {
   "title": "example-component",
   "description": "An example component with implementations of OIH actions.",
-  "buildType": "docker",
+  "version": "1.0.0",
   "credentials": {
     "fields": {
       "url": {
@@ -20,6 +20,26 @@
         "viewClass": "PasswordFieldView",
         "label": "Password",
         "required": true
+      }
+    }
+  },
+  "actions": {
+    "makeRawRequest": {
+      "main": "./src/actions/rawRequest.js",
+      "title": "Make Raw Request",
+      "help": {
+        "description": "Manually construct a request to send to the server."
+      },
+      "fields": {
+        "throw404": {
+          "type": "boolean",
+          "label": "Throw error on 404 Response",
+          "viewClass": "TextFieldView"
+        }
+      },
+      "metadata": {
+        "in": "./src/schemas/actions/rawRequest.in.json",
+        "out": "./src/schemas/actions/rawRequest.out.json"
       }
     }
   },
@@ -79,6 +99,7 @@
         "out": {}
       }
     }
+<<<<<<< HEAD
   },
   "actions": {
     "makeRawRequest": {
@@ -139,5 +160,7 @@
       },
       "dynamicMetadata": true
     }
+=======
+>>>>>>> 9e7d90745042946b3e96a3b20e347aff625a9409
   }
 }

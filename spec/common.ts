@@ -15,5 +15,6 @@ export class StatusCodeError extends Error {
   constructor(status) {
     super('');
     this.response = { status };
+    this.message = 'StatusCodeError';
   }
 }

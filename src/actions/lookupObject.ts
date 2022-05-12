@@ -34,7 +34,7 @@ export async function processAction(msg: any, cfg: any) {
   if (cfg.allowZeroResults) {
     return messages.newEmptyMessage();
   }
-  throw Error('No result found!');
+  throw Error('No object found!');
 }
 
 export async function getLookupCriteriaModel(cfg: { objectType: string }) {
