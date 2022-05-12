@@ -35,7 +35,7 @@ Executes custom request
 
 ### Lookup Object (at most 1)
 
-Lookup a single object by a selected field that uniquely identifies it in the database.
+Lookup a single object by a selected field that uniquely identifies it.
 
 #### Configuration Fields
 
