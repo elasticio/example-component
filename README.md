@@ -5,12 +5,9 @@
 * [Description](#description)
 * [Actions](#actions)
    * [Make Raw Request](#make-raw-request)
-<<<<<<< HEAD
    * [Lookup Object (at most 1)](#lookup-object-at-most-1)
-=======
 * [Triggers](#triggers)
    * [Get New and Updated Objects Polling](#get-new-and-updated-objects-polling)
->>>>>>> 9e7d90745042946b3e96a3b20e347aff625a9409
 
 ## Description
 
@@ -35,28 +32,6 @@ Executes custom request
 * **Status Code** - (number, required) HTTP status code of the response, required.
 * **HTTP headers** - (object, required) HTTP headers of the response, required.
 * **Response Body** - (object, optional) HTTP response body.
-
-## Triggers
-
-### Get New and Updated Objects Polling
-
-Retrieve all the updated or created objects within a given time range.
-
-#### Configuration Fields
-
-* **Object Type** - (required), one of the six object types available in the database 
-* **Start Time** - The timestamp, in ISO8601 format, to start polling from (inclusive). Default value is the beginning of time (January 1, 1970 at 00:00.000). 
-* **End Time** - The timestamp, in ISO8601 format, to end at (inclusive). Default value is never. 
-* **Timestamp field to poll on** - Can be either Last Modified or Created dates (updated or new objects, respectively). Defaults to Last Modified.
-
-#### Input/Output Metadata
-
-None.
-
-#### Limitations
-
-Pagination has not been implemented yet in this trigger. Running a flow will return a single page with all of the results of the query.
-<<<<<<< HEAD
 
 ## Actions
 
@@ -102,5 +77,24 @@ Lookup a single object by a selected field that uniquely identifies it in the da
 #### Limitations
 
 Due to API limitations, only one linked object can be included in the lookup query instead of multiple as specified in the OIH standard.
-=======
->>>>>>> 9e7d90745042946b3e96a3b20e347aff625a9409
+
+## Triggers
+
+### Get New and Updated Objects Polling
+
+Retrieve all the updated or created objects within a given time range.
+
+#### Configuration Fields
+
+* **Object Type** - (required), one of the six object types available in the database 
+* **Start Time** - The timestamp, in ISO8601 format, to start polling from (inclusive). Default value is the beginning of time (January 1, 1970 at 00:00.000). 
+* **End Time** - The timestamp, in ISO8601 format, to end at (inclusive). Default value is never. 
+* **Timestamp field to poll on** - Can be either Last Modified or Created dates (updated or new objects, respectively). Defaults to Last Modified.
+
+#### Input/Output Metadata
+
+None.
+
+#### Limitations
+
+Pagination has not been implemented yet in this trigger. Running a flow will return a single page with all of the results of the query.
