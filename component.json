@@ -24,7 +24,7 @@
     }
   },
   "actions": {
-    "rawRequest": {
+    "makeRawRequest": {
       "main": "./src/actions/rawRequest.js",
       "title": "Make Raw Request",
       "help": {
