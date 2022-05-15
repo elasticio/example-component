@@ -4,7 +4,7 @@ import Client from '../client';
 export async function processAction(msg: any, cfg: any) {
   this.logger.info('"Lookup Object (at most one)" action started');
   const client = new Client(this, cfg);
-  const { objectType, lookupCriteria, baseUrl } = cfg;
+  const { objectType, lookupCriteria } = cfg;
   const { lookupCriteriaValue } = msg.body;
   if (!lookupCriteriaValue) {
     if (cfg.allowCriteriaToBeOmitted) {
@@ -13,7 +13,7 @@ export async function processAction(msg: any, cfg: any) {
     throw new Error('No "Lookup Criteria Value" provided!');
   }
 
-  const url = `${baseUrl}/${objectType}/${lookupCriteria}/${lookupCriteriaValue}`;
+  const url = `/${objectType}/${lookupCriteria}/${lookupCriteriaValue}`;
   let result;
   try {
     result = (await client.apiRequest({

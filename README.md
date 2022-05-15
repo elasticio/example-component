@@ -6,6 +6,7 @@
 * [Actions](#actions)
    * [Make Raw Request](#make-raw-request)
    * [Lookup Object (at most one)](#lookup-object-at-most-one)
+   * [Upsert Object](#upsert-object)
 * [Triggers](#triggers)
    * [Get New and Updated Objects Polling](#get-new-and-updated-objects-polling)
 
@@ -52,6 +53,24 @@ Lookup a single object by a selected field that uniquely identifies it.
 
 Result object from lookup
 
+
+
+### Upsert Object
+
+Updates (of record found) or creates a new object.
+
+#### Configuration Fields
+
+* **Object Type** - (dropdown, required) Object-type to upsert. E.g `Users`
+
+#### Input Metadata
+
+* **ID** - (string, optional) ID of the object to upsert
+And dynamically generated fields according to chosen `Upsert Schema`
+
+#### Output Metadata
+
+Result object from upsert.
 
 ## Triggers
 

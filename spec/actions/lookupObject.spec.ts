@@ -20,7 +20,6 @@ describe('lookupObject action', () => {
     });
     it('should lookup object', async () => {
       const cfg = {
-        baseUrl: 'example.api',
         objectType: 'users',
         lookupCriteria: 'id'
       };
@@ -30,7 +29,7 @@ describe('lookupObject action', () => {
       expect(body).to.be.deep.equal({ result: fakeResponse.data });
       expect(execRequest.getCall(0).args[0]).to.be.deep.equal({
         method: 'GET',
-        url: `${cfg.baseUrl}/${cfg.objectType}/${cfg.lookupCriteria}/${msg.body.lookupCriteriaValue}`
+        url: `/${cfg.objectType}/${cfg.lookupCriteria}/${msg.body.lookupCriteriaValue}`
       });
     });
   });
@@ -43,7 +42,6 @@ describe('lookupObject action', () => {
     });
     it('object not found (allowZeroResults: true)', async () => {
       const cfg = {
-        baseUrl: 'example.api',
         objectType: 'users',
         lookupCriteria: 'id',
         allowZeroResults: true,
@@ -54,14 +52,13 @@ describe('lookupObject action', () => {
       expect(body).to.be.deep.equal({});
       expect(execRequest.getCall(0).args[0]).to.be.deep.equal({
         method: 'GET',
-        url: `${cfg.baseUrl}/${cfg.objectType}/${cfg.lookupCriteria}/${msg.body.lookupCriteriaValue}`
+        url: `/${cfg.objectType}/${cfg.lookupCriteria}/${msg.body.lookupCriteriaValue}`
       });
     });
   });
   describe('should emit empty result (lookupCriteria: undefined, allowCriteriaToBeOmitted: true)', () => {
     it('should emit empty result (lookupCriteria: undefined, allowCriteriaToBeOmitted: true)', async () => {
       const cfg = {
-        baseUrl: 'example.api',
         objectType: 'users',
         lookupCriteria: 'id',
         allowCriteriaToBeOmitted: true
@@ -80,7 +77,6 @@ describe('lookupObject action', () => {
     });
     it('object not found', async () => {
       const cfg = {
-        baseUrl: 'example.api',
         objectType: 'users',
         lookupCriteria: 'id',
       };
@@ -89,12 +85,11 @@ describe('lookupObject action', () => {
       expect(execRequest.callCount).to.be.equal(1);
       expect(execRequest.getCall(0).args[0]).to.be.deep.equal({
         method: 'GET',
-        url: `${cfg.baseUrl}/${cfg.objectType}/${cfg.lookupCriteria}/${msg.body.lookupCriteriaValue}`
+        url: `/${cfg.objectType}/${cfg.lookupCriteria}/${msg.body.lookupCriteriaValue}`
       });
     });
     it('No "Lookup Criteria Value" provided', async () => {
       const cfg = {
-        baseUrl: 'example.api',
         objectType: 'users',
         lookupCriteria: 'id',
       };
@@ -112,7 +107,6 @@ describe('lookupObject action', () => {
     });
     it('api error', async () => {
       const cfg = {
-        baseUrl: 'example.api',
         objectType: 'users',
         lookupCriteria: 'id',
       };
@@ -121,7 +115,7 @@ describe('lookupObject action', () => {
       expect(execRequest.callCount).to.be.equal(1);
       expect(execRequest.getCall(0).args[0]).to.be.deep.equal({
         method: 'GET',
-        url: `${cfg.baseUrl}/${cfg.objectType}/${cfg.lookupCriteria}/${msg.body.lookupCriteriaValue}`
+        url: `/${cfg.objectType}/${cfg.lookupCriteria}/${msg.body.lookupCriteriaValue}`
       });
     });
   });

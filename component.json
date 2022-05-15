@@ -81,6 +81,25 @@
         }
       },
       "dynamicMetadata": true
+    },
+    "upsertObject": {
+      "main": "./src/actions/upsertObject.js",
+      "title": "Upsert Object",
+      "help": {
+        "description": "Upsert Object"
+      },
+      "fields": {
+        "objectType": {
+          "viewClass": "SelectView",
+          "required": true,
+          "label": "Object type",
+          "prompt": "Select an Object Type",
+          "model": {
+            "users": "Users"
+          }
+        }
+      },
+      "dynamicMetadata": true
     }
   },
   "triggers": {
