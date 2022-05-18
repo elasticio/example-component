@@ -19,6 +19,7 @@ This is an example component with implementations of actions and triggers based 
 ## Actions
 
 ### Make Raw Request
+
 Executes custom request
 #### Configuration Fields
 
