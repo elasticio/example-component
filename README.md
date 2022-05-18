@@ -21,6 +21,7 @@ This is an example component with implementations of actions and triggers based 
 ### Make Raw Request
 
 Executes custom request
+
 #### Configuration Fields
 
 * **Don't throw error on 404 Response** - (optional, boolean) Treat 404 HTTP responses not as error, defaults to `false`.
