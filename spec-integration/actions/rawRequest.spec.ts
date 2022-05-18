@@ -4,8 +4,9 @@ import { getContext, creds } from '../common';
 
 describe('rawRequest', () => {
   it('should make raw request', async () => {
+    const cfg = { throw404: false };
     const msg = { body: { method: 'GET', url: '/' } };
-    const result = await processAction.call(getContext(), msg, creds);
-    expect(result.body.statusCode).to.be.equal(200);
+    const { body } = await processAction.call(getContext(), msg, { ...creds, ...cfg });
+    expect(body.statusCode).to.be.equal(200);
   });
 });
