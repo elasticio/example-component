@@ -8,7 +8,7 @@
    * [Lookup Object (at most one)](#lookup-object-at-most-one)
    * [Upsert Object](#upsert-object)
    * [Delete Object](#delete-object)
-   * [Lookup Objects](#lookup-objects)
+   * [Lookup Objects (plural)](#lookup-objects-plural)
 * [Triggers](#triggers)
    * [Get New and Updated Objects Polling](#get-new-and-updated-objects-polling)
 
@@ -89,7 +89,7 @@ Lookup a single object by a selected field that uniquely identifies it.
 
 `result` object with result of deletion as value.
 
-### Lookup Objects
+### Lookup Objects (plural)
 
 Lookup a set of object by defined criteria list. Can be emitted in different way.
 
