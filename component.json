@@ -63,7 +63,9 @@
           "label": "Lookup Criteria",
           "prompt": "Please select the unique field with which you want to lookup the object",
           "viewClass": "SelectView",
-          "required": true,
+          "required": [
+            "objectType"
+          ],
           "order": 5,
           "model": "getLookupCriteriaModel"
         },
@@ -97,6 +99,68 @@
           "model": {
             "users": "Users"
           }
+        }
+      },
+      "dynamicMetadata": true
+    },
+    "deleteObject": {
+      "main": "./lib/actions/deleteObject.js",
+      "title": "Delete Object",
+      "help": {
+        "description": "Delete Object"
+      },
+      "fields": {
+        "objectType": {
+          "label": "Object Type",
+          "viewClass": "SelectView",
+          "prompt": "Please select the type of object to look up",
+          "required": true,
+          "model": {
+            "products": "Products",
+            "users": "Users"
+          }
+        },
+        "lookupCriteria": {
+          "label": "Lookup Criteria",
+          "prompt": "Please select the unique field with which you want to lookup the object",
+          "viewClass": "SelectView",
+          "required": [
+            "objectType"
+          ],
+          "order": 5,
+          "model": "getLookupCriteriaModel"
+        }
+      },
+      "metadata": "./src/schemas/actions/deleteObject.json"
+    },
+    "lookupObjects": {
+      "main": "./lib/actions/lookupObjects.js",
+      "title": "Lookup Objects (plural)",
+      "help": {
+        "description": "Lookup Objects (plural)"
+      },
+      "fields": {
+        "objectType": {
+          "label": "Object Type",
+          "viewClass": "SelectView",
+          "prompt": "Please select the type of object to look up",
+          "required": true,
+          "model": {
+            "products": "Products",
+            "users": "Users"
+          }
+        },
+        "emitBehavior": {
+          "order": 8,
+          "viewClass": "SelectView",
+          "label": "Emit Behavior",
+          "required": true,
+          "model": {
+            "emitAll": "Emit all",
+            "emitPage": "Emit page",
+            "emitIndividually": "Emit individually"
+          },
+          "prompt": "Select an emit behavior"
         }
       },
       "dynamicMetadata": true
