@@ -3,6 +3,7 @@
 ## Table of Contents
 
 * [Description](#description)
+* [Credentials](#credentials)
 * [Actions](#actions)
    * [Make Raw Request](#make-raw-request)
    * [Lookup Object (at most one)](#lookup-object-at-most-one)
@@ -14,7 +15,14 @@
 
 ## Description
 
-This is an example component with implementations of actions and triggers based off of the [Open Integration Hub (OIH) Standard](https://github.com/elasticio/Connectors/blob/master/Adapters/AdapterBehaviorStandardization/StandardizedActionsAndTriggers.md). In addition to the information provided in this standard and the [elastic.io documentation](https://docs.elastic.io/), the code in this repository is filled with comments explaining how actions, triggers, and other elements of an elastic.io integration component work.
+This is an example component 
+
+## Credentials
+
+Component credentials configuration fields: 
+* **API Base URI**  (string, required) - Indicates what URL base needs to be used
+* **Username**  (string, required)
+* **Password**  (string, required)
 
 ## Actions
 
