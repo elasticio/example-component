@@ -23,7 +23,7 @@
     "integration-test": "npm run pretest && nyc mocha --require ts-node/register \"spec-integration/**/*spec.ts\" --timeout 500000"
   },
   "dependencies": {
-    "axios": "0.24.0",
+    "axios": "0.27.2",
     "elasticio-node": "0.0.9",
     "elasticio-rest-node": "1.2.7",
     "elasticio-sailor-nodejs": "2.6.27"
