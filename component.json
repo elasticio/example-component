@@ -52,7 +52,7 @@
         "objectType": {
           "label": "Object Type",
           "viewClass": "SelectView",
-          "prompt": "Please select the type of object to look up",
+          "prompt": "Please select the type of object to lookup",
           "required": true,
           "model": {
             "products": "Products",
@@ -113,7 +113,7 @@
         "objectType": {
           "label": "Object Type",
           "viewClass": "SelectView",
-          "prompt": "Please select the type of object to look up",
+          "prompt": "Please select the type of object to lookup",
           "required": true,
           "model": {
             "products": "Products",
@@ -143,7 +143,7 @@
         "objectType": {
           "label": "Object Type",
           "viewClass": "SelectView",
-          "prompt": "Please select the type of object to look up",
+          "prompt": "Please select the type of object to lookup",
           "required": true,
           "model": {
             "products": "Products",
