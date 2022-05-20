@@ -2,13 +2,13 @@
 * Rewrite component to `.ts`
 * Component is now used as base for scaffolding tool
 * Actions added: 
- * `Make Raw Request`
- * `Lookup Object (at most one)`
- * `Upsert Object`
- * `Delete Object`
- * `Lookup Objects (plural)`
+ - `Make Raw Request`
+ - `Lookup Object (at most one)`
+ - `Upsert Object`
+ - `Delete Object`
+ - `Lookup Objects (plural)`
 * Triggers added: 
- * `Get New and Updated Objects Polling`
+ - `Get New and Updated Objects Polling`
 
 ## 1.0.0 (May 11, 2020)
 * Update dependencies
