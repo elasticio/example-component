@@ -131,7 +131,10 @@
           "model": "getLookupCriteriaModel"
         }
       },
-      "metadata": "./src/schemas/actions/deleteObject.json"
+      "metadata": {
+        "in": "./src/schemas/actions/deleteObject.in.json",
+        "out": "./src/schemas/actions/deleteObject.out.json"
+      }
     },
     "lookupObjects": {
       "main": "./lib/actions/lookupObjects.js",
@@ -164,6 +167,29 @@
         }
       },
       "dynamicMetadata": true
+    },
+    "lookupObjectById": {
+      "main": "./lib/actions/lookupObjectById.js",
+      "title": "Lookup Object By Id",
+      "help": {
+        "description": "Lookup Object By Id"
+      },
+      "fields": {
+        "objectType": {
+          "label": "Object Type",
+          "viewClass": "SelectView",
+          "prompt": "Please select the type of object to lookup",
+          "required": true,
+          "model": {
+            "products": "Products",
+            "users": "Users"
+          }
+        }
+      },
+      "metadata": {
+        "in": "./src/schemas/actions/lookupObjectById.in.json",
+        "out": "./src/schemas/actions/lookupObjectById.out.json"
+      }
     }
   },
   "triggers": {
