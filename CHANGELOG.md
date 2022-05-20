@@ -1,5 +1,6 @@
 ## 2.0.0 (May 20, 2022)
 * Rewrite component to `.ts`
+* Component is now used as base for scaffolding tool
 * Actions added: 
  * `Make Raw Request`
  * `Lookup Object (at most one)`
