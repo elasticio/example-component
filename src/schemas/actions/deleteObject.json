@@ -1,0 +1,21 @@
+{
+  "in": {
+    "type": "object",
+    "properties": {
+      "lookupCriteriaValue": {
+        "type": "string",
+        "required": true,
+        "title": "Lookup Criteria Value"
+      }
+    }
+  },
+  "out": {
+    "type": "object",
+    "properties": {
+      "result": {
+        "type": "object",
+        "properties": {}
+      }
+    }
+  }
+}

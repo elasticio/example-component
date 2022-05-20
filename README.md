@@ -3,64 +3,116 @@
 ## Table of Contents
 
 * [Description](#description)
-   * [Purpose](#purpose)
-   * [Completeness Matrix](#completeness-matrix)
-   * [How it works](#how-it-works)
-   * [Requirements](#requirements)
-      * [Environment variables](#environment-variables)
-      * [Others](#others)
-* [Credentials](#credentials)
+* [Actions](#actions)
+   * [Make Raw Request](#make-raw-request)
+   * [Lookup Object (at most one)](#lookup-object-at-most-one)
+   * [Upsert Object](#upsert-object)
+   * [Delete Object](#delete-object)
+   * [Lookup Objects (plural)](#lookup-objects-plural)
 * [Triggers](#triggers)
    * [Get New and Updated Objects Polling](#get-new-and-updated-objects-polling)
-* [Actions](#actions)
-   * [Upsert Object by Unique Criteria](#upsert-object-by-unique-criteria)
-   * [Lookup Object (at most 1) by Unique Criteria](#lookup-object-at-most-1-by-unique-criteria)
-   * [Delete Object by Unique Criteria](#delete-object-by-unique-criteria)
-* [Contribution](#contribution)
-* [Additional info](#additional-info)
-* [API and Documentation links](#api-and-documentation-links)
-* [Notes for developers](#notes-for-developers)
-
 
 ## Description
 
 This is an example component with implementations of actions and triggers based off of the [Open Integration Hub (OIH) Standard](https://github.com/elasticio/Connectors/blob/master/Adapters/AdapterBehaviorStandardization/StandardizedActionsAndTriggers.md). In addition to the information provided in this standard and the [elastic.io documentation](https://docs.elastic.io/), the code in this repository is filled with comments explaining how actions, triggers, and other elements of an elastic.io integration component work.
 
+## Actions
 
-### Purpose
+### Make Raw Request
 
-The Example Component is intended to provide a model of elastic.io's integration and development best practices, as a working component implementation at a level of complexity on par with pre-fabricated components available on the platform. For developers seeking to understand more deeply the functioning of elastic.io components, or create components to facilitate integration with APIs not-yet-supported by the platform, the Example Component is the place to start.
+Executes custom request
 
+#### Configuration Fields
 
-### Completeness Matrix
+* **Don't throw error on 404 Response** - (optional, boolean) Treat 404 HTTP responses not as error, defaults to `false`.
 
-![example-component-completeness-matrix](https://user-images.githubusercontent.com/23000904/80265320-750a1480-8697-11ea-8a16-bf6e86754502.png)
+#### Input Metadata
 
-[Example Component Completeness Matrix](https://docs.google.com/spreadsheets/d/1YVLjDEz74fE4pd1OvYz_MaI-tcaEyO0YTmdSpyYn2co/edit?usp=sharing)
+* **Url** - (string, required) Path of the resource relative to the base URL.
+* **Method** - (string, required). HTTP verb to use in the request, one of `GET`, `POST`, `PUT`, `PATCH`, `DELETE`.
+* **Request Body** - (object, optional) Body of the request to send
 
+#### Output Metadata
 
-### How it works
+* **Status Code** - (number, required) HTTP status code of the response, required.
+* **HTTP headers** - (object, required) HTTP headers of the response, required.
+* **Response Body** - (object, optional) HTTP response body.
 
-All of the component's actions and triggers are based off of the OIH Standard, which defines common rules on how an adapter responds to changes and performs actions on generic domain objects, facilitating interoperability between components created by different developers.
+### Lookup Object (at most one)
 
-The API used is the [Example Service](https://github.com/elasticio/example-service), which has a mock dataset and API endpoints created in Express.js. The API is not currently running on a server and must be set up locally with a VPN Agent in order to run calls via the elastic.io platform. More information about the API can be found on the [Example Service github repository](https://github.com/elasticio/example-service).
+Lookup a single object by a selected field that uniquely identifies it.
 
+#### Configuration Fields
 
-### Requirements
+* **Object Type** - (string, required): Object-type to lookup on. E.g `Users`
+* **Lookup Criteria** - (object, required): A list of object parameters that can uniquely identify the object in the database.
+* **Allow criteria to be omitted** - (boolean, optional): If selected field `Lookup Criteria Value` becomes optional.
+* **Allow zero results** - (boolean, optional): When selected, if the object is not found - an empty object will be returned instead of throwing error.
 
-#### Environment variables
+#### Input Metadata
 
-A `.env.example` file is included in this repository with mock user credentials for running integration tests/ Remove the `.example` suffix before use.
+* **Lookup Criteria Value** - (string, required unless `Allow criteria to be omitted` is selected): Value for unique search criteria in `Lookup Criteria` configuration field.
 
-#### Others
+#### Output Metadata
 
-See the above section for other setup requirements.
+`result` object with result of lookup as value.
 
+### Upsert Object
 
-## Credentials
+Updates (of record found) or creates a new object.
 
-Basic authentication credentials (a `username` and `password`) are required to make calls to the example service. Credentials have been provided on the [Example Service API Documentation](https://github.com/elasticio/example-service). 
+#### Configuration Fields
 
+* **Object Type** - (dropdown, required) Object-type to upsert. E.g `Users`
+
+#### Input Metadata
+
+* **ID** - (string, optional) ID of the object to upsert
+And dynamically generated fields according to chosen `Upsert Schema`
+
+#### Output Metadata
+
+Result object from upsert.
+
+### Delete Object
+
+Lookup a single object by a selected field that uniquely identifies it.
+
+#### Configuration Fields
+
+* **Object Type** - (string, required): Object-type to delete. E.g `Users`
+* **Lookup Criteria** - (object, required): A list of object parameters that can uniquely identify the object in the database.
+
+#### Input Metadata
+
+* **Lookup Criteria Value** - (string, required): Value for unique search criteria in `Lookup Criteria` configuration field.
+
+#### Output Metadata
+
+`result` object with result of deletion as value.
+
+### Lookup Objects (plural)
+
+Lookup a set of object by defined criteria list. Can be emitted in different way.
+
+#### Configuration Fields
+
+* **Object Type** - (string, required): Object-type to lookup on. E.g `Users`
+* **Emit Behavior** - (dropdown, required). Defines the way result objects will be emitted, one of `Emit all`, `Emit page` or `Emit individually`
+
+#### Input Metadata
+
+* **Lookup Criteria Value** - (string, required unless `Allow criteria to be omitted` is selected): Value for unique search criteria in `Lookup Criteria` configuration field.
+
+If selected `Emit Behavior` is `Emit page` additionally fields will be added:
+* **Page Number** - (number, defaults to X): Indicates amount of pages to be fetched.
+* **Page Size** (number, defaults to X): Indicates the size of pages to be fetched.
+
+#### Output Metadata
+
+For `Emit All` mode: An object, with key `results` that has an array as its value.
+For `Emit Page` mode: An object with key `results` that has an array as its value (if `Page Size` > 0). Key `totalCountOfMatchingResults` which contains the total number of results (not just on the page) which match the search criteria (if `Page Size` = 0).
+For `Emit Individually` mode: Each object which fill the entire message.
 
 ## Triggers
 
@@ -70,10 +122,10 @@ Retrieve all the updated or created objects within a given time range.
 
 #### Configuration Fields
 
-- Object Type (required): One of the six object types available in the database
-- Start Time: The timestamp, in ISO8601 format, to start polling from (inclusive). Default value is the beginning of time (January 1, 1970 at 00:00.000).
-- End Time: The timestamp, in ISO8601 format, to end at (inclusive). Default value is never.
-- Timestamp field to poll on: Can be either Last Modified or Created dates (updated or new objects, respectively). Defaults to Last Modified.
+* **Object Type** - (string, required): Object-type to lookup on. E.g `Users`
+* **Start Time** - (string, optional): The timestamp, in ISO8601 format, to start polling from (inclusive). Default value is the beginning of time (January 1, 1970 at 00:00.000). 
+* **End Time** - (string, optional): The timestamp, in ISO8601 format, to end at (inclusive). Default value is never. 
+* **Timestamp field to poll on** - (string, optional): Can be either Last Modified or Created dates (updated or new objects, respectively). Defaults to Last Modified.
 
 #### Input/Output Metadata
 
@@ -82,101 +134,3 @@ None.
 #### Limitations
 
 Pagination has not been implemented yet in this trigger. Running a flow will return a single page with all of the results of the query.
-
-
-## Actions
-
-### Upsert Object by Unique Criteria
-
-Given a particular object, either create a new object if the given object (specified by uniquely-identifiable criteria such as an ID) doesn't yet exist in the database, or update the specified properties of the object, if it already exists. 
-
-#### Configuration Fields
-
-- Object Type (required): One of the six object types available in the database.
-- Upsert Criteria (required): A list of object parameters that can uniquely identify the object in the database.
-
-#### Input Metadata
-
-- The unique criteria, which is required unless it's the object ID. The value of this field uniquely identifies the object in the database.
-- Object parameters, some of which may be required for the case that the object must be created.
-
-#### Output Metadata
-
-- The created or updated object, including `lastModified` and `created` timestamps. If the object is being created, a new ID value will be provided in the response.
-
-#### Limitations
-
-All database calls that modify resources are mocked. This means that the resources are not in fact changed, but a successful response will still be returned to the action.
-
-
-### Lookup Object (at most 1) by Unique Criteria
-
-Lookup a single object by a selected field that uniquely identifies it in the database.
-
-#### Configuration Fields
-
-- Object Type (required): One of the six object types available in the database.
-- Lookup Criteria (required): A list of object parameters that can uniquely identify the object in the database.
-- Allow criteria to be omitted: If selected, a value for the object lookup criteria in the input metadata is not required and an empty object is returned by the action.
-- Allow zero results: If selected, if the object is not found an empty object will be returned instead of an error.
-- Wait for object to exist: If selected, if no results are found apply rebounds and wait until the object exists.
-- Linked object to populate: A list of parent and child objects that can be included in the lookup query result.
-
-#### Input Metadata
-
-- The lookup criteria, which is required unless `allow criteria to be omitted` is selected.
-
-#### Output Metadata
-
-- The object being looked up with `lastModified` and `created` timestamps, optionally also with all instances of a linked parent or child object.
-
-#### Limitations
-
-Due to API limitations, only one linked object can be included in the lookup query instead of multiple as specified in the OIH standard.
-
-
-### Delete Object by Unique Criteria
-
-Delete a single object by a selected field that uniquely identifies it in the database.
-
-#### Configuration Fields
-
-- Object Type (required): One of the six object types available in the database.
-- Delete Criteria (required): A list of object parameters that can uniquely identify the object in the database.
-
-#### Input Metadata
-
-- The delete criteria (required).
-
-#### Output Metadata
-
-- The id of the object that was just deleted.
-
-## Contribution
-
-See [CONTRIBUTING.md](https://github.com/elasticio/microsoft-onedrive-component/blob/master/CONTRIBUTING.md) for more information on how you could contribute to development of this component.
-
-
-## Additional info
-
-ESLint is used for all javascript files in the component. A pre-test script for styles will be run upon pushing the component to the elastic.io platform. 
-
-Unit tests have not been written for this component, only integration tests.
-
-
-## API and documentation links
-
-- [Open Integration Hub (OIH) Standard](https://github.com/elasticio/Connectors/blob/master/Adapters/AdapterBehaviorStandardization/StandardizedActionsAndTriggers.md)
-- [Example Service API](https://github.com/elasticio/example-service)
-- [Example Component Completeness Matrix](https://docs.google.com/spreadsheets/d/1YVLjDEz74fE4pd1OvYz_MaI-tcaEyO0YTmdSpyYn2co/edit?usp=sharing) (only visible to elastic.io organization members)
-- [elastic.io documentation](https://docs.elastic.io/)
-
-
-## Notes for developers
-
-- When developing new actions and triggers for this component, make sure to follow the OIH standard as closely as possible. Usually it makes sense to match variable names and use predictable titles with clear descriptions. 
-- Comments in the code are really important. Make sure to explain what each line is doing, how it accomplishes the steps laid out in the OIH standard pseudocode, why certain steps in the standard are (or are not) being taken, and why any departures are being made from the outlined steps.
-- Over the course of writing this component, a number of changes have had to be made to the API to accommodate certain functionalities. Feel free to go into the [example service](https://github.com/elasticio/example-service) and make changes as necessary. At the same time, if it is too troublesome to add certain functionalities (particularly those changes which necessitate modifying JSONServer module files directly), feel free to modify the behaviour of the action/trigger in question. Make sure to provide an explanation in this case and highlight where the code deviates from the standard.
-- There is currently some special 404 error handling the `handleRestResponse` function of the `ExampleClient`. However, it may be determined that this special behaviour is not needed (it isn't being used in any of the actions/triggers implemented as of April 24, 2020), and the `ExampleClient` can be replaced in favour of the [component commons library](https://github.com/elasticio/component-commons-library) `BasicAuthRestClient`.
-- The Get New and Updated Objects polling trigger is not completed, since it does not handle pagination. Although there are some API limitations with this, the current trigger code handles some of these limitations already, so it's totally possible to add pagination on top of this. Feel free to add it in the future.
-- To run flows from the elastic.io platform with the example service on localhost, you will have to set up a VPN/Duplo Agent to tunnel to your local machine. Follow the instructions on the [VPN Agent documentation](https://github.com/elasticio/docs/blob/master/duplo.md) to do this. Make sure to have the agent listen on a local IP that is not the same as the address that the service is running on!
