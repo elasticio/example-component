@@ -1,0 +1,10 @@
+{
+  "type": "object",
+  "properties": {
+    "lookupCriteriaValue": {
+      "type": "string",
+      "required": true,
+      "title": "Lookup Criteria Value"
+    }
+  }
+}

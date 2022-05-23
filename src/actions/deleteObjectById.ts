@@ -2,7 +2,7 @@ import { messages } from 'elasticio-node';
 import Client from '../client';
 
 export async function processAction(msg: any, cfg: any) {
-  this.logger.info('"Lookup Object By ID" action started');
+  this.logger.info('"Delete Object By ID" action started');
   const client = new Client(this, cfg);
   const { objectType } = cfg;
   const { idValue } = msg.body;
@@ -12,10 +12,10 @@ export async function processAction(msg: any, cfg: any) {
 
   const url = `/${objectType}/${idValue}`;
   const { data } = await client.apiRequest({
-    method: 'GET',
+    method: 'DELETE',
     url,
   });
-  this.logger.info('"Lookup Object By ID" action is done, emitting...');
+  this.logger.info('"Delete Object By ID" action is done, emitting...');
   return messages.newMessageWithBody({ result: data });
 }
 
