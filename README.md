@@ -10,6 +10,8 @@
    * [Upsert Object](#upsert-object)
    * [Delete Object](#delete-object)
    * [Lookup Objects (plural)](#lookup-objects-plural)
+   * [Lookup Object By ID](#lookup-object-by-id)
+   * [Delete Object By ID](#delete-object-by-id)
 * [Triggers](#triggers)
    * [Get New and Updated Objects Polling](#get-new-and-updated-objects-polling)
 
@@ -121,6 +123,38 @@ If selected `Emit Behavior` is `Emit page` additionally fields will be added:
 For `Emit All` mode: An object, with key `results` that has an array as its value.
 For `Emit Page` mode: An object with key `results` that has an array as its value (if `Page Size` > 0). Key `totalCountOfMatchingResults` which contains the total number of results (not just on the page) which match the search criteria (if `Page Size` = 0).
 For `Emit Individually` mode: Each object which fill the entire message.
+
+### Lookup Object By ID
+
+Lookup a single object by its ID.
+
+#### Configuration Fields
+
+* **Object Type** - (string, required): Object-type to lookup on. E.g `Users`
+
+#### Input Metadata
+
+* **ID Value** - (string, required): Value for ID of the object to lookup.
+
+#### Output Metadata
+
+`result` object with result of lookup as value.
+
+### Delete Object By ID
+
+Delete a single object by its ID.
+
+#### Configuration Fields
+
+* **Object Type** - (string, required): Object-type to lookup on. E.g `Users`
+
+#### Input Metadata
+
+* **ID Value** - (string, required): Value for ID of the object to delete.
+
+#### Output Metadata
+
+`result` object with result of delete.
 
 ## Triggers
 
