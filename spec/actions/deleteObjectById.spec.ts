@@ -76,7 +76,7 @@ describe('deleteObjectById action', () => {
       expect(execRequest.callCount).to.be.equal(1);
       expect(execRequest.getCall(0).args[0]).to.be.deep.equal({
         method: 'DELETE',
-        url: `/${cfg.objectType}${msg.body.idValue}`
+        url: `/${cfg.objectType}/${msg.body.idValue}`
       });
     });
   });
