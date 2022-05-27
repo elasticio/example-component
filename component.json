@@ -217,7 +217,7 @@
   },
   "triggers": {
     "getNewAndUpdatedObjectsPolling": {
-      "main": "./lib/triggers/getNewAndUpdatedObjectsPolling.js",
+      "main": "./src/triggers/getNewAndUpdatedObjectsPolling.js",
       "title": "Get New and Updated Objects Polling",
       "help": {
         "description": "Poll for new and/or updated objects",
