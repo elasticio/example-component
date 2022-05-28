@@ -1,12 +1,11 @@
 /* eslint-disable no-prototype-builtins */
 import chai, { expect } from 'chai';
 import sinon from 'sinon';
-import chaiAsPromised from 'chai-as-promised';
 import { getContext, StatusCodeError } from '../common';
 import ExampleClient from '../../src/client';
 import { processAction, getMetaModel } from '../../src/actions/lookupObjects';
 
-chai.use(chaiAsPromised);
+chai.use(require('chai-as-promised'));
 
 const fakeResponse = { data: [1, 2, 3, 4, 5, 6, 7, 8, 9] };
 

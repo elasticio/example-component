@@ -1,11 +1,10 @@
 import chai, { expect } from 'chai';
 import sinon from 'sinon';
-import chaiAsPromised from 'chai-as-promised';
 import { getContext, StatusCodeError } from '../common';
 import ExampleClient from '../../src/client';
 import { processAction } from '../../src/actions/upsertObject';
 
-chai.use(chaiAsPromised);
+chai.use(require('chai-as-promised'));
 
 const fakeResponse = { data: { resultKey: 'resultValue' } };
 const upsertMsgBody = { email: 'email', gender: 'm' };

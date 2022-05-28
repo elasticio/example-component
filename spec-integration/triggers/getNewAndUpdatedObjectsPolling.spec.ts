@@ -1,8 +1,7 @@
-import chai from 'chai';
+import chai, { expect } from 'chai';
 import { processTrigger } from '../../src/triggers/getNewAndUpdatedObjectsPolling';
 import { getContext, creds } from '../common';
 
-const { expect } = chai;
 chai.use(require('chai-as-promised'));
 
 describe('Get New and Updated Objects Polling integration tests', () => {

@@ -219,6 +219,7 @@
     "getNewAndUpdatedObjectsPolling": {
       "main": "./src/triggers/getNewAndUpdatedObjectsPolling.js",
       "title": "Get New and Updated Objects Polling",
+      "type": "polling",
       "help": {
         "description": "Poll for new and/or updated objects",
         "link": "/components/example-component/triggers#get-new-and-updated-objects-polling"
