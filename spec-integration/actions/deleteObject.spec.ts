@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { processAction } from '../../src/actions/deleteObject';
 import { getContext, creds } from '../common';
+import { processAction } from '../../src/actions/deleteObject';
 
 describe('deleteObject', () => {
   it('should deleteObject', async () => {
