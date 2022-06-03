@@ -1,6 +1,6 @@
 import chai, { expect } from 'chai';
-import { processTrigger } from '../../src/triggers/getNewAndUpdatedObjectsPolling';
 import { getContext, creds } from '../common';
+import { processTrigger } from '../../src/triggers/getNewAndUpdatedObjectsPolling';
 
 chai.use(require('chai-as-promised'));
 

@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { processAction } from '../../src/actions/upsertObject';
 import { getContext, creds } from '../common';
+import { processAction } from '../../src/actions/upsertObject';
 
 const upsertMsgBody = { email: 'email', gender: 'm' };
 
