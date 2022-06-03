@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { processAction } from '../../src/actions/lookupObjects';
 import { getContext, creds } from '../common';
+import { processAction } from '../../src/actions/lookupObjects';
 
 describe('lookupObjects', () => {
   it('should lookupObjects', async () => {
