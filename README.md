@@ -10,7 +10,7 @@
    * [Upsert Object](#upsert-object)
    * [Delete Object](#delete-object)
    * [Lookup Objects (plural)](#lookup-objects-plural)
-   * [Lookup Object By ID](#lookup-object-by-id)
+   * [Lookup Object (at most one)](#lookup-object-at-most-one)
    * [Delete Object By ID](#delete-object-by-id)
 * [Triggers](#triggers)
    * [Get New and Updated Objects Polling](#get-new-and-updated-objects-polling)
@@ -47,25 +47,6 @@ Executes custom request
 * **Status Code** - (number, required) HTTP status code of the response, required.
 * **HTTP headers** - (object, required) HTTP headers of the response, required.
 * **Response Body** - (object, optional) HTTP response body.
-
-### Lookup Object (at most one)
-
-Lookup a single object by a selected field that uniquely identifies it.
-
-#### Configuration Fields
-
-* **Object Type** - (string, required): Object-type to lookup on. E.g `Users`
-* **Lookup Criteria** - (object, required): A list of object parameters that can uniquely identify the object in the database.
-* **Allow criteria to be omitted** - (boolean, optional): If selected field `Lookup Criteria Value` becomes optional.
-* **Allow zero results** - (boolean, optional): When selected, if the object is not found - an empty object will be returned instead of throwing error.
-
-#### Input Metadata
-
-* **Lookup Criteria Value** - (string, required unless `Allow criteria to be omitted` is selected): Value for unique search criteria in `Lookup Criteria` configuration field.
-
-#### Output Metadata
-
-`result` object with result of lookup as value.
 
 ### Upsert Object
 
@@ -123,6 +104,25 @@ If selected `Emit Behavior` is `Emit page` additionally fields will be added:
 For `Emit All` mode: An object, with key `results` that has an array as its value.
 For `Emit Page` mode: An object with key `results` that has an array as its value (if `Page Size` > 0). Key `totalCountOfMatchingResults` which contains the total number of results (not just on the page) which match the search criteria (if `Page Size` = 0).
 For `Emit Individually` mode: Each object which fill the entire message.
+
+### Lookup Object (at most one)
+
+Lookup a single object by a selected field that uniquely identifies it.
+
+#### Configuration Fields
+
+* **Object Type** - (string, required): Object-type to lookup on. E.g `Users`
+* **Lookup Criteria** - (object, required): A list of object parameters that can uniquely identify the object in the database.
+* **Allow criteria to be omitted** - (boolean, optional): If selected field `Lookup Criteria Value` becomes optional.
+* **Allow zero results** - (boolean, optional): When selected, if the object is not found - an empty object will be returned instead of throwing error.
+
+#### Input Metadata
+
+* **Lookup Criteria Value** - (string, required unless `Allow criteria to be omitted` is selected): Value for unique search criteria in `Lookup Criteria` configuration field.
+
+#### Output Metadata
+
+`result` object with result of lookup as value.
 
 ### Lookup Object By ID
 
