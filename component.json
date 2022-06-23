@@ -29,7 +29,7 @@
       "title": "Make Raw Request",
       "help": {
         "description": "Manually construct a request to send to the server.",
-        "link": "/components/example-component/#make-raw-request"
+        "link": "/example-component/#make-raw-request"
       },
       "fields": {
         "doNotThrow404": {
@@ -48,7 +48,7 @@
       "title": "Lookup object (at most one)",
       "help": {
         "description": "Lookup Object by Unique Criteria",
-        "link": "/components/example-component/#lookup-object-at-most-one"
+        "link": "/example-component/#lookup-object-at-most-one"
       },
       "fields": {
         "objectType": {
@@ -91,7 +91,7 @@
       "title": "Upsert Object",
       "help": {
         "description": "Upsert Object",
-        "link": "/components/example-component/#upsert-object"
+        "link": "/example-component/#upsert-object"
       },
       "fields": {
         "objectType": {
@@ -111,7 +111,7 @@
       "title": "Delete Object",
       "help": {
         "description": "Delete Object",
-        "link": "/components/example-component/#delete-object"
+        "link": "/example-component/#delete-object"
       },
       "fields": {
         "objectType": {
@@ -145,7 +145,7 @@
       "title": "Lookup Objects (plural)",
       "help": {
         "description": "Lookup Objects (plural)",
-        "link": "/components/example-component/#lookup-objects-plural"
+        "link": "/example-component/#lookup-objects-plural"
       },
       "fields": {
         "objectType": {
@@ -178,7 +178,7 @@
       "title": "Lookup Object By ID",
       "help": {
         "description": "Lookup Object By ID",
-        "link": "/components/example-component/#lookup-object-by-id"
+        "link": "/example-component/#lookup-object-by-id"
       },
       "fields": {
         "objectType": {
@@ -202,7 +202,7 @@
       "title": "Delete Object By ID",
       "help": {
         "description": "Delete Object By ID",
-        "link": "/components/example-component/#delete-object-by-id"
+        "link": "/example-component/#delete-object-by-id"
       },
       "fields": {
         "objectType": {
@@ -229,7 +229,7 @@
       "type": "polling",
       "help": {
         "description": "Poll for new and/or updated objects",
-        "link": "/components/example-component/#get-new-and-updated-objects-polling"
+        "link": "/example-component/#get-new-and-updated-objects-polling"
       },
       "fields": {
         "objectType": {
