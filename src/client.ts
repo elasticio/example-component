@@ -9,6 +9,12 @@ export const sleep = async (ms: number) => new Promise((resolve) => {
   setTimeout(resolve, ms);
 });
 
+const getErrMsg = (errResponse = {}) => {
+  // @ts-ignore
+  const { statusText = 'unknown', status = 'unknown', data = 'no body found' } = errResponse;
+  return `Got error "${statusText}", status - "${status}", body: ${JSON.stringify(data)}`;
+};
+
 export default class Client {
   private logger: any;
 
@@ -32,7 +38,7 @@ export default class Client {
       } catch (err) {
         this.logger.debug('Error to JSON: ', err.toJSON());
         this.logger.debug('Error message: ', err.message);
-        this.logger.error(`Got error "${err.response?.statusText}", status - "${err.response?.status}", body: "${JSON.stringify(err.response?.data) || 'no body found'}"`);
+        this.logger.error(getErrMsg(err.response));
         this.logger.info(`Request failed, retrying (${1 + currentRetry})`);
         await sleep(RETRY_DELAY);
         currentRetry++;
