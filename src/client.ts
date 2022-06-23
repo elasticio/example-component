@@ -30,8 +30,8 @@ export default class Client {
           validateStatus: (status) => status < 500
         });
       } catch (err) {
-        this.logger.debug('Error to JSON', err.toJSON());
-        this.logger.debug('Error message', err.message);
+        this.logger.debug('Error to JSON: ', err.toJSON());
+        this.logger.debug('Error message: ', err.message);
         this.logger.error(`Got error "${err.response?.statusText}", status - ${err.response?.status}, body: ${JSON.stringify(err.response?.data)}`);
         this.logger.info(`Request failed, retrying (${1 + currentRetry})`);
         await sleep(RETRY_DELAY);
