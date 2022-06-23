@@ -1,20 +1,11 @@
 import { messages } from 'elasticio-node';
-import Client, { getErrMsg } from '../client';
+import Client from '../client';
 
 export async function processAction(msg, cfg) {
   this.logger.info('"Make Raw Request" action started');
   const client = new Client(this, cfg);
   const { url, method, data } = msg.body;
-  let response;
-  try {
-    response = await client.apiRequest({ url, method, data });
-  } catch (err) {
-    if (!err.response) throw err;
-    if (err.response.status === 404 && cfg.doNotThrow404) {
-      return messages.newMessageWithBody({ statusCode: 404 });
-    }
-    throw new Error(getErrMsg(err.response));
-  }
+  const response = await client.apiRequest({ url, method, data });
   this.logger.info('request is done, emitting...');
   return messages.newMessageWithBody({
     statusCode: response.status,

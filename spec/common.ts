@@ -1,6 +1,6 @@
 /* eslint-disable import/first */
-process.env.LOG_LEVEL = 'TRACE';
 process.env.LOG_OUTPUT_MODE = 'short';
+process.env.API_RETRY_DELAY = '0';
 import getLogger from '@elastic.io/component-logger';
 import sinon from 'sinon';
 
