@@ -9,10 +9,10 @@ export async function processAction(msg, cfg) {
   try {
     response = await client.apiRequest({ url, method, data });
   } catch (err) {
-    if (err.response.status === 404 && cfg.doNotThrow404) {
+    if (err.response?.status === 404 && cfg.doNotThrow404) {
       return messages.newMessageWithBody({ statusCode: 404 });
     }
-    throw new Error(`Got error "${err.response.statusText}", status "${err.response.status}, body: "${JSON.stringify(err.response.data)}"`);
+    throw new Error(`Got error "${err.response?.statusText}", status "${err.response?.status}, body: "${JSON.stringify(err.response?.data)}"`);
   }
   this.logger.info('request is done, emitting...');
   return messages.newMessageWithBody({
