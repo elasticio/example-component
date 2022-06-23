@@ -9,7 +9,6 @@ export async function processAction(msg, cfg) {
   try {
     response = await client.apiRequest({ url, method, data });
   } catch (err) {
-    this.logger.error(`Got error "${err.response.statusText}", status - ${err.response.status}, body: ${JSON.stringify(err.response.data)}`);
     if (err.response.status === 404 && cfg.doNotThrow404) {
       return messages.newMessageWithBody({ statusCode: 404 });
     }
