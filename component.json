@@ -28,12 +28,13 @@
       "main": "./src/actions/rawRequest.js",
       "title": "Make Raw Request",
       "help": {
-        "description": "Manually construct a request to send to the server."
+        "description": "Manually construct a request to send to the server.",
+        "link": "/example-component/#make-raw-request"
       },
       "fields": {
-        "throw404": {
+        "doNotThrow404": {
           "type": "boolean",
-          "label": "Throw error on 404 Response",
+          "label": "Don't throw error on 404 Response",
           "viewClass": "TextFieldView"
         }
       },
@@ -44,9 +45,10 @@
     },
     "lookupObject": {
       "main": "./lib/actions/lookupObject.js",
-      "title": "Lookup Object by Unique Criteria",
+      "title": "Lookup object (at most one)",
       "help": {
-        "description": "Lookup an object (at most one)"
+        "description": "Lookup Object by Unique Criteria",
+        "link": "/example-component/#lookup-object-at-most-one"
       },
       "fields": {
         "objectType": {
@@ -88,7 +90,8 @@
       "main": "./src/actions/upsertObject.js",
       "title": "Upsert Object",
       "help": {
-        "description": "Upsert Object"
+        "description": "Upsert Object",
+        "link": "/example-component/#upsert-object"
       },
       "fields": {
         "objectType": {
@@ -107,7 +110,8 @@
       "main": "./lib/actions/deleteObject.js",
       "title": "Delete Object",
       "help": {
-        "description": "Delete Object"
+        "description": "Delete Object",
+        "link": "/example-component/#delete-object"
       },
       "fields": {
         "objectType": {
@@ -140,7 +144,8 @@
       "main": "./lib/actions/lookupObjects.js",
       "title": "Lookup Objects (plural)",
       "help": {
-        "description": "Lookup Objects (plural)"
+        "description": "Lookup Objects (plural)",
+        "link": "/example-component/#lookup-objects-plural"
       },
       "fields": {
         "objectType": {
@@ -172,7 +177,8 @@
       "main": "./lib/actions/lookupObjectById.js",
       "title": "Lookup Object By ID",
       "help": {
-        "description": "Lookup Object By ID"
+        "description": "Lookup Object By ID",
+        "link": "/example-component/#lookup-object-by-id"
       },
       "fields": {
         "objectType": {
@@ -195,7 +201,8 @@
       "main": "./lib/actions/deleteObjectById.js",
       "title": "Delete Object By ID",
       "help": {
-        "description": "Delete Object By ID"
+        "description": "Delete Object By ID",
+        "link": "/example-component/#delete-object-by-id"
       },
       "fields": {
         "objectType": {
@@ -222,7 +229,7 @@
       "type": "polling",
       "help": {
         "description": "Poll for new and/or updated objects",
-        "link": "/components/example-component/triggers#get-new-and-updated-objects-polling"
+        "link": "/example-component/#get-new-and-updated-objects-polling"
       },
       "fields": {
         "objectType": {

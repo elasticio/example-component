@@ -22,7 +22,7 @@ describe('rawRequest action', () => {
       sinon.restore();
     });
     it('should make get request', async () => {
-      const cfg = { throw404: false };
+      const cfg = {};
       const msg = { body: { method: 'POST', url: '/example' } };
       const { body } = await processAction.call(getContext(), msg, cfg);
       expect(execRequest.callCount).to.be.equal(1);
@@ -46,6 +46,7 @@ describe('rawRequest action', () => {
       await expect(processAction.call(getContext(), msg, cfg)).to.be.rejectedWith('StatusCodeError');
       expect(execRequest.callCount).to.be.equal(1);
       expect(execRequest.getCall(0).args[0]).to.be.deep.equal({
+        data: undefined,
         method: 'POST',
         url: `/example`
       });
