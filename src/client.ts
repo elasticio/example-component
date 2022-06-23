@@ -9,7 +9,7 @@ export const sleep = async (ms: number) => new Promise((resolve) => {
   setTimeout(resolve, ms);
 });
 
-const getErrMsg = (errResponse = {}) => {
+export const getErrMsg = (errResponse = {}) => {
   // @ts-ignore
   const { statusText = 'unknown', status = 'unknown', data = 'no body found' } = errResponse;
   return `Got error "${statusText}", status - "${status}", body: ${JSON.stringify(data)}`;

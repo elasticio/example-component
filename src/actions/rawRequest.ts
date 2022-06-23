@@ -1,5 +1,5 @@
 import { messages } from 'elasticio-node';
-import Client from '../client';
+import Client, { getErrMsg } from '../client';
 
 export async function processAction(msg, cfg) {
   this.logger.info('"Make Raw Request" action started');
@@ -13,7 +13,7 @@ export async function processAction(msg, cfg) {
     if (err.response.status === 404 && cfg.doNotThrow404) {
       return messages.newMessageWithBody({ statusCode: 404 });
     }
-    throw new Error(`Got error "${err.response.statusText}", status "${err.response.status}, body: "${JSON.stringify(err.response.data)}"`);
+    throw new Error(getErrMsg(err.response));
   }
   this.logger.info('request is done, emitting...');
   return messages.newMessageWithBody({
