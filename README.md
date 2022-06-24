@@ -88,16 +88,16 @@ Lookup a set of object by defined criteria list. Can be emitted in different way
 
 #### Configuration Fields
 
-* **Object Type** - (string, required): Object-type to lookup on. E.g `Users`
-* **Emit Behavior** - (dropdown, required). Defines the way result objects will be emitted, one of `Emit all`, `Emit page` or `Emit individually`
+* **Object Type** - (string, required): Object-type to lookup on. E.g `Users`.
+* **Emit Behavior** - (dropdown, required): Defines the way result objects will be emitted, one of `Emit all`, `Emit page` or `Emit individually`.
 
 #### Input Metadata
 
-* **Lookup Criteria Value** - (string, required unless `Allow criteria to be omitted` is selected): Value for unique search criteria in `Lookup Criteria` configuration field.
+* **Lookup Criteria Value** - (string, required): Search terms as array of strings. Search terms are to be combined with the AND operator, E.g: `["userAge>29", "userName=Alex"]`
 
 If selected `Emit Behavior` is `Emit page` additionally fields will be added:
 * **Page Number** - (number, defaults to X): Indicates amount of pages to be fetched.
-* **Page Size** (number, defaults to X): Indicates the size of pages to be fetched.
+* **Page Size** - (number, defaults to X): Indicates the size of pages to be fetched.
 
 #### Output Metadata
 
