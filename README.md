@@ -10,7 +10,7 @@
    * [Upsert Object](#upsert-object)
    * [Delete Object](#delete-object)
    * [Lookup Objects (plural)](#lookup-objects-plural)
-   * [Lookup Object (at most one)](#lookup-object-at-most-one)
+   * [Lookup Object By ID](#lookup-object-by-id)
    * [Delete Object By ID](#delete-object-by-id)
 * [Triggers](#triggers)
    * [Get New and Updated Objects Polling](#get-new-and-updated-objects-polling)
@@ -30,23 +30,23 @@ Component credentials configuration fields:
 
 ### Make Raw Request
 
-Executes custom request
+Executes custom request.
 
 #### Configuration Fields
 
-* **Don't throw error on 404 Response** - (optional, boolean) Treat 404 HTTP responses not as error, defaults to `false`.
+* **Don't throw error on 404 Response** - (optional, boolean): Treat 404 HTTP responses not as error, defaults to `false`.
 
 #### Input Metadata
 
-* **Url** - (string, required) Path of the resource relative to the base URL.
-* **Method** - (string, required). HTTP verb to use in the request, one of `GET`, `POST`, `PUT`, `PATCH`, `DELETE`.
-* **Request Body** - (object, optional) Body of the request to send
+* **Url** - (string, required): Path of the resource relative to the base URL.
+* **Method** - (string, required): HTTP verb to use in the request, one of `GET`, `POST`, `PUT`, `PATCH`, `DELETE`.
+* **Request Body** - (object, optional): Body of the request to send.
 
 #### Output Metadata
 
-* **Status Code** - (number, required) HTTP status code of the response, required.
-* **HTTP headers** - (object, required) HTTP headers of the response, required.
-* **Response Body** - (object, optional) HTTP response body.
+* **Status Code** - (number, required): HTTP status code of the response.
+* **HTTP headers** - (object, required): HTTP headers of the response.
+* **Response Body** - (object, optional): HTTP response body.
 
 ### Upsert Object
 
@@ -54,12 +54,12 @@ Updates (of record found) or creates a new object.
 
 #### Configuration Fields
 
-* **Object Type** - (dropdown, required) Object-type to upsert. E.g `Users`
+* **Object Type** - (dropdown, required): Object-type to upsert. E.g `Users`.
 
 #### Input Metadata
 
-* **ID** - (string, optional) ID of the object to upsert
-And dynamically generated fields according to chosen `Upsert Schema`
+* **ID** - (string, optional): ID of the object to upsert.
+And dynamically generated fields according to chosen `Upsert Schema`.
 
 #### Output Metadata
 
@@ -71,7 +71,7 @@ Lookup a single object by a selected field that uniquely identifies it.
 
 #### Configuration Fields
 
-* **Object Type** - (string, required): Object-type to delete. E.g `Users`
+* **Object Type** - (string, required): Object-type to delete. E.g `Users`.
 * **Lookup Criteria** - (object, required): A list of object parameters that can uniquely identify the object in the database.
 
 #### Input Metadata
@@ -111,7 +111,7 @@ Lookup a single object by a selected field that uniquely identifies it.
 
 #### Configuration Fields
 
-* **Object Type** - (string, required): Object-type to lookup on. E.g `Users`
+* **Object Type** - (string, required): Object-type to lookup on. E.g `Users`.
 * **Lookup Criteria** - (object, required): A list of object parameters that can uniquely identify the object in the database.
 * **Allow criteria to be omitted** - (boolean, optional): If selected field `Lookup Criteria Value` becomes optional.
 * **Allow zero results** - (boolean, optional): When selected, if the object is not found - an empty object will be returned instead of throwing error.
@@ -130,7 +130,7 @@ Lookup a single object by its ID.
 
 #### Configuration Fields
 
-* **Object Type** - (string, required): Object-type to lookup on. E.g `Users`
+* **Object Type** - (string, required): Object-type to lookup on. E.g `Users`.
 
 #### Input Metadata
 
@@ -146,7 +146,7 @@ Delete a single object by its ID.
 
 #### Configuration Fields
 
-* **Object Type** - (string, required): Object-type to lookup on. E.g `Users`
+* **Object Type** - (string, required): Object-type to lookup on. E.g `Users`.
 
 #### Input Metadata
 
@@ -164,7 +164,7 @@ Retrieve all the updated or created objects within a given time range.
 
 #### Configuration Fields
 
-* **Object Type** - (string, required): Object-type to lookup on. E.g `Users`
+* **Object Type** - (string, required): Object-type to lookup on. E.g `Users`.
 * **Start Time** - (string, optional): The timestamp, in ISO8601 format, to start polling from (inclusive). Default value is the beginning of time (January 1, 1970 at 00:00.000). 
 * **End Time** - (string, optional): The timestamp, in ISO8601 format, to end at (inclusive). Default value is never. 
 * **Timestamp field to poll on** - (string, optional): Can be either Last Modified or Created dates (updated or new objects, respectively). Defaults to Last Modified.
