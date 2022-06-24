@@ -93,11 +93,11 @@ Lookup a set of object by defined criteria list. Can be emitted in different way
 
 #### Input Metadata
 
-* **Lookup Criteria Value** - (string, required unless `Allow criteria to be omitted` is selected): Value for unique search criteria in `Lookup Criteria` configuration field.
+* **Search Criteria** - (array of strings, required): Search terms to be combined with the AND operator, E.g: `["userAge>29", "userName=Alex"]`
 
 If selected `Emit Behavior` is `Emit page` additionally fields will be added:
 * **Page Number** - (number, defaults to X): Indicates amount of pages to be fetched.
-* **Page Size** (number, defaults to X): Indicates the size of pages to be fetched.
+* **Page Size** - (number, defaults to X): Indicates the size of pages to be fetched.
 
 #### Output Metadata
 
