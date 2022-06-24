@@ -76,7 +76,7 @@ Lookup a single object by a selected field that uniquely identifies it.
 
 #### Input Metadata
 
-* **Lookup Criteria Value** - (string, required): Value for unique search criteria in `Lookup Criteria` configuration field.
+* **Lookup Criteria Value** - (string, required): Search terms as array of strings. Search terms are to be combined with the AND operator, E.g: `["userAge>29", "userName=Alex"]`
 
 #### Output Metadata
 
@@ -93,11 +93,11 @@ Lookup a set of object by defined criteria list. Can be emitted in different way
 
 #### Input Metadata
 
-* **Lookup Criteria Value** - (string, required unless `Allow criteria to be omitted` is selected): Value for unique search criteria in `Lookup Criteria` configuration field.
+* **Lookup Criteria Value** - (array of strings, required): Value for unique search criteria in `Lookup Criteria` configuration field.
 
 If selected `Emit Behavior` is `Emit page` additionally fields will be added:
 * **Page Number** - (number, defaults to X): Indicates amount of pages to be fetched.
-* **Page Size** (number, defaults to X): Indicates the size of pages to be fetched.
+* **Page Size** - (number, defaults to X): Indicates the size of pages to be fetched.
 
 #### Output Metadata
 
