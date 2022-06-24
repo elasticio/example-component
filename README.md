@@ -93,7 +93,7 @@ Lookup a set of object by defined criteria list. Can be emitted in different way
 
 #### Input Metadata
 
-* **Search Criteria** - (array of strings, required): Search terms as array of strings. Search terms are to be combined with the AND operator, E.g: `["userAge>29", "userName=Alex"]`
+* **Search Criteria** - (array of strings, required): Search terms are to be combined with the AND operator, E.g: `["userAge>29", "userName=Alex"]`
 
 If selected `Emit Behavior` is `Emit page` additionally fields will be added:
 * **Page Number** - (number, defaults to X): Indicates amount of pages to be fetched.
