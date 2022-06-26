@@ -43,7 +43,7 @@
       }
     },
     "lookupObject": {
-      "main": "./lib/actions/lookupObject.js",
+      "main": "./src/actions/lookupObject.js",
       "title": "Lookup object (at most one)",
       "help": {
         "description": "Lookup Object by Unique Criteria",
@@ -106,7 +106,7 @@
       "dynamicMetadata": true
     },
     "deleteObject": {
-      "main": "./lib/actions/deleteObject.js",
+      "main": "./src/actions/deleteObject.js",
       "title": "Delete Object",
       "help": {
         "description": "Delete Object",
@@ -140,7 +140,7 @@
       }
     },
     "lookupObjects": {
-      "main": "./lib/actions/lookupObjects.js",
+      "main": "./src/actions/lookupObjects.js",
       "title": "Lookup Objects (plural)",
       "help": {
         "description": "Lookup Objects (plural)",
@@ -173,7 +173,7 @@
       "dynamicMetadata": true
     },
     "lookupObjectById": {
-      "main": "./lib/actions/lookupObjectById.js",
+      "main": "./src/actions/lookupObjectById.js",
       "title": "Lookup Object By ID",
       "help": {
         "description": "Lookup Object By ID",
@@ -197,7 +197,7 @@
       }
     },
     "deleteObjectById": {
-      "main": "./lib/actions/deleteObjectById.js",
+      "main": "./src/actions/deleteObjectById.js",
       "title": "Delete Object By ID",
       "help": {
         "description": "Delete Object By ID",
