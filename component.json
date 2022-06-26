@@ -33,9 +33,8 @@
       },
       "fields": {
         "doNotThrow404": {
-          "type": "boolean",
           "label": "Don't throw error on 404 Response",
-          "viewClass": "TextFieldView"
+          "viewClass": "CheckBoxView"
         }
       },
       "metadata": {
