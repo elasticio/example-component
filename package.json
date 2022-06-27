@@ -26,7 +26,7 @@
     "axios": "0.27.2",
     "elasticio-node": "0.0.9",
     "elasticio-rest-node": "1.2.7",
-    "elasticio-sailor-nodejs": "2.6.27"
+    "elasticio-sailor-nodejs": "2.6.28"
   },
   "devDependencies": {
     "@elastic.io/component-logger": "0.0.1",
