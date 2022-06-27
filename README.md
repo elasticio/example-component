@@ -18,7 +18,7 @@
 
 ## Description
 
-[elastic.io](http://www.elastic.io) iPaaS component that connects to [ API]()
+[elastic.io](http://www.elastic.io) iPaaS component that connects to [ API]().
 
 ## Environment variables
 Name|Mandatory|Description|Values|
@@ -30,7 +30,7 @@ Name|Mandatory|Description|Values|
 ## Credentials
 
 Component credentials configuration fields: 
-* **API Base URI**  (string, required) - Indicates what URL base needs to be used
+* **API Base URI**  (string, required) - Indicates what URL base needs to be used.
 * **Username**  (string, required)
 * **Password**  (string, required)
 
