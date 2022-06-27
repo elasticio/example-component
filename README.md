@@ -3,6 +3,7 @@
 ## Table of Contents
 
 * [Description](#description)
+* [Environment variables](#environment-variables)
 * [Credentials](#credentials)
 * [Actions](#actions)
    * [Make Raw Request](#make-raw-request)
@@ -17,7 +18,14 @@
 
 ## Description
 
-This is an example component 
+[elastic.io](http://www.elastic.io) iPaaS component that connects to [ API]()
+
+## Environment variables
+Name|Mandatory|Description|Values|
+|----|---------|-----------|------|
+|`API_RETRIES_COUNT`| false | Set how many time system try to make request to API on errors (3 by default) | any `integer` above 0|
+|`API_RETRY_DELAY`| false | Delay between retry attempts in milliseconds (10000 by default) | any `integer` above 0|
+|`API_REQUEST_TIMEOUT`| false | HTTP requests timeout in milliseconds (15000 by default) | any `integer` above 0|
 
 ## Credentials
 
