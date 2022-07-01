@@ -43,7 +43,6 @@ export default class Client {
         if (err.response?.status < 500) {
           throw new Error(getErrMsg(err.response));
         }
-        this.logger.debug('Error to JSON: ', err.toJSON());
         this.logger.debug('Error message: ', err.message);
         this.logger.error(getErrMsg(err.response));
         this.logger.info(`Request failed, retrying (${1 + currentRetry})`);
