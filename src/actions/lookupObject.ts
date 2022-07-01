@@ -22,7 +22,7 @@ export async function processAction(msg: any, cfg: any) {
     })).data;
   } catch (error) {
     if (error.response?.status === 404) {
-      console.log('Request failed with 404, continue...');
+      this.logger.info('Request failed with 404, continue...');
     } else {
       throw error;
     }

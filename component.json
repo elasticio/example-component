@@ -64,7 +64,8 @@
           "label": "Lookup Criteria",
           "prompt": "Please select the unique field with which you want to lookup the object",
           "viewClass": "SelectView",
-          "required": [
+          "required": true,
+          "require": [
             "objectType"
           ],
           "order": 5,
@@ -127,7 +128,8 @@
           "label": "Lookup Criteria",
           "prompt": "Please select the unique field with which you want to lookup the object",
           "viewClass": "SelectView",
-          "required": [
+          "required": true,
+          "require": [
             "objectType"
           ],
           "order": 5,
