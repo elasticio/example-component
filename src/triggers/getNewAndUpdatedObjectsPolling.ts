@@ -16,6 +16,8 @@ export async function processTrigger(msg, cfg, snapshot = {
   const pollingStartTime = new Date(snapshot.startTime || startTime || 0);
   const pollingEndTime = new Date(endTime || 8640000000000000);
 
+  if (pollingStartTime.getTime() > pollingEndTime.getTime()) throw new Error('"Start Time" can\'t be grater then "End Time"!');
+
   this.logger.info(`Will poll for changes between ${pollingStartTime.toISOString()} and ${pollingEndTime.toISOString()} ...`);
 
   const queryString = `${encodeURIComponent(objectType)}?_sort=${pollConfig}&_order=asc`;
