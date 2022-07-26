@@ -97,6 +97,7 @@
       "fields": {
         "objectType": {
           "viewClass": "SelectView",
+          "order": 10,
           "required": true,
           "label": "Object type",
           "prompt": "Select an Object Type",
@@ -120,6 +121,7 @@
           "viewClass": "SelectView",
           "prompt": "Please select the type of object to lookup",
           "required": true,
+          "order": 10,
           "model": {
             "products": "Products",
             "users": "Users"
@@ -155,6 +157,7 @@
           "viewClass": "SelectView",
           "prompt": "Please select the type of object to lookup",
           "required": true,
+          "order": 10,
           "model": {
             "products": "Products",
             "users": "Users"
@@ -188,6 +191,7 @@
           "viewClass": "SelectView",
           "prompt": "Please select the type of object to lookup",
           "required": true,
+          "order": 10,
           "model": {
             "products": "Products",
             "users": "Users"
@@ -212,6 +216,7 @@
           "viewClass": "SelectView",
           "prompt": "Please select the type of object to lookup",
           "required": true,
+          "order": 10,
           "model": {
             "products": "Products",
             "users": "Users"
@@ -239,7 +244,7 @@
           "viewClass": "SelectView",
           "prompt": "Please select the type of object to poll on",
           "required": true,
-          "order": 6,
+          "order": 10,
           "model": {
             "albums": "Album",
             "comments": "Comment",
