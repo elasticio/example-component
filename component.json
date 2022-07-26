@@ -55,6 +55,7 @@
           "viewClass": "SelectView",
           "prompt": "Please select the type of object to lookup",
           "required": true,
+          "order": 10,
           "model": {
             "products": "Products",
             "users": "Users"
