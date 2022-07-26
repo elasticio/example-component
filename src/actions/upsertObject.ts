@@ -26,7 +26,7 @@ export async function processAction(msg: any, cfg: any) {
       this.logger.info('"Upsert Object" action is done emitting...');
       return messages.newMessageWithBody(data);
     } catch (error) {
-      if (error.response.status !== 404) throw error;
+      if (error.response?.status !== 404) throw error;
     }
   }
   this.logger.info('object not found, going to create...');
