@@ -80,7 +80,7 @@ Lookup a single object by a selected field that uniquely identifies it.
 #### Configuration Fields
 
 * **Object Type** - (string, required): Object-type to delete. E.g `Users`.
-* **Lookup Criteria** - (object, required): A list of object parameters that can uniquely identify the object in the database.
+* **Lookup Criteria** - (dropdown, required): A list of object parameters that can uniquely identify the object in the database.
 
 #### Input Metadata
 
@@ -96,7 +96,7 @@ Lookup a set of object by defined criteria list. Can be emitted in different way
 
 #### Configuration Fields
 
-* **Object Type** - (string, required): Object-type to lookup on. E.g `Users`.
+* **Object Type** - (dropdown, required): Object-type to lookup on. E.g `Users`.
 * **Emit Behavior** - (dropdown, required): Defines the way result objects will be emitted, one of `Emit all`, `Emit page` or `Emit individually`.
 
 #### Input Metadata
@@ -120,7 +120,7 @@ Lookup a single object by a selected field that uniquely identifies it.
 #### Configuration Fields
 
 * **Object Type** - (string, required): Object-type to lookup on. E.g `Users`.
-* **Lookup Criteria** - (object, required): A list of object parameters that can uniquely identify the object in the database.
+* **Lookup Criteria** - (dropdown, required): A list of object parameters that can uniquely identify the object in the database.
 * **Allow criteria to be omitted** - (boolean, optional): If selected field `Lookup Criteria Value` becomes optional.
 * **Allow zero results** - (boolean, optional): When selected, if the object is not found - an empty object will be returned instead of throwing error.
 
