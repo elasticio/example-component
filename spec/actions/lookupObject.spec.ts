@@ -25,7 +25,7 @@ describe('lookupObject action', () => {
       const msg = { body: { lookupCriteriaValue: 123 } };
       const { body } = await processAction.call(getContext(), msg, cfg);
       expect(execRequest.callCount).to.be.equal(1);
-      expect(body).to.be.deep.equal({ result: fakeResponse.data });
+      expect(body).to.be.deep.equal(fakeResponse.data);
       expect(execRequest.getCall(0).args[0]).to.be.deep.equal({
         method: 'GET',
         url: `/${cfg.objectType}/${cfg.lookupCriteria}/${msg.body.lookupCriteriaValue}`

@@ -29,7 +29,7 @@ export async function processAction(msg: any, cfg: any) {
   }
 
   if (result) {
-    return messages.newMessageWithBody({ result });
+    return messages.newMessageWithBody(result);
   }
   if (cfg.allowZeroResults) {
     return messages.newEmptyMessage();
@@ -68,12 +68,7 @@ export async function getMetaModel(cfg: { allowCriteriaToBeOmitted: boolean }) {
     },
     out: {
       type: 'object',
-      properties: {
-        result: {
-          type: 'object',
-          properties: {},
-        },
-      },
+      properties: {},
     },
   };
 

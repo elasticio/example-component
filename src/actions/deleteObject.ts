@@ -17,7 +17,7 @@ export async function processAction(msg: any, cfg: any) {
   });
 
   this.logger.info('"Delete Object" action is done, emitting...');
-  return messages.newMessageWithBody({ result: data });
+  return messages.newMessageWithBody(data);
 }
 
 export async function getLookupCriteriaModel(cfg: { objectType: string }) {

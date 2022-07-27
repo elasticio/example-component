@@ -49,7 +49,7 @@ describe('lookupObjects action', () => {
       const msg = { body: { searchCriteria: ['userAge>25', 'userName=Alex'] } };
       const { body } = await processAction.call(getContext(), msg, cfg);
       expect(execRequest.callCount).to.be.equal(1);
-      expect(body).to.be.deep.equal({ results: fakeResponse.data });
+      expect(body).to.be.deep.equal(fakeResponse.data);
       expect(execRequest.getCall(0).args[0]).to.be.deep.equal({
         method: 'GET',
         url: `/${cfg.objectType}?userAge>25&userName=Alex`

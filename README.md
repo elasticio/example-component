@@ -88,7 +88,7 @@ Lookup a single object by a selected field that uniquely identifies it.
 
 #### Output Metadata
 
-`result` object with result of deletion as value.
+Object with result of deletion as value.
 
 ### Lookup Objects (plural)
 
@@ -130,7 +130,7 @@ Lookup a single object by a selected field that uniquely identifies it.
 
 #### Output Metadata
 
-`result` object with result of lookup as value.
+Object with result of lookup as value.
 
 ### Lookup Object By ID
 
@@ -146,7 +146,7 @@ Lookup a single object by its ID.
 
 #### Output Metadata
 
-`result` object with result of lookup as value.
+Object with result of lookup as value.
 
 ### Delete Object By ID
 
@@ -162,7 +162,7 @@ Delete a single object by its ID.
 
 #### Output Metadata
 
-`result` object with result of delete.
+Object with result of delete.
 
 ## Triggers
 

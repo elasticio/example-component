@@ -16,7 +16,7 @@ export async function processAction(msg: any, cfg: any) {
     url,
   });
   this.logger.info('"Delete Object By ID" action is done, emitting...');
-  return messages.newMessageWithBody({ result: data });
+  return messages.newMessageWithBody(data);
 }
 
 module.exports.process = processAction;
