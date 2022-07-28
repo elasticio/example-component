@@ -43,36 +43,6 @@ describe('lookupObject action', () => {
   });
   describe('should create object', () => {
     beforeEach(() => {
-      execRequest = sinon.stub(ExampleClient.prototype, 'apiRequest')
-        .onFirstCall()
-        .callsFake(async () => { throw new StatusCodeError(404); })
-        .onSecondCall()
-        .callsFake(async () => fakeResponse);
-    });
-    afterEach(() => {
-      sinon.restore();
-    });
-    it('should create object', async () => {
-      const cfg = {
-        objectType: 'users',
-      };
-      const msg = { body: { id: '123', ...upsertMsgBody } };
-      const { body } = await processAction.call(getContext(), msg, cfg);
-      expect(execRequest.callCount).to.be.equal(2);
-      expect(body).to.be.deep.equal(fakeResponse.data);
-      expect(execRequest.getCall(0).args[0]).to.be.deep.equal({
-        method: 'GET',
-        url: `/${cfg.objectType}/${msg.body.id}`
-      });
-      expect(execRequest.getCall(1).args[0]).to.be.deep.equal({
-        method: 'POST',
-        url: `/${cfg.objectType}`,
-        data: upsertMsgBody
-      });
-    });
-  });
-  describe('should create object', () => {
-    beforeEach(() => {
       execRequest = sinon.stub(ExampleClient.prototype, 'apiRequest').callsFake(async () => fakeResponse);
     });
     afterEach(() => {

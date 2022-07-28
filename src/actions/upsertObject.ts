@@ -13,11 +13,6 @@ export async function processAction(msg: any, cfg: any) {
   const client = new Client(this, cfg);
   if (id) {
     try {
-      await client.apiRequest({
-        url: `/${objectType}/${id}`,
-        method: 'GET',
-      });
-      this.logger.info('Object found, updating...');
       const { data } = await client.apiRequest({
         url: `/${objectType}/${id}`,
         method: 'PUT',
@@ -26,7 +21,10 @@ export async function processAction(msg: any, cfg: any) {
       this.logger.info('"Upsert Object" action is done emitting...');
       return messages.newMessageWithBody(data);
     } catch (error) {
-      if (error.response?.status !== 404) throw error;
+      if (error.response?.status === 404) {
+        throw new Error(`Object with id "${id}" is not found!`);
+      }
+      throw error;
     }
   }
   this.logger.info('object not found, going to create...');
