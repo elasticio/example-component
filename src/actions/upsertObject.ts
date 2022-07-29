@@ -28,6 +28,7 @@ export async function processAction(msg: any, cfg: any) {
     }
   }
   this.logger.info('object not found, going to create...');
+  // if object can be created with 'id' from msg.body - it should be created with this 'id'
   const { data } = await client.apiRequest({
     url: `/${objectType}`,
     method: 'POST',
