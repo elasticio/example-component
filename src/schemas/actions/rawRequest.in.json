@@ -1,6 +1,5 @@
 {
   "type": "object",
-  "required": true,
   "properties": {
     "method": {
       "type": "string",
@@ -21,7 +20,6 @@
     },
     "data": {
       "type": "object",
-      "required": false,
       "title": "Request Body"
     }
   }
