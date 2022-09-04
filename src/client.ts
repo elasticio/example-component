@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-syntax, class-methods-use-this */
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { axiosReqWithRetryOnServerError } from '@elastic.io/component-commons-library/src/externalApi';
+import { axiosReqWithRetryOnServerError } from '@elastic.io/component-commons-library';
 
 export default class Client {
   private logger: any;
