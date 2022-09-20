@@ -46,7 +46,7 @@ export const getMetaModel = async function getMetaModel(cfg) {
         required: false,
       },
       pageNumber: {
-        title: 'Page Number [1-50]',
+        title: 'Page Number [>=0]',
         help: {
           description: 'Specifies the limit number of pages to fetch.',
         },
