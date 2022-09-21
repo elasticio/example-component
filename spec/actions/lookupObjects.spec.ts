@@ -7,7 +7,7 @@ import { processAction, getMetaModel } from '../../src/actions/lookupObjects';
 
 chai.use(require('chai-as-promised'));
 
-const fakeResponse = { data: [1, 2, 3, 4, 5, 6, 7, 8, 9] };
+const fakeResponse: any = { data: [1, 2, 3, 4, 5, 6, 7, 8, 9] };
 
 describe('lookupObjects action', () => {
   describe('getMetaModel', () => {

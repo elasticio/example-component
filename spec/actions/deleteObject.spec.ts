@@ -6,7 +6,7 @@ import { processAction } from '../../src/actions/deleteObject';
 
 chai.use(require('chai-as-promised'));
 
-const fakeResponse = { data: { resultKey: 'resultValue' } };
+const fakeResponse: any = { data: { resultKey: 'resultValue' } };
 
 describe('deleteObject action', () => {
   let execRequest;

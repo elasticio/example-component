@@ -6,7 +6,7 @@ import { processAction } from '../../src/actions/rawRequest';
 
 chai.use(require('chai-as-promised'));
 
-const fakeResponse = {
+const fakeResponse: any = {
   data: {},
   status: 200,
   headers: {}
