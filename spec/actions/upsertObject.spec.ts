@@ -6,10 +6,10 @@ import { processAction } from '../../src/actions/upsertObject';
 
 chai.use(require('chai-as-promised'));
 
-const fakeResponse = { data: { resultKey: 'resultValue' } };
+const fakeResponse: any = { data: { resultKey: 'resultValue' } };
 const upsertMsgBody = { email: 'email', gender: 'm' };
 
-describe('lookupObject action', () => {
+describe('upsertObject action', () => {
   let execRequest;
   describe('should update object', () => {
     beforeEach(() => {
