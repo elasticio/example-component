@@ -267,6 +267,18 @@
           },
           "prompt": "Please select a Time stamp field to poll on. Default: Last Modified"
         },
+        "emitBehavior": {
+          "order": 6,
+          "viewClass": "SelectView",
+          "label": "Emit Behavior",
+          "required": false,
+          "placeholder": "Emit individually",
+          "prompt": "Select an output method. Defaults to: Emit individually",
+          "model": {
+            "emitIndividually": "Emit individually",
+            "emitPage": "Emit page"
+          }
+        },
         "startTime": {
           "label": "Start Time",
           "viewClass": "TextFieldView",
