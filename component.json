@@ -246,13 +246,26 @@
           "required": true,
           "order": 10,
           "model": {
-            "albums": "Album",
-            "comments": "Comment",
-            "photos": "Photo",
-            "posts": "Post",
-            "todos": "Todo",
-            "users": "User"
+            "product": "Products",
+            "product-model": "Product models",
+            "locale": "Locales",
+            "attribute": "Attributes",
+            "attribute-group": "Attribute groups",
+            "family": "Families",
+            "category": "Categories"
           }
+        },
+        "pollConfig": {
+          "label": "Time stamp field to poll on",
+          "viewClass": "SelectView",
+          "required": false,
+          "order": 8,
+          "placeholder": "Last Modified",
+          "model": {
+            "created": "Created",
+            "lastModified": "Last Modified"
+          },
+          "prompt": "Please select a Time stamp field to poll on. Default: Last Modified"
         },
         "startTime": {
           "label": "Start Time",
@@ -267,18 +280,6 @@
           "order": 4,
           "placeholder": "1970-01-01T00:00:00.000Z",
           "note": "End time to stop polling at (inclusive) in format \"YYYY-MM-DD[T]HH:MM:SS[Z]\" where [] wraps a fixed character value. Defaults to never"
-        },
-        "pollConfig": {
-          "label": "Time stamp field to poll on",
-          "viewClass": "SelectView",
-          "required": false,
-          "order": 1,
-          "placeholder": "Last Modified",
-          "model": {
-            "created": "Created",
-            "lastModified": "Last Modified"
-          },
-          "prompt": "Please select a Time stamp field to poll on. Default: Last Modified"
         }
       },
       "metadata": {
