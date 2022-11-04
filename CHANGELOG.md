@@ -1,3 +1,6 @@
+## 2.0.1 (November 18, 2022)
+* Fix `Lookup Objects (plural)` getMetadata function
+
 ## 2.0.0 (May 20, 2022)
 * Rewrite component to `.ts`
 * Component is now used as base for scaffolding tool

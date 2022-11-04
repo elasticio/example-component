@@ -14,21 +14,25 @@ describe('lookupObjects action', () => {
     it('emitAll', async () => {
       const cfg = { objectType: 'users', emitBehavior: 'emitAll' };
       const result = await getMetaModel(cfg);
-      expect(result.in.properties.hasOwnProperty('searchCriteria')).to.be.equal(true);
+      expect(result.in.properties.hasOwnProperty('sTerm_1')).to.be.equal(false);
       expect(result.in.properties.hasOwnProperty('pageSize')).to.be.equal(false);
       expect(result.in.properties.hasOwnProperty('pageNumber')).to.be.equal(false);
     });
     it('emitIndividually', async () => {
-      const cfg = { objectType: 'users', emitBehavior: 'emitIndividually' };
+      const cfg = { objectType: 'users', emitBehavior: 'emitIndividually', termNumber: 1 };
       const result = await getMetaModel(cfg);
-      expect(result.in.properties.hasOwnProperty('searchCriteria')).to.be.equal(true);
+      expect(result.in.properties.hasOwnProperty('sTerm_1')).to.be.equal(true);
+      expect(result.in.properties.hasOwnProperty('sTerm_2')).to.be.equal(false);
+      expect(result.in.properties.hasOwnProperty('link_1_2')).to.be.equal(false);
       expect(result.in.properties.hasOwnProperty('pageSize')).to.be.equal(false);
       expect(result.in.properties.hasOwnProperty('pageNumber')).to.be.equal(false);
     });
     it('emitPage', async () => {
-      const cfg = { objectType: 'users', emitBehavior: 'emitPage' };
+      const cfg = { objectType: 'users', emitBehavior: 'emitPage', termNumber: 2 };
       const result = await getMetaModel(cfg);
-      expect(result.in.properties.hasOwnProperty('searchCriteria')).to.be.equal(true);
+      expect(result.in.properties.hasOwnProperty('sTerm_1')).to.be.equal(true);
+      expect(result.in.properties.hasOwnProperty('sTerm_2')).to.be.equal(true);
+      expect(result.in.properties.hasOwnProperty('link_1_2')).to.be.equal(true);
       expect(result.in.properties.hasOwnProperty('pageSize')).to.be.equal(true);
       expect(result.in.properties.hasOwnProperty('pageNumber')).to.be.equal(true);
     });
@@ -49,7 +53,7 @@ describe('lookupObjects action', () => {
       const msg = { body: { searchCriteria: ['userAge>25', 'userName=Alex'] } };
       const { body } = await processAction.call(getContext(), msg, cfg);
       expect(execRequest.callCount).to.be.equal(1);
-      expect(body).to.be.deep.equal(fakeResponse.data);
+      expect(body.results).to.be.deep.equal(fakeResponse.data);
       expect(execRequest.getCall(0).args[0]).to.be.deep.equal({
         method: 'GET',
         url: `/${cfg.objectType}?userAge>25&userName=Alex`

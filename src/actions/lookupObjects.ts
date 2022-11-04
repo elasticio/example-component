@@ -3,6 +3,20 @@
 import { messages } from 'elasticio-node';
 import Client from '../client';
 
+const TERM_MAX_NUMBER = 99;
+
+function isNumberInInterval(num, min, max) {
+  return !(Number.isNaN(num) || num < min || num > max);
+}
+
+function getTermNumber(cfg) {
+  const termNumber = cfg.termNumber ? parseInt(cfg.termNumber, 10) : 0;
+  if (!isNumberInInterval(termNumber, 0, TERM_MAX_NUMBER)) {
+    throw new Error('Number of search terms must be an integer value from the interval [0-99]');
+  }
+  return termNumber;
+}
+
 export async function processAction(msg: any, cfg: any) {
   this.logger.info('"Lookup Objects" action started');
   const client = new Client(this, cfg);
@@ -55,22 +69,54 @@ export const getMetaModel = async function getMetaModel(cfg) {
       },
     };
   }
+  const termProperties = {};
+  const termNumber = getTermNumber(cfg);
+  if (termNumber > 0) {
+    const fieldNameEnum = [];
+    const conditionEnum = ['gt', 'lt', 'eq', 'ge', 'le', 'ne'];
+    const logicalOperatorEnum = ['and', 'or'];
+    for (let i = 1; i <= termNumber; i += 1) {
+      termProperties[`sTerm_${i}`] = {
+        title: `Search term ${i}`,
+        type: 'object',
+        required: true,
+        properties: {
+          fieldName: {
+            title: 'Field name',
+            type: 'string',
+            required: true,
+            enum: fieldNameEnum,
+          },
+          condition: {
+            title: 'Condition',
+            type: 'string',
+            required: true,
+            enum: conditionEnum,
+          },
+          fieldValue: {
+            title: 'Field value',
+            type: 'string',
+            required: true,
+          },
+        },
+      };
+
+      if (i !== termNumber) {
+        termProperties[`link_${i}_${i + 1}`] = {
+          title: 'Logical operator',
+          type: 'string',
+          required: true,
+          enum: logicalOperatorEnum,
+        };
+      }
+    }
+  }
   return {
     in: {
       type: 'object',
       properties: {
         ...additionalIn,
-        searchCriteria: {
-          title: 'Search Criteria',
-          help: {
-            description: 'Search terms as array of strings. Search terms are to be combined with the AND operator. Example: ["userAge>29", "userName=Alex"]',
-          },
-          type: 'array',
-          required: false,
-          items: {
-            type: 'string',
-          },
-        },
+        ...termProperties,
       },
     },
     out: {
