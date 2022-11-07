@@ -1,7 +1,7 @@
 /* eslint-disable no-prototype-builtins */
 import chai, { expect } from 'chai';
 import sinon from 'sinon';
-import { getContext, StatusCodeError } from '../common';
+import { getContext } from '../common';
 import ExampleClient from '../../src/client';
 import { processAction, getMetaModel } from '../../src/actions/lookupObjects';
 
@@ -14,21 +14,25 @@ describe('lookupObjects action', () => {
     it('emitAll', async () => {
       const cfg = { objectType: 'users', emitBehavior: 'emitAll' };
       const result = await getMetaModel(cfg);
-      expect(result.in.properties.hasOwnProperty('searchCriteria')).to.be.equal(true);
+      expect(result.in.properties.hasOwnProperty('sTerm_1')).to.be.equal(false);
       expect(result.in.properties.hasOwnProperty('pageSize')).to.be.equal(false);
       expect(result.in.properties.hasOwnProperty('pageNumber')).to.be.equal(false);
     });
     it('emitIndividually', async () => {
-      const cfg = { objectType: 'users', emitBehavior: 'emitIndividually' };
+      const cfg = { objectType: 'users', emitBehavior: 'emitIndividually', termNumber: 1 };
       const result = await getMetaModel(cfg);
-      expect(result.in.properties.hasOwnProperty('searchCriteria')).to.be.equal(true);
+      expect(result.in.properties.hasOwnProperty('sTerm_1')).to.be.equal(true);
+      expect(result.in.properties.hasOwnProperty('sTerm_2')).to.be.equal(false);
+      expect(result.in.properties.hasOwnProperty('link_1_2')).to.be.equal(false);
       expect(result.in.properties.hasOwnProperty('pageSize')).to.be.equal(false);
       expect(result.in.properties.hasOwnProperty('pageNumber')).to.be.equal(false);
     });
     it('emitPage', async () => {
-      const cfg = { objectType: 'users', emitBehavior: 'emitPage' };
+      const cfg = { objectType: 'users', emitBehavior: 'emitPage', termNumber: 2 };
       const result = await getMetaModel(cfg);
-      expect(result.in.properties.hasOwnProperty('searchCriteria')).to.be.equal(true);
+      expect(result.in.properties.hasOwnProperty('sTerm_1')).to.be.equal(true);
+      expect(result.in.properties.hasOwnProperty('sTerm_2')).to.be.equal(true);
+      expect(result.in.properties.hasOwnProperty('link_1_2')).to.be.equal(true);
       expect(result.in.properties.hasOwnProperty('pageSize')).to.be.equal(true);
       expect(result.in.properties.hasOwnProperty('pageNumber')).to.be.equal(true);
     });
@@ -49,18 +53,33 @@ describe('lookupObjects action', () => {
       const msg = { body: { searchCriteria: ['userAge>25', 'userName=Alex'] } };
       const { body } = await processAction.call(getContext(), msg, cfg);
       expect(execRequest.callCount).to.be.equal(1);
-      expect(body).to.be.deep.equal(fakeResponse.data);
+      expect(body.results).to.be.deep.equal(fakeResponse.data);
       expect(execRequest.getCall(0).args[0]).to.be.deep.equal({
         method: 'GET',
-        url: `/${cfg.objectType}?userAge>25&userName=Alex`
+        url: `/${cfg.objectType}`
       });
     });
     it('should lookup object, emitIndividually', async () => {
       const cfg = {
         objectType: 'users',
-        emitBehavior: 'emitIndividually'
+        emitBehavior: 'emitIndividually',
+        termNumber: 2
       };
-      const msg = { body: { searchCriteria: ['userAge>25', 'userName=Alex'] } };
+      const msg = {
+        body: {
+          sTerm_1: {
+            fieldName: 'creditLimit',
+            condition: 'eq',
+            fieldValue: 1
+          },
+          sTerm_2: {
+            fieldName: 'city',
+            condition: 'contains',
+            fieldValue: 'Kyiv'
+          },
+          link_1_2: 'and'
+        },
+      };
       const context = getContext();
       await processAction.call(context, msg, cfg);
       expect(execRequest.callCount).to.be.equal(1);
@@ -68,18 +87,23 @@ describe('lookupObjects action', () => {
       expect(context.emit.getCall(0).args[1].body).to.be.equal(1); // first emit
       expect(execRequest.getCall(0).args[0]).to.be.deep.equal({
         method: 'GET',
-        url: `/${cfg.objectType}?userAge>25&userName=Alex`
+        url: `/${cfg.objectType}?creditLimit eq 1 and city contains Kyiv`
       });
     });
     describe('should lookup object, emitPage', () => {
       it('should lookup object, emitPage', async () => {
         const cfg = {
           objectType: 'users',
-          emitBehavior: 'emitPage'
+          emitBehavior: 'emitPage',
+          termNumber: 1
         };
         const msg = {
           body: {
-            searchCriteria: ['userAge>25', 'userName=Alex'],
+            sTerm_1: {
+              fieldName: 'name',
+              condition: 'eq',
+              fieldValue: 'Demo'
+            },
             pageSize: 2,
             pageNumber: 3
           }
@@ -91,7 +115,7 @@ describe('lookupObjects action', () => {
         expect(context.emit.getCall(0).args[1].body).to.be.deep.equal([1, 2]); // first emit
         expect(execRequest.getCall(0).args[0]).to.be.deep.equal({
           method: 'GET',
-          url: `/${cfg.objectType}?userAge>25&userName=Alex`
+          url: `/${cfg.objectType}?name eq Demo`
         });
       });
       it('should lookup object, emitPage', async () => {
@@ -101,7 +125,6 @@ describe('lookupObjects action', () => {
         };
         const msg = {
           body: {
-            searchCriteria: ['userAge>25', 'userName=Alex'],
             pageSize: 20,
             pageNumber: 3
           }
@@ -113,7 +136,7 @@ describe('lookupObjects action', () => {
         expect(context.emit.getCall(0).args[1].body).to.be.deep.equal(fakeResponse.data); // first emit
         expect(execRequest.getCall(0).args[0]).to.be.deep.equal({
           method: 'GET',
-          url: `/${cfg.objectType}?userAge>25&userName=Alex`
+          url: `/${cfg.objectType}`
         });
       });
       it('should lookup object, emitPage (emit objects count only)', async () => {
@@ -123,7 +146,6 @@ describe('lookupObjects action', () => {
         };
         const msg = {
           body: {
-            searchCriteria: ['userAge>25', 'userName=Alex'],
             pageSize: 0,
             pageNumber: 3
           }
@@ -134,7 +156,7 @@ describe('lookupObjects action', () => {
         expect(body).to.be.deep.equal({ totalCountOfMatchingResults: fakeResponse.data.length });
         expect(execRequest.getCall(0).args[0]).to.be.deep.equal({
           method: 'GET',
-          url: `/${cfg.objectType}?userAge>25&userName=Alex`
+          url: `/${cfg.objectType}`
         });
       });
     });

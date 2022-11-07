@@ -3,13 +3,45 @@
 import { messages } from 'elasticio-node';
 import Client from '../client';
 
+const TERM_MAX_NUMBER = 99;
+
+function isNumberInInterval(num, min, max) {
+  return !(Number.isNaN(num) || num < min || num > max);
+}
+
+function getTermNumber(cfg) {
+  const termNumber = cfg.termNumber ? parseInt(cfg.termNumber, 10) : 0;
+  if (!isNumberInInterval(termNumber, 0, TERM_MAX_NUMBER)) {
+    throw new Error('Number of search terms must be an integer value from the interval [0-99]');
+  }
+  return termNumber;
+}
+
+function getSearchCriteria(msg, cfg) {
+  const termNumber = getTermNumber(cfg);
+  if (termNumber === 0) {
+    return null;
+  }
+  let searchCriteria = '';
+  for (let i = 1; i <= termNumber; i += 1) {
+    const { fieldName, condition, fieldValue } = msg.body[`sTerm_${i}`];
+    searchCriteria += `${fieldName} ${condition} ${fieldValue}`;
+    if (i !== termNumber) {
+      searchCriteria += ` ${msg.body[`link_${i}_${i + 1}`]} `;
+    }
+  }
+  return searchCriteria;
+}
+
 export async function processAction(msg: any, cfg: any) {
   this.logger.info('"Lookup Objects" action started');
   const client = new Client(this, cfg);
   const { objectType, emitBehavior } = cfg;
-  const { searchCriteria } = msg.body;
-
-  const url = `/${objectType}?${searchCriteria.join('&')}`;
+  const searchCriteria = getSearchCriteria(msg, cfg);
+  let url = `/${objectType}`;
+  if (searchCriteria) {
+    url += `?${searchCriteria}`;
+  }
   const { data: results } = await client.apiRequest({
     method: 'GET',
     url,
@@ -55,22 +87,54 @@ export const getMetaModel = async function getMetaModel(cfg) {
       },
     };
   }
+  const termProperties = {};
+  const termNumber = getTermNumber(cfg);
+  if (termNumber > 0) {
+    const fieldNameEnum = [];
+    const conditionEnum = ['gt', 'lt', 'eq', 'ge', 'le', 'ne'];
+    const logicalOperatorEnum = ['and', 'or'];
+    for (let i = 1; i <= termNumber; i += 1) {
+      termProperties[`sTerm_${i}`] = {
+        title: `Search term ${i}`,
+        type: 'object',
+        required: true,
+        properties: {
+          fieldName: {
+            title: 'Field name',
+            type: 'string',
+            required: true,
+            enum: fieldNameEnum,
+          },
+          condition: {
+            title: 'Condition',
+            type: 'string',
+            required: true,
+            enum: conditionEnum,
+          },
+          fieldValue: {
+            title: 'Field value',
+            type: 'string',
+            required: true,
+          },
+        },
+      };
+
+      if (i !== termNumber) {
+        termProperties[`link_${i}_${i + 1}`] = {
+          title: 'Logical operator',
+          type: 'string',
+          required: true,
+          enum: logicalOperatorEnum,
+        };
+      }
+    }
+  }
   return {
     in: {
       type: 'object',
       properties: {
         ...additionalIn,
-        searchCriteria: {
-          title: 'Search Criteria',
-          help: {
-            description: 'Search terms as array of strings. Search terms are to be combined with the AND operator. Example: ["userAge>29", "userName=Alex"]',
-          },
-          type: 'array',
-          required: false,
-          items: {
-            type: 'string',
-          },
-        },
+        ...termProperties,
       },
     },
     out: {
@@ -80,7 +144,7 @@ export const getMetaModel = async function getMetaModel(cfg) {
   };
 };
 
-const emitAsPages = async function (results, { pageSize = 5, pageNumber = 2 }) {
+const emitAsPages = async function emitAsPages(results, { pageSize = 5, pageNumber = 2 }) {
   if (pageSize === 0) {
     return messages.newMessageWithBody({ totalCountOfMatchingResults: results.length });
   }
