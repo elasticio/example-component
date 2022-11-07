@@ -17,13 +17,31 @@ function getTermNumber(cfg) {
   return termNumber;
 }
 
+function getSearchCriteria(msg, cfg) {
+  const termNumber = getTermNumber(cfg);
+  if (termNumber === 0) {
+    return null;
+  }
+  let searchCriteria = '';
+  for (let i = 1; i <= termNumber; i += 1) {
+    const { fieldName, condition, fieldValue } = msg.body[`sTerm_${i}`];
+    searchCriteria += `${fieldName} ${condition} ${fieldValue}`;
+    if (i !== termNumber) {
+      searchCriteria += ` ${msg.body[`link_${i}_${i + 1}`]} `;
+    }
+  }
+  return searchCriteria;
+}
+
 export async function processAction(msg: any, cfg: any) {
   this.logger.info('"Lookup Objects" action started');
   const client = new Client(this, cfg);
   const { objectType, emitBehavior } = cfg;
-  const { searchCriteria } = msg.body;
-
-  const url = `/${objectType}?${searchCriteria.join('&')}`;
+  const searchCriteria = getSearchCriteria(msg, cfg);
+  let url = `/${objectType}`;
+  if (searchCriteria) {
+    url += `?${searchCriteria}`;
+  }
   const { data: results } = await client.apiRequest({
     method: 'GET',
     url,
@@ -126,7 +144,7 @@ export const getMetaModel = async function getMetaModel(cfg) {
   };
 };
 
-const emitAsPages = async function (results, { pageSize = 5, pageNumber = 2 }) {
+const emitAsPages = async function emitAsPages(results, { pageSize = 5, pageNumber = 2 }) {
   if (pageSize === 0) {
     return messages.newMessageWithBody({ totalCountOfMatchingResults: results.length });
   }

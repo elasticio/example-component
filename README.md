@@ -21,11 +21,11 @@
 [elastic.io](http://www.elastic.io) iPaaS component that connects to [ API]().
 
 ## Environment variables
-Name|Mandatory|Description|Values|
-|----|---------|-----------|------|
-|`API_RETRIES_COUNT`| false | Set how many time system try to make request to API on errors (3 by default) | any `integer` above 0|
-|`API_RETRY_DELAY`| false | Delay between retry attempts in milliseconds (10000 by default) | any `integer` above 0|
-|`API_REQUEST_TIMEOUT`| false | HTTP requests timeout in milliseconds (15000 by default) | any `integer` above 0|
+| Name                  | Mandatory | Description                                                                  | Values                |
+|-----------------------|-----------|------------------------------------------------------------------------------|-----------------------|
+| `API_RETRIES_COUNT`   | false     | Set how many time system try to make request to API on errors (3 by default) | any `integer` above 0 |
+| `API_RETRY_DELAY`     | false     | Delay between retry attempts in milliseconds (10000 by default)              | any `integer` above 0 |
+| `API_REQUEST_TIMEOUT` | false     | HTTP requests timeout in milliseconds (15000 by default)                     | any `integer` above 0 |
 
 ## Credentials
 
@@ -98,6 +98,7 @@ Lookup a set of object by defined criteria list. Can be emitted in different way
 
 * **Object Type** - (dropdown, required): Object-type to lookup on. E.g `Users`.
 * **Emit Behavior** - (dropdown, required): Defines the way result objects will be emitted, one of `Emit all`, `Emit page` or `Emit individually`.
+* **Number of search terms** - text field to specify a number of search terms (positive integer number [1-99] or 0).
 
 #### Input Metadata
 
