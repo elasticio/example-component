@@ -1,21 +1,25 @@
 {
   "type": "object",
   "properties": {
-    "statusCode": {
-      "type": "number",
-      "title": "Status Code",
-      "required": true
+    "someArray": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "prop1": {"type": "string"},
+          "prop2": {"type": "number"}
+        }
+      }
     },
-    "headers": {
+    "someObject": {
       "type": "object",
-      "title": "HTTP headers",
-      "required": true,
-      "properties": {}
+      "properties": {
+        "prop1": {"type": "string"},
+        "prop2": {"type": "string"}
+      }
     },
-    "responseBody": {
-      "type": "object",
-      "title": "Response Body",
-      "properties": {}
+    "simpleText": {
+      "type": "string"
     }
   }
 }
