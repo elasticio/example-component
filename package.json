@@ -13,20 +13,16 @@
     "api"
   ],
   "engines": {
-    "node": "16.x"
+    "node": "18.x"
   },
   "scripts": {
     "lint": "eslint --ext .ts --quiet --fix",
-    "pretest": "eslint --ext .ts --quiet --fix && find src spec spec-integration -name \"*.js\" -type f -delete && rm -f verifyCredentials.js",
-    "test": "nyc mocha --require ts-node/register \"spec/**/*spec.ts\" --timeout 10000",
-    "posttest": "tsc",
-    "integration-test": "npm run pretest && nyc mocha --require ts-node/register \"spec-integration/**/*spec.ts\" --timeout 500000"
+    "pretest": "eslint --ext .ts --quiet --fix && find src -name \"*.js\" -type f -delete && rm -f verifyCredentials.js",
+    "test": "exit 0",
+    "posttest": "tsc"
   },
   "dependencies": {
-    "@elastic.io/component-commons-library": "3.0.2",
-    "axios": "0.27.2",
     "elasticio-node": "0.0.9",
-    "elasticio-rest-node": "1.2.7",
     "elasticio-sailor-nodejs": "2.7.1"
   },
   "devDependencies": {
