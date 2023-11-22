@@ -7,21 +7,23 @@ export async function processAction(msg, cfg) {
 }
 
 export const getMetaModel = async function getMetaModel(cfg) {
-  const outMeta = {
+  const inMeta = {
+    type: 'object',
     properties: {
-      salesChannel: {
-        type: 'array',
-        items: {
-          type: 'object',
-          properties: {}
+      'Some Objec': {
+        type: 'object',
+        help: { description: 'Object description' },
+        properties: {
+          'Some Obj key': {
+            type: 'string',
+            help: { description: 'Key description' }
+          }
         }
       }
-    },
-    type: 'object'
+    }
   };
-  if (cfg.deadMeta) delete outMeta.properties.salesChannel.items.properties;
 
-  return { in: outMeta, out: {}, };
+  return { in: inMeta, out: {}, };
 };
 
 module.exports.process = processAction;
