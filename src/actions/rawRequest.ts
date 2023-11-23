@@ -1,8 +1,10 @@
 import { messages } from 'elasticio-node';
 
-export async function processAction(msg, cfg) {
-  this.logger.info('"Make Raw Request" action started');
-  this.logger.info('request is done, emitting...');
+export async function processAction(msg, cfg, snapshot) {
+  this.logger.info(`snapshot: ${JSON.stringify(snapshot || {})}`);
+  const newSnapshot = { currentTime: new Date() };
+  await this.emit('snapshot', newSnapshot);
+  this.logger.info('newSnapshot is done');
   return messages.newMessageWithBody({});
 }
 

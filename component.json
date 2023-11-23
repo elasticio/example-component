@@ -1,7 +1,7 @@
 {
   "title": "example component",
   "description": "An example component with implementations of OIH actions.",
-  "version": "2.0.1-dev.5",
+  "version": "2.0.1-dev.6",
   "credentials": {
     "fields": {
       "url": {
