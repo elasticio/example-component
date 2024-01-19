@@ -12,6 +12,8 @@ export default class Client {
     this.cfg = cfg;
   }
 
+  setLogger(logger) { this.logger = logger; }
+
   async apiRequest(opts: AxiosRequestConfig): Promise<AxiosResponse> {
     return axiosReqWithRetryOnServerError.call(this, opts);
   }

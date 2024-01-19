@@ -1,7 +1,7 @@
 {
   "title": "example component",
   "description": "An example component with implementations of OIH actions.",
-  "version": "2.0.1",
+  "version": "3.0.0-dev.1",
   "credentials": {
     "fields": {
       "url": {
@@ -25,11 +25,11 @@
   },
   "actions": {
     "makeRawRequest": {
-      "main": "./src/actions/rawRequest.js",
+      "main": "./src/actions/makeRawRequest.js",
       "title": "Make Raw Request",
       "help": {
         "description": "Manually construct a request to send to the server.",
-        "link": "/example-component/#make-raw-request"
+        "link": "/components/example/index.html#make-raw-request"
       },
       "fields": {
         "doNotThrow404": {
@@ -38,8 +38,8 @@
         }
       },
       "metadata": {
-        "in": "./src/schemas/actions/rawRequest.in.json",
-        "out": "./src/schemas/actions/rawRequest.out.json"
+        "in": "./src/schemas/actions/makeRawRequest.in.json",
+        "out": "./src/schemas/actions/makeRawRequest.out.json"
       }
     },
     "lookupObject": {
@@ -47,7 +47,7 @@
       "title": "Lookup object (at most one)",
       "help": {
         "description": "Lookup Object by Unique Criteria",
-        "link": "/example-component/#lookup-object-at-most-one"
+        "link": "/components/example/index.html#lookup-object-at-most-one"
       },
       "fields": {
         "objectType": {
@@ -92,7 +92,7 @@
       "title": "Upsert Object",
       "help": {
         "description": "Upsert Object",
-        "link": "/example-component/#upsert-object"
+        "link": "/components/example/index.html#upsert-object"
       },
       "fields": {
         "objectType": {
@@ -113,7 +113,7 @@
       "title": "Delete Object",
       "help": {
         "description": "Delete Object",
-        "link": "/example-component/#delete-object"
+        "link": "/components/example/index.html#delete-object"
       },
       "fields": {
         "objectType": {
@@ -149,7 +149,7 @@
       "title": "Lookup Objects (plural)",
       "help": {
         "description": "Lookup Objects (plural)",
-        "link": "/example-component/#lookup-objects-plural"
+        "link": "/components/example/index.html#lookup-objects-plural"
       },
       "fields": {
         "objectType": {
@@ -191,7 +191,7 @@
       "title": "Lookup Object By ID",
       "help": {
         "description": "Lookup Object By ID",
-        "link": "/example-component/#lookup-object-by-id"
+        "link": "/components/example/index.html#lookup-object-by-id"
       },
       "fields": {
         "objectType": {
@@ -216,7 +216,7 @@
       "title": "Delete Object By ID",
       "help": {
         "description": "Delete Object By ID",
-        "link": "/example-component/#delete-object-by-id"
+        "link": "/components/example/index.html#delete-object-by-id"
       },
       "fields": {
         "objectType": {
@@ -244,7 +244,7 @@
       "type": "polling",
       "help": {
         "description": "Poll for new and/or updated objects",
-        "link": "/example-component/#get-new-and-updated-objects-polling"
+        "link": "/components/example/index.html#get-new-and-updated-objects-polling"
       },
       "fields": {
         "objectType": {
@@ -252,7 +252,7 @@
           "viewClass": "SelectView",
           "prompt": "Please select the type of object to poll on",
           "required": true,
-          "order": 10,
+          "order": 90,
           "model": {
             "product": "Products",
             "product-model": "Product models",
@@ -267,7 +267,7 @@
           "label": "Time stamp field to poll on",
           "viewClass": "SelectView",
           "required": false,
-          "order": 8,
+          "order": 80,
           "placeholder": "Last Modified",
           "model": {
             "created": "Created",
@@ -276,7 +276,7 @@
           "prompt": "Please select a Time stamp field to poll on. Default: Last Modified"
         },
         "emitBehavior": {
-          "order": 6,
+          "order": 70,
           "viewClass": "SelectView",
           "label": "Emit Behavior",
           "required": false,
@@ -287,25 +287,32 @@
             "emitPage": "Emit page"
           }
         },
+        "pageSize": {
+          "required": false,
+          "viewClass": "TextFieldView",
+          "order": 60,
+          "label": "Size of Polling Page",
+          "placeholder": "100",
+          "help": {
+            "description": "Indicates the size of pages to be fetched per search request, defaults to 100, max 500"
+          }
+        },
         "startTime": {
           "label": "Start Time",
           "viewClass": "TextFieldView",
-          "order": 5,
+          "order": 50,
           "placeholder": "1970-01-01T00:00:00.000Z",
-          "note": "Beginning time to start polling from (inclusive) in format \"YYYY-MM-DD[T]HH:MM:SS[Z]\" where [] wraps a fixed character value. Defaults to 1970-01-01T00:00:00.000Z"
+          "note": "The timestamp to start polling from (inclusive) - using ISO 8601 Date time utc format - YYYY-MM-DDThh:mm:ssZ. Default value is the beginning of time (January 1, 1970 at 00:00)"
         },
         "endTime": {
           "label": "End Time",
           "viewClass": "TextFieldView",
-          "order": 4,
-          "placeholder": "1970-01-01T00:00:00.000Z",
-          "note": "End time to stop polling at (inclusive) in format \"YYYY-MM-DD[T]HH:MM:SS[Z]\" where [] wraps a fixed character value. Defaults to never"
+          "order": 40,
+          "placeholder": "2025-01-01T00:00:00.000Z",
+          "note": "The timestamp to stop polling (exclusive) - using ISO 8601 Date time utc format - YYYY-MM-DDThh:mm:ssZ. Default value is flow execution time."
         }
       },
-      "metadata": {
-        "in": {},
-        "out": {}
-      }
+      "dynamicMetadata": true
     }
   }
 }

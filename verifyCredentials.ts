@@ -1,4 +1,4 @@
-import Client from './src/client';
+import Client from './src/Client';
 
 export = async function verifyCredentials(cfg: any) {
   const client = new Client(this, cfg);

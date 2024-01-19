@@ -1,9 +1,13 @@
 import { messages } from 'elasticio-node';
-import Client from '../client';
+import Client from '../Client';
+
+let client: Client;
 
 export async function processAction(msg: any, cfg: any) {
   this.logger.info('"Delete Object" action started');
-  const client = new Client(this, cfg);
+  client ||= new Client(this, cfg);
+  client.setLogger(this.logger);
+
   const { objectType, lookupCriteria } = cfg;
   const { lookupCriteriaValue } = msg.body;
   if (!lookupCriteriaValue) {

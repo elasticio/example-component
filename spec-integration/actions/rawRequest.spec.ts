@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { getContext, creds } from '../common';
-import { processAction } from '../../src/actions/rawRequest';
+import { processAction } from '../../src/actions/makeRawRequest';
 
 describe('rawRequest', () => {
   it('should make raw request', async () => {

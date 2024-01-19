@@ -1,10 +1,11 @@
-import chai, { expect } from 'chai';
+import { expect, use } from 'chai';
+import chaiPromised from 'chai-as-promised';
 import sinon from 'sinon';
 import { getContext, StatusCodeError } from '../common';
-import ExampleClient from '../../src/client';
+import Client from '../../src/Client';
 import { processAction } from '../../src/actions/deleteObjectById';
 
-chai.use(require('chai-as-promised'));
+use(chaiPromised);
 
 const fakeResponse: any = { data: { resultKey: 'resultValue' } };
 
@@ -12,7 +13,7 @@ describe('deleteObjectById action', () => {
   let execRequest;
   describe('should deleteObjectById', () => {
     beforeEach(() => {
-      execRequest = sinon.stub(ExampleClient.prototype, 'apiRequest').callsFake(async () => fakeResponse);
+      execRequest = sinon.stub(Client.prototype, 'apiRequest').callsFake(async () => fakeResponse);
     });
     afterEach(() => {
       sinon.restore();
@@ -33,7 +34,7 @@ describe('deleteObjectById action', () => {
   });
   describe('should throw error', () => {
     beforeEach(() => {
-      execRequest = sinon.stub(ExampleClient.prototype, 'apiRequest').callsFake(async () => { throw new StatusCodeError(404); });
+      execRequest = sinon.stub(Client.prototype, 'apiRequest').callsFake(async () => { throw new StatusCodeError(404); });
     });
     afterEach(() => {
       sinon.restore();
@@ -61,7 +62,7 @@ describe('deleteObjectById action', () => {
   });
   describe('api error', () => {
     beforeEach(() => {
-      execRequest = sinon.stub(ExampleClient.prototype, 'apiRequest').callsFake(async () => { throw new StatusCodeError(403); });
+      execRequest = sinon.stub(Client.prototype, 'apiRequest').callsFake(async () => { throw new StatusCodeError(403); });
     });
     afterEach(() => {
       sinon.restore();

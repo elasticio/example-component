@@ -1,11 +1,12 @@
 /* eslint-disable no-prototype-builtins */
-import chai, { expect } from 'chai';
+import { expect, use } from 'chai';
+import chaiPromised from 'chai-as-promised';
 import sinon from 'sinon';
 import { getContext } from '../common';
-import ExampleClient from '../../src/client';
+import Client from '../../src/Client';
 import { processAction, getMetaModel } from '../../src/actions/lookupObjects';
 
-chai.use(require('chai-as-promised'));
+use(chaiPromised);
 
 const fakeResponse: any = { data: [1, 2, 3, 4, 5, 6, 7, 8, 9] };
 
@@ -40,7 +41,7 @@ describe('lookupObjects action', () => {
   let execRequest;
   describe('success', () => {
     beforeEach(() => {
-      execRequest = sinon.stub(ExampleClient.prototype, 'apiRequest').callsFake(async () => fakeResponse);
+      execRequest = sinon.stub(Client.prototype, 'apiRequest').callsFake(async () => fakeResponse);
     });
     afterEach(() => {
       sinon.restore();

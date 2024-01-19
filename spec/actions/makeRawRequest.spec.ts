@@ -1,10 +1,11 @@
-import chai, { expect } from 'chai';
+import { expect, use } from 'chai';
+import chaiPromised from 'chai-as-promised';
 import sinon from 'sinon';
 import { getContext, StatusCodeError } from '../common';
-import ExampleClient from '../../src/client';
-import { processAction } from '../../src/actions/rawRequest';
+import Client from '../../src/Client';
+import { processAction } from '../../src/actions/makeRawRequest';
 
-chai.use(require('chai-as-promised'));
+use(chaiPromised);
 
 const fakeResponse: any = {
   data: {},
@@ -16,7 +17,7 @@ describe('rawRequest action', () => {
   let execRequest;
   describe('succeed', () => {
     beforeEach(() => {
-      execRequest = sinon.stub(ExampleClient.prototype, 'apiRequest').callsFake(async () => fakeResponse);
+      execRequest = sinon.stub(Client.prototype, 'apiRequest').callsFake(async () => fakeResponse);
     });
     afterEach(() => {
       sinon.restore();
@@ -35,7 +36,7 @@ describe('rawRequest action', () => {
   });
   describe('api error', () => {
     beforeEach(() => {
-      execRequest = sinon.stub(ExampleClient.prototype, 'apiRequest').callsFake(async () => { throw new StatusCodeError(403); });
+      execRequest = sinon.stub(Client.prototype, 'apiRequest').callsFake(async () => { throw new StatusCodeError(403); });
     });
     afterEach(() => {
       sinon.restore();
@@ -43,12 +44,12 @@ describe('rawRequest action', () => {
     it('api error', async () => {
       const cfg = {};
       const msg = { body: { method: 'POST', url: '/example' } };
-      await expect(processAction.call(getContext(), msg, cfg)).to.be.rejectedWith('StatusCodeError');
+      await expect(processAction.call(getContext(), msg, cfg)).to.be.rejectedWith('Got error "unknown", status - "403", body: "no body found"');
       expect(execRequest.callCount).to.be.equal(1);
       expect(execRequest.getCall(0).args[0]).to.be.deep.equal({
         data: undefined,
         method: 'POST',
-        url: `/example`
+        url: '/example'
       });
     });
   });
