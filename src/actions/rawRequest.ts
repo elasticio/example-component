@@ -12,7 +12,7 @@ export const getMetaModel = async function getMetaModel(cfg) {
   const inMeta = {
     type: 'object',
     properties: {
-      'Some Objec': {
+      objectWithProperties: {
         type: 'object',
         help: { description: 'Object description' },
         properties: {
@@ -21,6 +21,11 @@ export const getMetaModel = async function getMetaModel(cfg) {
             help: { description: 'Key description' }
           }
         }
+      },
+      objectWithOutProperties: {
+        type: 'object',
+        help: { description: 'Object description' },
+        properties: { }
       }
     }
   };
