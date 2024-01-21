@@ -1,3 +1,6 @@
+## 3.0.0 (January 19, 2024)
+* Revitalize
+
 ## 2.0.1 (November 18, 2022)
 * Fix `Lookup Objects (plural)` getMetadata function
 

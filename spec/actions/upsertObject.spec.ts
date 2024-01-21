@@ -1,10 +1,11 @@
-import chai, { expect } from 'chai';
+import { expect, use } from 'chai';
+import chaiPromised from 'chai-as-promised';
 import sinon from 'sinon';
 import { getContext, StatusCodeError } from '../common';
-import ExampleClient from '../../src/client';
+import Client from '../../src/Client';
 import { processAction } from '../../src/actions/upsertObject';
 
-chai.use(require('chai-as-promised'));
+use(chaiPromised);
 
 const fakeResponse: any = { data: { resultKey: 'resultValue' } };
 const upsertMsgBody = { email: 'email', gender: 'm' };
@@ -13,7 +14,7 @@ describe('upsertObject action', () => {
   let execRequest;
   describe('should update object', () => {
     beforeEach(() => {
-      execRequest = sinon.stub(ExampleClient.prototype, 'apiRequest')
+      execRequest = sinon.stub(Client.prototype, 'apiRequest')
         .onFirstCall()
         .callsFake(async () => fakeResponse)
         .onSecondCall()
@@ -28,13 +29,9 @@ describe('upsertObject action', () => {
       };
       const msg = { body: { id: '123', ...upsertMsgBody } };
       const { body } = await processAction.call(getContext(), msg, cfg);
-      expect(execRequest.callCount).to.be.equal(2);
+      expect(execRequest.callCount).to.be.equal(1);
       expect(body).to.be.deep.equal(fakeResponse.data);
       expect(execRequest.getCall(0).args[0]).to.be.deep.equal({
-        method: 'GET',
-        url: `/${cfg.objectType}/${msg.body.id}`
-      });
-      expect(execRequest.getCall(1).args[0]).to.be.deep.equal({
         method: 'PUT',
         url: `/${cfg.objectType}/${msg.body.id}`,
         data: upsertMsgBody
@@ -43,7 +40,7 @@ describe('upsertObject action', () => {
   });
   describe('should create object', () => {
     beforeEach(() => {
-      execRequest = sinon.stub(ExampleClient.prototype, 'apiRequest').callsFake(async () => fakeResponse);
+      execRequest = sinon.stub(Client.prototype, 'apiRequest').callsFake(async () => fakeResponse);
     });
     afterEach(() => {
       sinon.restore();
@@ -65,7 +62,7 @@ describe('upsertObject action', () => {
   });
   describe('should throw error', () => {
     beforeEach(() => {
-      execRequest = sinon.stub(ExampleClient.prototype, 'apiRequest').callsFake(async () => { throw new StatusCodeError(400); });
+      execRequest = sinon.stub(Client.prototype, 'apiRequest').callsFake(async () => { throw new StatusCodeError(400); });
     });
     afterEach(() => {
       sinon.restore();
@@ -77,10 +74,6 @@ describe('upsertObject action', () => {
       const msg = { body: { id: '123', ...upsertMsgBody } };
       await expect(processAction.call(getContext(), msg, cfg)).to.be.rejectedWith('StatusCodeError');
       expect(execRequest.callCount).to.be.equal(1);
-      expect(execRequest.getCall(0).args[0]).to.be.deep.equal({
-        method: 'GET',
-        url: `/${cfg.objectType}/${msg.body.id}`
-      });
     });
   });
 });

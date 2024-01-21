@@ -20,6 +20,8 @@
 
 [elastic.io](http://www.elastic.io) iPaaS component that connects to [ API]().
 
+The current release of the component tested on API `v1`.
+
 ## Environment variables
 | Name                  | Mandatory | Description                                                                  | Values                |
 |-----------------------|-----------|------------------------------------------------------------------------------|-----------------------|
@@ -38,15 +40,15 @@ Component credentials configuration fields:
 
 ### Make Raw Request
 
-Executes custom request.
+Executes custom requests utilizing plain REST API
 
 #### Configuration Fields
 
-* **Don't throw error on 404 Response** - (optional, boolean): Treat 404 HTTP responses not as error, defaults to `false`.
+* **Don't throw error on 404 Response** - (optional, boolean): Treat 404 HTTP responses not as an error, defaults to `false`.
 
 #### Input Metadata
 
-* **Url** - (string, required): Path of the resource relative to the base URL.
+* **Url** - (string, required): Path of the resource relative to the base URL (here comes a part of the path that goes after `https://example.com/v1/`)
 * **Method** - (string, required): HTTP verb to use in the request, one of `GET`, `POST`, `PUT`, `PATCH`, `DELETE`.
 * **Request Body** - (object, optional): Body of the request to send.
 
@@ -58,28 +60,32 @@ Executes custom request.
 
 ### Upsert Object
 
-Updates (of record found) or creates a new object.
+Updates (if record found) or creates a new object.
 
 #### Configuration Fields
 
-* **Object Type** - (dropdown, required): Object-type to upsert. E.g `Users`.
+* **Object Type** - (dropdown, required): Object-type to upsert. Currently, supported types are:
+  * Products
+  * Users
 
 #### Input Metadata
 
 * **ID** - (string, optional): ID of the object to upsert.
-And dynamically generated fields according to chosen `Upsert Schema`.
+And dynamically generated fields according to the chosen `Object Type`.
 
 #### Output Metadata
 
-Result object from upsert.
+Result object from an upsert.
 
 ### Delete Object
 
-Lookup a single object by a selected field that uniquely identifies it.
+Lookup a single object by a selected field that uniquely identifies it and delete it
 
 #### Configuration Fields
 
-* **Object Type** - (string, required): Object-type to delete. E.g `Users`.
+* **Object Type** - (string, required): Object-type to delete. Currently, supported types are:
+  * Products
+  * Users
 * **Lookup Criteria** - (dropdown, required): A list of object parameters that can uniquely identify the object in the database.
 
 #### Input Metadata
@@ -88,31 +94,38 @@ Lookup a single object by a selected field that uniquely identifies it.
 
 #### Output Metadata
 
-Object with result of deletion as value.
+Object with the result of deletion as value.
 
 ### Lookup Objects (plural)
 
-Lookup a set of object by defined criteria list. Can be emitted in different way.
+Lookup a set of objects by defined criteria.
 
 #### Configuration Fields
 
-* **Object Type** - (dropdown, required): Object-type to lookup on. E.g `Users`.
-* **Emit Behavior** - (dropdown, required): Defines the way result objects will be emitted, one of `Emit all`, `Emit page` or `Emit individually`.
-* **Number of search terms** - text field to specify a number of search terms (positive integer number [1-99] or 0).
+* **Object Type** - (dropdown, required): Object-type to lookup on. Currently, supported types are:
+  * Products
+  * Users
+* **Emit Behavior** - (dropdown, required): Defines the way resulting objects will be emitted, one of `Emit all`, `Emit page` or `Emit individually`.
+* **Number of search terms** - (number, optional): Specify a number of search terms (positive integer number [1-99] or 0).
 
 #### Input Metadata
 
-* **Search Criteria** - (array of strings, required): Search terms to be combined with the AND operator, E.g: `["userAge>29", "userName=Alex"]`
+Depending on the configuration field `Number of search terms`.
+  * If `Number of search terms` is empty or equals `0`, additional fields will not be generated.
+  * If `Number of search terms = 1`, one search term will be added to the metadata.
+  * If `Number of search terms > 1`, the number of search terms equals to `Number of search terms` and the number of criteria links equals to `Number of search terms - 1`
 
-If selected `Emit Behavior` is `Emit page` additionally fields will be added:
-* **Page Number** - (number, defaults to X): Indicates index of page to be fetched.
-* **Page Size** - (number, defaults to X): Indicates amount of objects per page. Value from 0 to X
+Each search term has 3 fields:
+* **Field name** - Chosen object field name.
+* **Condition** - Condition to apply on selected field
+* **Field value** - Value for the selected field
+
+links between conditions have one of the following values: `AND`, `OR` to combine several search terms
 
 #### Output Metadata
 
-For `Emit All` mode: An object, with key `results` that has an array as its value.
-For `Emit Page` mode: An object with key `results` that has an array as its value (if `Page Size` > 0). Key `totalCountOfMatchingResults` which contains the total number of results (not just on the page) which match the search criteria (if `Page Size` = 0).
-For `Emit Individually` mode: Each object which fill the entire message.
+* For `Emit All` and `Emit Page` mode: An object, with key `results` that has an array as its value.
+* For `Emit Individually` mode: Each object which fill the entire message.
 
 ### Lookup Object (at most one)
 
@@ -120,10 +133,14 @@ Lookup a single object by a selected field that uniquely identifies it.
 
 #### Configuration Fields
 
-* **Object Type** - (string, required): Object-type to lookup on. E.g `Users`.
-* **Lookup Criteria** - (dropdown, required): A list of object parameters that can uniquely identify the object in the database.
-* **Allow criteria to be omitted** - (boolean, optional): If selected field `Lookup Criteria Value` becomes optional.
-* **Allow zero results** - (boolean, optional): When selected, if the object is not found - an empty object will be returned instead of throwing error.
+* **Object Type** - (dropdown, required): Object-type to upsert. Currently, supported types are:
+  * Products
+  * Users
+* **Lookup Criteria** - (dropdown, required): A unique field by which you want to lookup the object. Currently, supported types are:
+  * ID - for all object types
+  * Title - for `Products` only
+* **Allow criteria to be omitted** - (boolean, optional): If selected, the field Lookup Criteria Value becomes optional.
+* **Allow zero results** - (boolean, optional): When selected, if the object is not found - an empty object will be returned instead of throwing an error.
 
 #### Input Metadata
 
@@ -131,7 +148,7 @@ Lookup a single object by a selected field that uniquely identifies it.
 
 #### Output Metadata
 
-Object with result of lookup as value.
+Result object depending on the object selected and the configuration setting `Allow Zero Result`.
 
 ### Lookup Object By ID
 
@@ -139,7 +156,9 @@ Lookup a single object by its ID.
 
 #### Configuration Fields
 
-* **Object Type** - (string, required): Object-type to lookup on. E.g `Users`.
+* **Object Type** - (string, required): Object-type to lookup on. Currently, supported types are:
+  * Products
+  * Users
 
 #### Input Metadata
 
@@ -147,7 +166,7 @@ Lookup a single object by its ID.
 
 #### Output Metadata
 
-Object with result of lookup as value.
+Object with the result of lookup as value.
 
 ### Delete Object By ID
 
@@ -155,7 +174,9 @@ Delete a single object by its ID.
 
 #### Configuration Fields
 
-* **Object Type** - (string, required): Object-type to lookup on. E.g `Users`.
+* **Object Type** - (string, required): Object-type to lookup on. Currently, supported types are:
+  * Products
+  * Users
 
 #### Input Metadata
 
@@ -163,7 +184,7 @@ Delete a single object by its ID.
 
 #### Output Metadata
 
-Object with result of delete.
+Object with the result of delete.
 
 ## Triggers
 
@@ -173,15 +194,21 @@ Retrieve all the updated or created objects within a given time range.
 
 #### Configuration Fields
 
-* **Object Type** - (string, required): Object-type to lookup on. E.g `Users`.
-* **Start Time** - (string, optional): The timestamp, in ISO8601 format, to start polling from (inclusive). Default value is the beginning of time (January 1, 1970 at 00:00.000). 
-* **End Time** - (string, optional): The timestamp, in ISO8601 format, to end at (inclusive). Default value is never. 
+* **Object Type** - (string, required): Object-type to lookup on. Currently, supported types are:
+  * Products
+  * Users
+* **Start Time** - (string, optional): The timestamp to start polling from (inclusive) - using ISO 8601 Date time utc format - YYYY-MM-DDThh:mm:ssZ. The default value is the beginning of time (January 1, 1970 at 00:00). 
+* **End Time** - (string, optional): The timestamp to stop polling (exclusive) - using ISO 8601 Date time utc format - YYYY-MM-DDThh:mm:ssZ. The default value is flow execution time.
 * **Timestamp field to poll on** - (string, optional): Can be either Last Modified or Created dates (updated or new objects, respectively). Defaults to Last Modified.
 
-#### Input/Output Metadata
+#### Input Metadata
 
 None.
 
+#### Output Metadata
+- For `Fetch page`: An object with key ***results*** that has an array as its value
+- For `Emit Individually`:  Each object fills the entire message
+
 #### Limitations
 
-Pagination has not been implemented yet in this trigger. Running a flow will return a single page with all of the results of the query.
+None

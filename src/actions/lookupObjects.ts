@@ -1,7 +1,9 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-restricted-syntax */
 import { messages } from 'elasticio-node';
-import Client from '../client';
+import Client from '../Client';
+
+let client: Client;
 
 const TERM_MAX_NUMBER = 99;
 
@@ -35,7 +37,10 @@ function getSearchCriteria(msg, cfg) {
 
 export async function processAction(msg: any, cfg: any) {
   this.logger.info('"Lookup Objects" action started');
-  const client = new Client(this, cfg);
+
+  client ||= new Client(this, cfg);
+  client.setLogger(this.logger);
+
   const { objectType, emitBehavior } = cfg;
   const searchCriteria = getSearchCriteria(msg, cfg);
   let url = `/${objectType}`;

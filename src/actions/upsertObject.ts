@@ -1,7 +1,9 @@
 import { messages } from 'elasticio-node';
-import Client from '../client';
+import Client from '../Client';
 import usersSchema from '../schemas/actions/users.json';
 import productSchema from '../schemas/actions/products.json';
+
+let client: Client;
 
 export async function processAction(msg: any, cfg: any) {
   this.logger.info('"Upsert Object" action started');
@@ -10,7 +12,8 @@ export async function processAction(msg: any, cfg: any) {
   const reqData = JSON.parse(JSON.stringify(msg.body));
   delete reqData.id;
 
-  const client = new Client(this, cfg);
+  client ||= new Client(this, cfg);
+  client.setLogger(this.logger);
   if (id) {
     try {
       const { data } = await client.apiRequest({

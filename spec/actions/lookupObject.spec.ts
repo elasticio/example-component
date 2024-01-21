@@ -1,10 +1,11 @@
-import chai, { expect } from 'chai';
+import { expect, use } from 'chai';
+import chaiPromised from 'chai-as-promised';
 import sinon from 'sinon';
 import { getContext, StatusCodeError } from '../common';
-import ExampleClient from '../../src/client';
+import Client from '../../src/Client';
 import { processAction } from '../../src/actions/lookupObject';
 
-chai.use(require('chai-as-promised'));
+use(chaiPromised);
 
 const fakeResponse: any = { data: { resultKey: 'resultValue' } };
 
@@ -12,7 +13,7 @@ describe('lookupObject action', () => {
   let execRequest;
   describe('should lookup object', () => {
     beforeEach(() => {
-      execRequest = sinon.stub(ExampleClient.prototype, 'apiRequest').callsFake(async () => fakeResponse);
+      execRequest = sinon.stub(Client.prototype, 'apiRequest').callsFake(async () => fakeResponse);
     });
     afterEach(() => {
       sinon.restore();
@@ -34,7 +35,7 @@ describe('lookupObject action', () => {
   });
   describe('object not found (allowZeroResults: true), should emit empty result', () => {
     beforeEach(() => {
-      execRequest = sinon.stub(ExampleClient.prototype, 'apiRequest').callsFake(async () => { throw new StatusCodeError(404); });
+      execRequest = sinon.stub(Client.prototype, 'apiRequest').callsFake(async () => { throw new StatusCodeError(404); });
     });
     afterEach(() => {
       sinon.restore();
@@ -69,7 +70,7 @@ describe('lookupObject action', () => {
   });
   describe('should throw error', () => {
     beforeEach(() => {
-      execRequest = sinon.stub(ExampleClient.prototype, 'apiRequest').callsFake(async () => { throw new StatusCodeError(404); });
+      execRequest = sinon.stub(Client.prototype, 'apiRequest').callsFake(async () => { throw new StatusCodeError(404); });
     });
     afterEach(() => {
       sinon.restore();
@@ -99,7 +100,7 @@ describe('lookupObject action', () => {
   });
   describe('api error', () => {
     beforeEach(() => {
-      execRequest = sinon.stub(ExampleClient.prototype, 'apiRequest').callsFake(async () => { throw new StatusCodeError(403); });
+      execRequest = sinon.stub(Client.prototype, 'apiRequest').callsFake(async () => { throw new StatusCodeError(403); });
     });
     afterEach(() => {
       sinon.restore();

@@ -21,10 +21,12 @@ module.exports = {
   ],
   rules: {
     'linebreak-style': 0,
-    'import/no-extraneous-dependencies': ['error', { devDependencies: ['spec/**/*', 'spec-integration/**/*'] }],
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    'import/no-import-module-exports': 0,
     'no-plusplus': 0,
     'no-unused-vars': 0,
     'no-await-in-loop': 0,
+    'no-restricted-syntax': 0,
     'prefer-default-export': 0,
     'import/prefer-default-export': 0,
     'class-methods-use-this': 1,
