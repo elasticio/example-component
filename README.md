@@ -18,7 +18,7 @@
 
 ## Description
 
-The Example component is an iPaaS component that connects to the API. This component has been tested on API v1.
+The component is an iPaaS component that connects to the API. This component has been tested on API v1.
 
 ## Environment Variables
 | Name                  | Mandatory | Description                                                                  | Values                |
@@ -29,7 +29,7 @@ The Example component is an iPaaS component that connects to the API. This compo
 
 ## Credentials
 
-The Example component requires the following credentials to be configured:
+The component requires the following credentials to be configured:
 * **API Base URI**  (string, required) - Indicates the URL base that needs to be used.
 * **Username**  (string, required)
 * **Password**  (string, required)
