@@ -1,13 +1,13 @@
 {
   "title": "example component",
   "description": "An example component with implementations of OIH actions.",
-  "version": "2.0.1-dev.7",
+  "version": "2.0.1-dev.8",
   "credentials": {
     "fields": {
       "url": {
         "viewClass": "TextFieldView",
         "label": "API Base URI",
-        "required": true,
+        "required": false,
         "placeholder": "http://localhost:3000"
       }
     }
@@ -21,9 +21,18 @@
         "link": "/example-component/#make-raw-request"
       },
       "fields": {
-        "deadMeta": {
-          "label": "Dead meta",
-          "viewClass": "CheckBoxView"
+        "cfgForDynamicFields": {
+          "label": "JSON for Dynamic Fields",
+          "viewClass": "TextFieldView",
+          "required": true
+        },
+        "dynamicFields": {
+          "label": "Dynamic Fields",
+          "viewClass": "SelectView",
+          "model": "getDynamicFields",
+          "require": [
+            "objectType"
+          ]
         }
       },
       "dynamicMetadata": true
