@@ -1,7 +1,7 @@
 {
   "title": "example component",
   "description": "An example component with implementations of OIH actions.",
-  "version": "2.0.1-dev.8",
+  "version": "2.0.1-dev.9",
   "credentials": {
     "fields": {
       "url": {
@@ -31,7 +31,7 @@
           "viewClass": "SelectView",
           "model": "getDynamicFields",
           "require": [
-            "objectType"
+            "cfgForDynamicFields"
           ]
         }
       },
