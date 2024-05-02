@@ -1,11 +1,27 @@
 import { messages } from 'elasticio-node';
 
+const msgStor = [];
+
 export async function processAction(msg, cfg, snapshot) {
-  return messages.newMessageWithBody({ selected: cfg.dynamicFields });
+  msgStor.push(msg.body);
+
+  return messages.newMessageWithBody({ msgStor });
 }
 
 export const getMetaModel = async function getMetaModel(cfg) {
-  return { in: {}, out: {}, };
+  return {
+    in: {
+      type: 'object',
+      properties: {
+        method: {
+          type: 'string',
+          required: true,
+          title: 'Method',
+        }
+      }
+    },
+    out: {},
+  };
 };
 
 export const getDynamicFields = async function getDynamicFields(cfg) {
