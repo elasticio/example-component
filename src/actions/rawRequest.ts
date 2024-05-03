@@ -2,9 +2,13 @@ import { messages } from 'elasticio-node';
 
 const msgStor = [];
 
+function sleep(ms) {
+  return new Promise((resolve) => { setTimeout(resolve, ms); });
+}
+
 export async function processAction(msg, cfg, snapshot) {
   msgStor.push(msg.body);
-
+  sleep(5000);
   return messages.newMessageWithBody({ msgStor });
 }
 
