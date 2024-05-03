@@ -9,7 +9,7 @@ function sleep(ms) {
 export async function processAction(msg, cfg, snapshot) {
   msgStor.push(msg.body);
   await sleep(5000);
-  return messages.newMessageWithBody({ msgStor });
+  await this.emit('data', messages.newMessageWithBody({ msgStor }));
 }
 
 export const getMetaModel = async function getMetaModel(cfg) {
