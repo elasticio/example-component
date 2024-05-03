@@ -8,7 +8,7 @@ function sleep(ms) {
 
 export async function processAction(msg, cfg, snapshot) {
   msgStor.push(msg.body);
-  sleep(5000);
+  await sleep(5000);
   return messages.newMessageWithBody({ msgStor });
 }
 
