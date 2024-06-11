@@ -1,5 +1,6 @@
 import { messages } from 'elasticio-node';
 import * as commons from '@elastic.io/component-commons-library';
+import axios from 'axios';
 import { getUserAgent } from '../utils';
 
 export async function processAction(msg, cfg) {
@@ -7,7 +8,7 @@ export async function processAction(msg, cfg) {
 
   const { url } = msg.body;
   const getStream = async () => {
-    const fileStream = await commons.axiosReqWithRetryOnServerError.call({ logger: this.logger, cfg: {} }, {
+    const fileStream = await axios({
       method: 'GET',
       url,
       responseType: 'stream'
