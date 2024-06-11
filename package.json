@@ -1,5 +1,6 @@
 {
   "homepage": "https://elastic.io",
+  "name": "example-component",
   "author": {
     "name": "elastic.io GmbH",
     "email": "info@elastic.io",
@@ -23,7 +24,8 @@
   },
   "dependencies": {
     "elasticio-node": "0.0.9",
-    "elasticio-sailor-nodejs": "2.7.1"
+    "@elastic.io/component-commons-library": "3.2.0",
+    "elasticio-sailor-nodejs": "2.7.2"
   },
   "devDependencies": {
     "@elastic.io/component-logger": "0.0.1",

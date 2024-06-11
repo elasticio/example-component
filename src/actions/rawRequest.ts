@@ -1,38 +1,29 @@
 import { messages } from 'elasticio-node';
+import * as commons from '@elastic.io/component-commons-library';
+import { getUserAgent } from '../utils';
 
-const msgStor = [];
+export async function processAction(msg, cfg) {
+  this.logger.info('"Make Raw Request" action started');
 
-function sleep(ms) {
-  return new Promise((resolve) => { setTimeout(resolve, ms); });
-}
-
-export async function processAction(msg, cfg, snapshot) {
-  msgStor.push(msg.body);
-  await sleep(5000);
-  await this.emit('data', messages.newMessageWithBody({ msgStor }));
-}
-
-export const getMetaModel = async function getMetaModel(cfg) {
-  return {
-    in: {
-      type: 'object',
-      properties: {
-        method: {
-          type: 'string',
-          required: true,
-          title: 'Method',
-        }
-      }
-    },
-    out: {},
+  const { url } = msg.body;
+  const getStream = async () => {
+    const fileStream = await commons.axiosReqWithRetryOnServerError.call({ logger: this.logger, cfg: {} }, {
+      method: 'GET',
+      url,
+      responseType: 'stream'
+    });
+    this.logger.info('Got file data stream, start uploading to internal storage');
+    return fileStream.data;
   };
-};
 
-export const getDynamicFields = async function getDynamicFields(cfg) {
-  const { cfgForDynamicFields } = cfg;
-  return JSON.parse(cfgForDynamicFields);
-};
+  const attachmentProcessor = new commons.AttachmentProcessor(getUserAgent(), msg.id);
+
+  const createdAttachmentId = await attachmentProcessor.uploadAttachment(getStream);
+  const attachmentUrl = attachmentProcessor.getMaesterAttachmentUrlById(createdAttachmentId);
+  this.logger.info('File saved to internal storage');
+  const result = { attachmentUrl };
+
+  return messages.newMessageWithBody(result);
+}
 
 module.exports.process = processAction;
-module.exports.getMetaModel = getMetaModel;
-module.exports.getDynamicFields = getDynamicFields;
