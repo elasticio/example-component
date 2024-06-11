@@ -1,7 +1,7 @@
 import { messages } from 'elasticio-node';
-import * as commons from '@elastic.io/component-commons-library';
+import { ObjectStorage } from '@elastic.io/maester-client';
 import axios from 'axios';
-import { getUserAgent } from '../utils';
+import { getUserAgent, maesterCreds, getMaesterAttachmentUrlById } from '../utils';
 
 export async function processAction(msg, cfg) {
   this.logger.info('"Make Raw Request" action started');
@@ -17,10 +17,17 @@ export async function processAction(msg, cfg) {
     return fileStream.data;
   };
 
-  const attachmentProcessor = new commons.AttachmentProcessor(getUserAgent(), msg.id);
+  const objectStorage = new ObjectStorage({ ...maesterCreds, userAgent: getUserAgent() });
 
-  const createdAttachmentId = await attachmentProcessor.uploadAttachment(getStream);
-  const attachmentUrl = attachmentProcessor.getMaesterAttachmentUrlById(createdAttachmentId);
+  const createdAttachmentId = await objectStorage.add(getStream, {
+    headers: {},
+    retryOptions: {
+      requestTimeout: 20000,
+      retriesCount: 2,
+    },
+  });
+
+  const attachmentUrl = getMaesterAttachmentUrlById(createdAttachmentId);
   this.logger.info('File saved to internal storage');
   const result = { attachmentUrl };
 
