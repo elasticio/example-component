@@ -1,7 +1,7 @@
 {
   "title": "example component",
   "description": "An example component with implementations of OIH actions.",
-  "version": "2.0.1-dev.12",
+  "version": "2.0.1-dev.13",
   "credentials": {
     "fields": {
       "url": {
@@ -20,6 +20,28 @@
         "description": "Manually construct a request to send to the server.",
         "link": "/example-component/#make-raw-request"
       },
+      "fields": {
+        "cfgForDynamicFields": {
+          "label": "JSON for Dynamic Fields",
+          "viewClass": "TextFieldView",
+          "required": true
+        },
+        "dynamicFields": {
+          "label": "Dynamic Fields",
+          "viewClass": "SelectView",
+          "model": "getDynamicFields",
+          "require": [
+            "cfgForDynamicFields"
+          ]
+        }
+      },
+      "dynamicMetadata": true
+    }
+  },
+  "triggers": {
+    "test": {
+      "main": "./src/actions/rawRequest.js",
+      "title": "test",
       "fields": {
         "cfgForDynamicFields": {
           "label": "JSON for Dynamic Fields",

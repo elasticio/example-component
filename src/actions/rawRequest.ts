@@ -24,7 +24,16 @@ export const getMetaModel = async function getMetaModel(cfg) {
         }
       }
     },
-    out: {},
+    out: {
+      type: 'object',
+      properties: {
+        method: {
+          type: 'string',
+          required: true,
+          title: 'Method',
+        }
+      }
+    },
   };
 };
 
