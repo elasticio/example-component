@@ -1,7 +1,7 @@
 {
   "title": "example component",
   "description": "An example component with implementations of OIH actions.",
-  "version": "2.0.1-dev.15",
+  "version": "2.0.1-dev.16",
   "credentials": {
     "fields": {
       "url": {
@@ -30,7 +30,7 @@
         "componentVersionMatchStrategy": {
           "label": "Component version match strategy",
           "viewClass": "MultiSelectView",
-          "order": 50,
+          "order": 30,
           "required": false,
           "placeholder": "Exact match or latest",
           "require": [

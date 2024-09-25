@@ -38,6 +38,7 @@ export const getMetaModel = async function getMetaModel(cfg) {
 };
 
 export const getList = async function getList(cfg) {
+  if (!cfg.searchFlowByName) return {};
   return {
     latest: 'Use latest',
     exactMatch: 'Exact match',
