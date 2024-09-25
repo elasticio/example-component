@@ -37,11 +37,14 @@ export const getMetaModel = async function getMetaModel(cfg) {
   };
 };
 
-export const getDynamicFields = async function getDynamicFields(cfg) {
-  const { cfgForDynamicFields } = cfg;
-  return JSON.parse(cfgForDynamicFields);
+export const getList = async function getList(cfg) {
+  return {
+    latest: 'Use latest',
+    exactMatch: 'Exact match',
+    exactMatchOrLast: 'Exact match or latest'
+  };
 };
 
 module.exports.process = processAction;
 module.exports.getMetaModel = getMetaModel;
-module.exports.getDynamicFields = getDynamicFields;
+module.exports.getList = getList;

@@ -1,7 +1,7 @@
 {
   "title": "example component",
   "description": "An example component with implementations of OIH actions.",
-  "version": "2.0.1-dev.14",
+  "version": "2.0.1-dev.15",
   "credentials": {
     "fields": {
       "url": {
@@ -21,19 +21,22 @@
         "link": "/example-component/#make-raw-request"
       },
       "fields": {
-        "cfgForDynamicFields": {
-          "label": "for Dynamic Fields",
-          "viewClass": "TextFieldView",
-          "required": true
+        "searchFlowByName": {
+          "required": false,
+          "label": "Copy only selected flows",
+          "order": 40,
+          "viewClass": "CheckBoxView"
         },
-        "dynamicFields": {
-          "label": "JSONataView",
-          "viewClass": "JSONataView"
-        },
-        "cfgForDynamicsdFields": {
-          "label": "JSON for Dynamic Fields",
-          "viewClass": "TextFieldView",
-          "required": true
+        "componentVersionMatchStrategy": {
+          "label": "Component version match strategy",
+          "viewClass": "MultiSelectView",
+          "order": 50,
+          "required": false,
+          "placeholder": "Exact match or latest",
+          "require": [
+            "searchFlowByName"
+          ],
+          "model": "getList"
         }
       },
       "dynamicMetadata": true
