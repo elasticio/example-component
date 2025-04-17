@@ -1,28 +1,13 @@
 {
   "title": "example component",
   "description": "An example component with implementations of OIH actions.",
-  "version": "1.0.1-dev.3",
+  "version": "1.0.1-dev.4",
   "service": "request-reply",
   "actions": {},
   "triggers": {
     "test": {
       "main": "./src/triggers/webhook.js",
       "title": "Webhook",
-      "fields": {
-        "cfgForDynamicFields": {
-          "label": "JSON for Dynamic Fields",
-          "viewClass": "TextFieldView",
-          "required": true
-        },
-        "dynamicFields": {
-          "label": "Dynamic Fields",
-          "viewClass": "SelectView",
-          "model": "getDynamicFields",
-          "require": [
-            "cfgForDynamicFields"
-          ]
-        }
-      },
       "metadata": {
         "in": {},
         "out": {}
