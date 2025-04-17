@@ -13,7 +13,7 @@
     "api"
   ],
   "engines": {
-    "node": "18.x"
+    "node": "20.x"
   },
   "scripts": {
     "lint": "eslint --ext .ts --quiet --fix",
@@ -23,25 +23,17 @@
   },
   "dependencies": {
     "elasticio-node": "0.0.9",
-    "elasticio-sailor-nodejs": "2.7.1"
+    "elasticio-sailor-nodejs": "2.7.5"
   },
   "devDependencies": {
-    "@elastic.io/component-logger": "0.0.1",
-    "@types/mocha": "9.0.0",
-    "@types/node": "16.9.6",
-    "@typescript-eslint/eslint-plugin": "4.30.0",
-    "@typescript-eslint/parser": "4.30.0",
-    "chai": "4.3.4",
-    "chai-as-promised": "7.1.1",
-    "dotenv": "10.0.0",
-    "eslint": "7.32.0",
-    "eslint-config-airbnb-base": "14.2.1",
-    "eslint-plugin-import": "2.24.2",
-    "mocha": "10.0.0",
-    "nock": "13.2.7",
-    "nyc": "15.1.0",
-    "sinon": "11.1.2",
-    "ts-node": "10.2.1",
-    "typescript": "4.4.3"
+    "@types/node": "20.11.0",
+    "@typescript-eslint/eslint-plugin": "6.19.1",
+    "@typescript-eslint/parser": "6.19.1",
+    "dotenv": "16.3.1",
+    "eslint": "8.49.0",
+    "eslint-config-airbnb-base": "15.0.0",
+    "eslint-plugin-import": "2.28.1",
+    "tsx": "4.7.0",
+    "typescript": "5.3.3"
   }
 }

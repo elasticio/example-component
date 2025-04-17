@@ -1,51 +1,14 @@
 {
   "title": "example component",
   "description": "An example component with implementations of OIH actions.",
-  "version": "2.0.1-dev.16",
-  "credentials": {
-    "fields": {
-      "url": {
-        "viewClass": "TextFieldView",
-        "label": "API Base URI",
-        "required": false,
-        "placeholder": "http://localhost:3000"
-      }
-    }
-  },
-  "actions": {
-    "makeRawRequest": {
-      "main": "./src/actions/rawRequest.js",
-      "title": "Make Raw Request",
-      "help": {
-        "description": "Manually construct a request to send to the server.",
-        "link": "/example-component/#make-raw-request"
-      },
-      "fields": {
-        "searchFlowByName": {
-          "required": false,
-          "label": "Copy only selected flows",
-          "order": 40,
-          "viewClass": "CheckBoxView"
-        },
-        "componentVersionMatchStrategy": {
-          "label": "Component version match strategy",
-          "viewClass": "MultiSelectView",
-          "order": 30,
-          "required": false,
-          "placeholder": "Exact match or latest",
-          "require": [
-            "searchFlowByName"
-          ],
-          "model": "getList"
-        }
-      },
-      "dynamicMetadata": true
-    }
-  },
+  "version": "1.0.1-dev.1",
+  "service": "request-reply",
+  "credentials": {},
+  "actions": {},
   "triggers": {
     "test": {
-      "main": "./src/actions/rawRequest.js",
-      "title": "test",
+      "main": "./src/triggers/webhook.js",
+      "title": "Webhook",
       "fields": {
         "cfgForDynamicFields": {
           "label": "JSON for Dynamic Fields",
@@ -61,7 +24,10 @@
           ]
         }
       },
-      "dynamicMetadata": true
+      "metadata": {
+        "in": {},
+        "out": {}
+      }
     }
   }
 }
