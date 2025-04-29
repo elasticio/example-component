@@ -1,46 +1,23 @@
 {
   "title": "example component",
   "description": "An example component with implementations of OIH actions.",
-  "version": "2.0.1",
-  "credentials": {
-    "fields": {
-      "url": {
-        "viewClass": "TextFieldView",
-        "label": "API Base URI",
-        "required": false,
-        "placeholder": "http://localhost:3000"
-      },
-      "username": {
-        "viewClass": "TextFieldView",
-        "label": "Username",
-        "required": false,
-        "placeholder": "myUsername"
-      },
-      "password": {
-        "viewClass": "PasswordFieldView",
-        "label": "Password",
-        "required": false
-      }
-    }
-  },
+  "version": "1.0.0-dev.1",
   "actions": {
-    "makeRawRequest": {
+    "debug": {
       "main": "./src/actions/rawRequest.js",
-      "title": "Make Raw Request",
+      "title": "debug",
       "help": {
-        "description": "Manually construct a request to send to the server.",
-        "link": "/example-component/#make-raw-request"
+        "description": "debug",
+        "link": ""
       },
       "fields": {
-        "doNotThrow404": {
-          "label": "Don't throw error on 404 Response",
-          "viewClass": "CheckBoxView"
+        "configData": {
+          "label": "Input metadata",
+          "required": true,
+          "viewClass": "JSONataView"
         }
       },
-      "metadata": {
-        "in": "./src/schemas/actions/rawRequest.in.json",
-        "out": "./src/schemas/actions/rawRequest.out.json"
-      }
+      "dynamicMetadata": true
     }
   }
 }
